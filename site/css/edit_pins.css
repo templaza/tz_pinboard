@@ -1,0 +1,289 @@
+.cler{
+    clear: both;
+}
+#tz_pins_warp_edit{
+    width: 100%;
+    height: auto;
+    background: url("../images/bg.jpg") repeat ;
+    padding-bottom: 20px;
+}
+#tz_pins_edit_herder{
+    width: 100%;
+    height: 100px;
+    position: relative;
+    margin-top: 5px;
+     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#tz_pins_edit_herder span{
+    position: absolute;
+    top: 30px;
+    left: 110px;
+    font-size: 20px;
+        font-family: georgia;
+     color: #666666;
+}
+#tz_pins_edit_herder button{
+     height: 35px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.2em 0.2em 0.25em;
+    color: #666666;
+    background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+
+    cursor: pointer;
+    width: 120px;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+}
+#tz_pins_edit_herder button:hover{
+    background: #E0E0E0;
+}
+#tz_pins_edit_img{
+    width: 60px;
+     position: absolute;
+     top: 10px;
+     left: 30px;
+}
+#tz_pins_edit_content
+ {
+    width: 100%;
+      height: auto;
+      padding-top: 20px;
+ }
+.tz_pins_edit_content_1{
+    clear: both;
+    width: 90%;
+    margin: auto;
+    height: 90px;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+}
+.tz_pins_edit_content_1 label{
+    width: 30%;
+    height: auto;
+    float: left;
+     font-family: georgia;
+    padding-top: 34px;
+    padding-left: 20px;
+    font-size: 16px;
+    color: #666666;
+}
+.tz_pins_input{
+    width: 360px;
+    height: 28px !important;
+    border-radius: 8px;
+   margin-top: 25px;
+    margin-left: 11px;
+       font-family: georgia;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+.tz_pins_edit_content_2{
+       clear: both;
+    width: 90%;
+    padding-bottom: 20px;
+
+    margin: auto;
+    height: auto;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+
+}
+.tz_pins_edit_content_2 label{
+            width: 30%;
+    height: 100%;
+    float: left;
+     font-family: georgia;
+    padding-top: 20px;
+    padding-left: 30px;
+    font-size: 16px;
+    color: #666666;
+}
+.tz_pins_edit_content_2 p{
+    float: left;
+     max-height: 234px;
+     margin-top: 14px;
+     overflow: hidden;
+     width: 360px;
+}
+#tz_pins_edit_textra{
+     max-width: 370px;
+    max-height: 120px;
+    border-radius: 8px;
+     margin-top: 12px;
+    font-family: georgia;
+    padding: 8px;;
+    background: rgb(255,255,255); /* Old browsers */
+       background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+       background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+       background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
+       background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+       background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+
+}
+#tz_pins_edit_select
+{
+    margin-left: 11px;
+    width: 380px;
+    height: 38px !important;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding-top: 6px;
+    font-family: georgia;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+}
+#tz_pinbs_edit_submit{
+    width:  30%;
+    margin: auto;
+    height: 80px;
+    position:  relative;
+}
+#tz_pins_upload{
+     height: 35px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.2em 0.2em 0.25em;
+    background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+     color: #606060;
+    cursor: pointer;
+    width: 120px;
+    position: absolute;
+    top: 30px;
+}
+#tz_pins_upload:hover{
+    background: #e3e3e3;
+}
+/* delete pins */
+
+#tz_delete_pins{
+    position: fixed;
+    width:100%;
+    height: 100%;
+    display: none;
+    top: 0;
+    left: 0;
+    z-index:  1000;
+}
+#tz_delete_pins_warp{
+     position: fixed;
+    width:100%;
+    height: 100%;
+    background: #000000;
+     opacity: 0.7;
+    top: 0;
+    left: 0;
+
+}
+#tz_delete_pins_all{
+       position: fixed;
+    width:360px;
+    height: 100px;
+    background: white;
+    top: 36%;
+    left: 38%;
+    z-index: 9999;
+        box-shadow:  0px 2px 2px white;
+    display: none;
+    border-radius: 5px;
+
+}
+#tz_delete_pins_p{
+    width: auto;
+    height: 30px;
+    font-family: georgia;
+    padding-top: 10px;
+    padding-left:23px;
+         font-family: georgia;
+   font-weight: bold;
+    font-size: 12px;
+
+}
+#button_cancel{
+    margin-left: 70px;
+    height: 33px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.2em 0.2em 0.25em;
+    background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+     color: #0088CC;
+    cursor: pointer;
+    width: 100px;
+
+
+}
+#button_delete{
+      height: 33px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.1em 0.2em 0.25em;
+    background-image: -moz-linear-gradient(center top , #EB5367, #E04751 50%, #DE404A 50%, #D43638);
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+     color: white;
+    cursor: pointer;
+    width: 120px;
+
+}
+#tz_notice_edit{
+    position: fixed;
+      width:360px;
+      height: 80px;
+      background: white;
+      top: -100%;
+      left: 38%;
+      z-index: 9999;
+          box-shadow:  0px 2px 2px white;
+      display: block;
+      border-radius: 5px;
+    text-align: center;
+}
+#tz_notice_edit p{
+    width: auto;
+       height: 30px;
+       font-family: georgia;
+       padding-top:25px;
+            font-family: georgia;
+      font-weight: bold;
+       font-size: 16px;
+    color: #666666;
+
+}

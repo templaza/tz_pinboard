@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="manageruser" option="com_tz_pinboard_view_default_title">
+
+    		<message>
+    			<![CDATA[com_tz_pinboard_managerusers]]>
+    		</message>
+    	</layout>
+    <fields name="params">
+          <fieldset name="basic">
+              <field
+                            name="state_boar"
+                            type="list"
+                            class="btn-group"
+                            label="COM_TZ_PINBOARD_BOARD_APPROVE"
+                            default=""
+                            description="COM_TZ_PINBOARD_BOARD_APPROVE_DESCRIPTION">
+                          <option value="">
+                           JGLOBAL_USE_GLOBAL
+                         </option>
+                            <option value="1">JSHOW</option>
+                            <option value="0">JHIDE</option>
+                       </field>
+                 <field
+                   name="tz_pin_approve"
+                   type="list"
+                   class="btn-group"
+                   label="COM_TZ_PINBOARD_CONFIG_MODERATOR_APPROVE"
+                   default=""
+                   description="COM_TZ_PINBOARD_CONFIG_MODERATOR_APPROVE_DESCRIPTION">
+                  <option value="">
+                    JGLOBAL_USE_GLOBAL
+                  </option>
+                  <option value="1">
+                       JSHOW
+                   </option>
+                  <option value="0">
+                      Hide
+                  </option>
+            </field>
+
+
+              <field
+                          name="state_comment"
+                          type="list"
+                          class="btn-group"
+                          label="COM_TZ_PINBOARD_COMMENT_APPROVE"
+                          default=""
+                          description="COM_TZ_PINBOARD_COMMENT_APPROVE_DESCRIPTION">
+                  <option value="">
+                                 JGLOBAL_USE_GLOBAL
+                               </option>
+                          <option value="1">JSHOW</option>
+                          <option value="0">JHIDE</option>
+
+                  </field>
+              <field
+                      name="type_detail"
+                      type="list"
+                      class="btn-group"
+                      label="COM_TZ_PINBOARD_PINS_TYPE_DETAIL"
+                      default=""
+                      description="COM_TZ_PINBOARD_PINS_TYPE_DETAIL_DS">
+                  <option value="">JGLOBAL_USE_GLOBAL</option>
+                  <option value="1">COM_TZ_PINBOARD_PINS_TYPE_DETAIL_LIGHTBOX</option>
+                  <option value="0">COM_TZ_PINBOARD_PINS_TYPE_DETAIL_LINK</option>
+              </field>
+                   <field
+                              name="text_title"
+                              type="text"
+                              label="COM_TZ_PINBOARD_CONFIG_TEXT_TITLE"
+                              class="btn-group"
+                              default=""
+                              description="COM_TZ_PINBOARD_CONFIG_TEXT_TITLE_DESCRIPTION">
+
+                      </field>
+                      <field
+                              name="text_descript_pin"
+                              type="text"
+                              label="COM_TZ_PINBOARD_CONFIG_TEXT_DESCRIPTION_TEXT"
+                              class="btn-group"
+                              default=""
+                              description="COM_TZ_PINBOARD_CONFIG_TEXT_DESCRIPTION_TEXT_DESCRIPTION">
+
+                      </field>
+
+
+                      <field
+                              name="limits"
+                              type="text"
+                              class="btn-group"
+                              label="COM_TZ_PINBOARD_CONFIG_LIMIT_BOARD"
+                              default=""
+                              description="COM_TZ_PINBOARD_CONFIG_LIMIT_BOARD_DESCRIPTION">
+
+                      </field>
+                  <field
+                                  name="limits_pins"
+                                  type="text"
+                                  class="btn-group"
+                                  label="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS"
+                                  default=""
+                                  description="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_DESCRIPTION">
+
+                          </field>
+                  <field
+                                     name="limits_like"
+                                     type="text"
+                                     class="btn-group"
+                                     label="COM_TZ_PINBOARD_CONFIG_LIMIT_LIKES"
+                                     default=""
+                                     description="COM_TZ_PINBOARD_CONFIG_LIMIT_LIKES_DESCRIPTION">
+
+                             </field>
+                  <field
+                       name="limits_Board_Pin"
+                       type="text"
+                       class="btn-group"
+                       label="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD"
+                       default=""
+                       description="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD">
+
+                 </field>
+                  <field
+                           name="limits_Follow"
+                           type="text"
+                           class="btn-group"
+                           label="COM_TZ_PINBOARD_CONFIG_LIMIT_FOLLOW"
+                           default=""
+                           description="COM_TZ_PINBOARD_CONFIG_LIMIT_FOLLOW_DESCRIPTION">
+
+                   </field>
+                  <field name="Limits_comment"
+                          type="text"
+                          class="btn-group"
+                          label="COM_TZ_PINBOARD_CONFIG_TEXT_COMMNET"
+                          default=""
+                          description="COM_TZ_PINBOARD_CONFIG_TEXT_COMMENT_DESCRIPTION">
+
+                  </field>
+                  <field name="page_commnet"
+                          type="text"
+                          class="btn-group"
+                          label="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMNET"
+                          default=""
+                          description="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMENT_DESCRIPTION">
+
+                  </field>
+
+              <field name="text_boar"
+                              type="text"
+                              label="COM_TZ_PINBOARD_CONFIG_TEXT_BOARD"
+                              class="btn-group"
+                              default=""
+                              description="COM_TZ_PINBOARD_CONFIG_TEXT_BOARD_DESCRIPTION">
+
+                      </field>
+                      <field name="text_boar_description"
+                                  type="text"
+                                  label="COM_TZ_PINBOARD_CONFIG_TEXT_TEXT_BOARD_DS"
+                                  class="btn-group"
+                                  default=""
+                                  description="COM_TZ_PINBOARD_CONFIG_TEXT_BOARD_DS_DESCRIPTION">
+
+                          </field>
+            </fieldset>
+    </fields>
+</metadata>

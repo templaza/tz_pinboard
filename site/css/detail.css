@@ -1,0 +1,237 @@
+.cler{
+    clear: both;
+}
+#tz_detail{
+    position: relative;
+}
+#tz_p{
+    height: 100px;
+    position: relative;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tz_tag{
+    font-family: georgia;
+    font-size: 18px;
+    color: #606060;
+}
+.tz_web{
+    font-family: georgia;
+   color: #606060;
+    font-size: 18px;
+}
+#tz_thumbnails_img{
+    max-width: 60px;
+    max-height: 60px;
+    position: absolute;
+    top: 23px;
+    left: 15px;
+}
+.thumbnail a:hover{
+    color: #666666;
+    cursor: pointer;
+    text-decoration: none;
+}
+.tz_detail_user{
+    font-weight: 900;
+    font-size: 25px;
+    position:  absolute;
+    left: 85px;
+    top: 28px;
+    color: #666666;
+}
+.tz_follows{
+       position: absolute;
+    right: 45px;
+    top: 38px;
+    width: 80px;
+
+}
+.tz_unfollow{
+      position: absolute;
+    right: 45px;
+    top: 38px;
+    width: 80px;
+}
+#tz_rp{
+    margin: 20px;
+}
+#tz_repin{
+    width: 80px;
+}
+.tz_rp_edit{
+    margin-left: 10px;
+    width: 45px;
+}
+.tz_datail_board{
+    height: 110px;
+
+
+    padding: 10px 0px;
+
+}
+
+.tz_name_board{
+    color: #606060;
+    font-size: 20px;
+}
+.tz_datail_comment{
+    padding: 25px 0px;
+
+}
+.tz_bt{
+    color: #565656;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+#tz_comment{
+    width: 98% !important;
+    max-height: 60px;
+    padding: 5px;
+    margin-top: 3px;
+
+}
+.tz_img_b{
+    width: 50px;
+    height: 50px;
+}
+#tz_post_cm{
+    float: right;
+    margin-right: 10px;
+    color: #666666;
+}
+#tz_post_cm_erro{
+    float: right;
+    margin-right: 10px;
+    color: #666666;
+}
+
+.tz_imgs{
+
+    margin: auto;
+    display: block;
+    padding-bottom: 10px;
+}
+.tz_content_cm ul{
+    margin: 0;
+    padding:0;
+    list-style: none;
+}
+.tz_content_cm ul li{
+    width: 98%;
+    height: auto;
+    position: relative;
+    margin-top: 3px;
+    padding: 5px;
+    border-bottom: 1px solid #c0c0c0;
+}
+.tz_content_cm ul li:last-of-type{
+    border-bottom:none;
+}
+.tz_content_cm ul li:hover{
+    background: #e8eaf0;
+}
+.tz_content_cm ul li:hover .tz_comment_delete{
+    display: block;
+
+
+}
+.tz_comment_imgs{
+    width: 50px;
+    height: 50px;
+    position:  absolute;
+}
+.tz_comment_name{
+    width: 90%;
+    height: auto;
+    font-family: georgia;
+    margin-left: 58px;
+    color: #000000;
+    font-size:  13px;
+    display: block;
+}
+.thumbnails .tz_comment_name:hover{
+    text-decoration:  underline;
+    color: #000000;
+}
+.tz_comment_cn{
+    width: 90%;
+    height: auto;
+    font-family: georgia;
+    margin-left: 58px;
+    color: #666666;
+    margin-top: 5px;
+}
+.tz_comment_dt{
+    width: 90%;
+    font-family: georgia;
+    height: auto;
+    margin-left: 58px;
+    text-align: right;
+    margin-top: 20px;
+    font-size: 12px;
+
+}
+.tz_comment_dt span{
+    color: #666666;
+    font-size: 13px;
+    font-weight: lighter;
+}
+.tz_comment_delete{
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    display: none;
+    cursor: pointer;
+}
+.tz_comment_delete:hover{
+    background: #c0c0c0;
+}
+#tz_comment_erroc_p{
+    color: red;
+
+    width: auto;
+    margin-left: 14px;
+}
+
+#tz_commnet_pt_a
+{
+ background: none repeat scroll 0 0 #FFFAFA;
+    border-color: #C0C0C0 -moz-use-text-color;
+    border-radius: 0 0 0 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px solid #606060;
+    border-top: 1px solid #606060;
+    color: #666666;
+    display: block;
+    font-family: georgia;
+    font-size: 18px;
+    width: 200px;
+    margin: auto;
+      padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
+#tz_commnet_pt_emty
+{
+ background: none repeat scroll 0 0 #FFFAFA;
+    border-color: #C0C0C0 -moz-use-text-color;
+    border-radius: 0 0 0 0;
+   border-right: 0;
+    border-left: 0;
+    border-bottom: 1px solid #606060;
+    border-top: 1px solid #606060;
+    color: #666666;
+    display: block;
+    font-family: georgia;
+    font-size: 18px;
+    width: 200px;
+    margin: auto;
+    display: none;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+}

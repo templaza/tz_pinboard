@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="module" method="upgrade" client="site" version="3.0">
+    <name>mod_tz_pinboard_add</name>
+    <author>TuNguyenTemPlaza</author>
+    <creationDate>January 29th 2013</creationDate>
+    <copyright>Copyright (C) 2013 TemPlaza. All rights reserved.</copyright>
+   	<license>GNU/GPL v2 or later http://www.gnu.org/licenses/gpl-2.0.html</license>
+    <authorEmail>tunn@templaza.com</authorEmail>
+    <authorUrl>templaza.com</authorUrl>
+    <version>3.0.0</version>
+    <description>MOD_TZ_PINBOARD_ADD_XML_DESCRIPTION</description>
+    <files>
+        <filename module="mod_tz_pinboard_add">mod_tz_pinboard_add.php</filename>
+        <filename>mod_tz_pinboard_add.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <folder>css</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+        <folder>tmpl</folder>
+    </files>
+    <languages>
+    <language tag="en-GB">en-GB.mod_tz_pinboard_add.ini</language>
+    <language tag="en-GB">en-GB.mod_tz_pinboard_add.sys.ini</language>
+</languages>
+
+
+</extension>

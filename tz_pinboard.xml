@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+	<name>com_tz_pinboard</name>
+	<author>TuNguyenTemPlaza</author>
+	<creationDate>January 29th 2013</creationDate>
+	<copyright>Copyright (C) 2013 TemPlaza. All rights reserved.</copyright>
+	<license>GNU/GPL v2 or later http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>tunn@templaza.com</authorEmail>
+	<authorUrl>www.templaza.com/</authorUrl>
+	<version>3.0.0</version>
+	<description>TZ Pinboard native for Joomla! 3.0.x</description>
+    <installfile>install.tz_pinboard.php</installfile>
+    <uninstallfile>uninstall.tz_pinboard.php</uninstallfile>
+    <scriptfile>script.php</scriptfile>
+    <install>
+        <sql>
+            <file charset="utf8" driver="mysql">install/install.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file charset="utf8" driver="mysql">install/uninstall.sql</file>
+        </sql>
+    </uninstall>
+
+    <files folder="site">
+         <folder>controllers</folder>
+         <folder>css</folder>
+        <folder>helpers</folder>
+        <folder>images</folder>
+         <folder>js</folder>
+          <folder>lib</folder>
+         <folder>models</folder>
+         <folder>views</folder>
+        <folder>tables</folder>
+         <filename>tz_pinboard.php</filename>
+         <filename>router.php</filename>
+         <filename>index.html</filename>
+     </files>
+    <languages folder="site/language/en-GB">
+          <language tag="en-GB">en-GB.com_tz_pinboard.ini</language>
+      </languages>
+
+	<administration>
+        <files folder="admin">
+	    	<folder>controllers</folder>
+            <folder>css</folder>
+             <folder>elements</folder>
+	    	<folder>helpers</folder>
+            <folder>images</folder>
+            <folder>install</folder>
+            <folder>js</folder>
+	    	<folder>libraries</folder>
+	    	<folder>models</folder>
+	    	<folder>tables</folder>
+	    	<folder>views</folder>
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+            <filename>index.html</filename>
+            <filename>tz_pinboard.php</filename>
+        </files>
+        <menu>TZ_Pinboard</menu>
+        <submenu>
+            <menu link="option=com_tz_pinboard&amp;view=categories">CATEGORIES</menu>
+            <menu link="option=com_tz_pinboard&amp;view=board">BOARDS</menu>
+            <menu link="option=com_tz_pinboard&amp;view=articles">PINS</menu>
+            <menu link="option=com_tz_pinboard&amp;view=comment">COMMENTS</menu>
+            <menu link="option=com_tz_pinboard&amp;view=tags">TAGS</menu>
+            <menu link="option=com_tz_pinboard&amp;view=users">USERS</menu>
+        </submenu>
+        <languages folder="admin/language/en-GB">
+            <language tag="en-GB">en-GB.com_tz_pinboard.ini</language>
+            <language tag="en-GB">en-GB.com_tz_pinboard.sys.ini</language>
+        </languages>
+ 	</administration>
+    <config>
+		<fields>
+			<field name="tz_pinboard_layout" default="default" />
+			<field name="type_show_pin" default="created" />
+            <field name="type_detail" default="1" />
+            <field name="show_tags_detail" default="1" />
+            <field name="show_tags_title" default="1" />
+            <field name="arrangements_pins" default="DESC" />
+			<field name="width_columns" default="233"/>
+            <field name="column_board" default="233"/>
+            <field name="column_pins" default="233"/>
+            <field name="column_follow" default="300"/>
+			<field name="tz_article_limit" default="10" />
+			<field name="limits_like" default="10" />
+			<field name="limits_Follow" default="10" />
+			<field name="portfolio_image_size" default="M"/>
+            <field name="pinboard_image_size" default="L"/>
+			<field name="tz_image_xsmall" default="100"/>
+			<field name="tz_image_small" default="200"/>
+			<field name="tz_image_medium" default="400"/>
+			<field name="tz_image_large" default="600"/>
+			<field name="tz_image_xlarge" default="900"/>
+            <field name="mymenuitem" default="110" />
+			<field name="state_boar" default="1"/>
+			<field name="limits_Board_Pin" default="10"/>
+			<field name="text_boar" default="100"/>
+			<field name="text_boar_description" default="100"/>
+			<field name="limits" default="10"/>
+			<field name="tz_pin_approve" default="1"/>
+			<field name="limits_pins" default="10"/>
+            <field name="text_keyword" default="100"/>
+			<field name="text_title" default="100"/>
+			<field name="text_descript_pin" default="100"/>
+			<field name="state_comment" default="1"/>
+			<field name="Limits_comment" default="100"/>
+			<field name="page_commnet" default="5"/>
+			<field name="remove_comment" default="sex"/>
+			<field name="changecomment" default="..."/>
+
+		</fields>
+    </config>
+    <modules>
+        <module module="mod_tz_pinboard_search" client="site" />
+        <module module="mod_tz_pinboard_add" client="site" />
+    </modules>
+    <plugins>
+        <plugin plugin="tz_pinboard" group="system" />
+        <plugin plugin="tz_pinboard" group="user" />
+    </plugins>
+    
+
+
+
+
+</extension>

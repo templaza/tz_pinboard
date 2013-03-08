@@ -1,0 +1,289 @@
+#tz_pinboard_warp_edit{
+    width: 100%;
+    height: auto;
+       background: url("../images/bg.jpg") repeat ;
+    padding-bottom: 20px;
+}
+#tz_pinboard_warp_edit_herder{
+    width: 100%;
+    height: 100px;
+    position: relative;
+    margin-top: 5px;
+     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+#tz_pinboard_warp_edit_img{
+    width: 60px;
+    position: absolute;
+    top: 10px;
+    left: 30px;
+}
+#tz_pinboard_warp_edit_herder span{
+    position: absolute;
+    top: 30px;
+    left: 110px;
+    font-size: 20px;
+        font-family: georgia;
+     color: #0088CC;
+}
+#tz_pinboard_warp_edit_herder button{
+     height: 35px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.2em 0.2em 0.25em;
+     color: #0088CC;
+    background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+
+    cursor: pointer;
+    width: 120px;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+}
+#tz_pinboard_warp_edit_herder button:hover{
+    background: #E0E0E0;
+}
+#tz_pinboard_warp_edit_content{
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+}
+.tz_edit_board_1{
+    clear: both;
+    width: 90%;
+    margin: auto;
+    height: 90px;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+   
+
+
+}
+.tz_edit_board_1 label{
+    width: 30%;
+    height: 100%;
+    float: left;
+     font-family: georgia;
+    padding-top: 20px;
+    padding-left: 30px;
+    font-size: 16px;
+}
+#boardname{
+    width: 360px;
+    height: 28px;
+    border-radius: 8px;
+   margin-top: 12px;
+       font-family: georgia;
+}
+#aliasboard{
+    width: 360px;
+    height: 28px;
+    border-radius: 8px;
+   margin-top: 12px;
+       font-family: georgia;
+}
+#tz_edit_board_1_select{
+    width: 380px;
+    height: 35px;
+    border-radius: 8px;
+   margin-top: 20px;
+    padding-top: 6px;
+       font-family: georgia;
+ 
+}
+.tz_edit_board_1 span:first-child{
+        width: 30%;
+    height: auto;
+    float: left;
+     font-family: georgia;
+    padding-top: 20px;
+    padding-left: 30px;
+    font-size: 16px;
+
+}
+#tz_pinboard_warp_edit_content_1_span_last{
+    width: auto;
+    height: auto;
+        font-family: georgia;
+       padding-top: 20px;
+       padding-left: 33px;
+       font-size: 16px;
+      display: block;
+}
+.tz_edit_board_2{
+       clear: both;
+    width: 90%;
+    padding-bottom: 20px;
+   
+    margin: auto;
+    height: auto;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+  
+}
+.tz_edit_board_2 label{
+            width: 30%;
+    height: 100%;
+    float: left;
+     font-family: georgia;
+    padding-top: 20px;
+    padding-left: 30px;
+    font-size: 16px;
+}
+#tz_edit_board_2_textra{
+     max-width: 370px;
+    max-height: 120px;
+    border-radius: 8px;
+     margin-top: 12px;
+    font-family: georgia;
+    padding: 8px;;
+
+ 
+}
+
+#tz_pinboard_warp_edit_content_submit{
+    width:  40%;
+    margin: auto;
+    height: 80px;
+    position:  relative;
+}
+#tz_edit_board_sb{
+     height: 35px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.2em 0.2em 0.25em;
+    background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+     color: #606060;
+    cursor: pointer;
+    width: 120px;
+    position: absolute;
+    top: 30px;
+}
+#tz_edit_board_sb:hover{
+    background: #e3e3e3;
+}
+/* delete board */
+#tz_pinboard_warp_delete_board{
+    position: fixed;
+    width:100%;
+    height: 100%;
+    display: none;
+    top: 0;
+    left: 0;
+    z-index:  1000;
+}
+#tz_pinboard_delete_1{
+     position: fixed;
+    width:100%;
+    height: 100%;
+    background: #000000;
+     opacity: 0.7;
+    top: 0;
+    left: 0;
+
+}
+#tz_pinboard_warp_delete{
+       position: fixed;
+    width:360px;
+    height: 100px;
+    background: white;
+    top: 36%;
+    left: 38%;
+    z-index: 9999;
+        box-shadow:  0px 2px 2px white;
+    display: none;
+    border-radius: 5px;
+    
+}
+.tz_pinboard_delete__p{
+    width: auto;
+    height: 30px;
+    font-family: georgia;
+    padding-top: 10px;
+    padding-left:23px;
+         font-family: georgia;
+   font-weight: bold;
+    font-size: 12px;
+    
+}
+.tz_pinboard_delete_p_2{
+    width: auto;
+    height: 30px;
+    font-family: georgia;
+    padding-top: 14px;
+    padding-left:18px;
+         font-family: georgia;
+   font-weight: bold;
+    font-size: 12px;
+
+}
+
+#button_cancel{
+    margin-left: 70px;
+    height: 33px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.2em 0.2em 0.25em;
+    background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+     color: #0088CC;
+    cursor: pointer;
+    width: 100px;
+
+   
+}
+#button_delete{
+      height: 33px;
+    margin-right:5%;
+    margin-bottom: 5%;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow:  -1px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    padding: 0.1em 0.2em 0.25em;
+    background-image: -moz-linear-gradient(center top , #EB5367, #E04751 50%, #DE404A 50%, #D43638);
+    text-align: center;
+     font-family: georgia;
+     border: 1px solid #B7B7B7;
+     color: white;
+    cursor: pointer;
+    width: 120px;
+ 
+}
+#p_create_boardname{
+    color: red;
+       margin-left: 150px;
+       padding-top: 10px;
+       font-family: georgia;
+       height: auto;
+
+}
+#p_create_aliasname{
+    color: red;
+           margin-left: 150px;
+           padding-top: 10px;
+           font-family: georgia;
+           height: auto;
+
+}
+#p_edit_not_decsipt{
+    color: red;
+       margin-left: 216px;
+       padding-top: 10px;
+       font-family: georgia;
+       height: auto;
+
+}
