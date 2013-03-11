@@ -27,6 +27,8 @@ defined("_JEXEC") or die;
             $columns_board = $state->get('column_board');
             $columns_pins = $state->get('column_pins');
             $columns_follow = $state->get('column_follow');
+             $page_commnet   = $state->get('page_commnet');
+            $this->assign('page_com',$page_commnet);
             $this->assign('width_follow',$columns_follow);
             $this->assign('width_pin',$columns_pins);
             $this->assign('width_board',$columns_board);

@@ -186,14 +186,16 @@ class Tz_pinboardModelManageruser extends JModelList{
                 $id_user    = $user_guest;
             }
             $db             = &JFactory::getDbo();
-            $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
+            $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,
+                                      c.hits as content_hit, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
                                 FROM #__users AS u
                                 LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
                                 LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
                                 LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
                                 LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                                 WHERE c.created_by =$id_user AND c.catid=$id_board AND c.state = 1";
-            $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
+            $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,
+                                 c.hits as content_hit, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
                                 FROM #__users AS u
                                 LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
                                 LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
@@ -207,8 +209,17 @@ class Tz_pinboardModelManageruser extends JModelList{
             $db->setQuery($sql2,$this -> pagNavBoardPin -> limitstart,$this -> pagNavBoardPin -> limit);
             $row            = $db->loadObjectList();
             foreach($row as $item){
-                $check_l    = $this->chekcLikeUser($item->content_id);
-                $item->checl_l = $check_l;
+                        $check_l = $this->chekcLikeUser($item->content_id);
+            $item->checl_l = $check_l;
+             $number_like = $this->CountLike($item->content_id);
+
+            $item->number_like = $number_like;
+            $number_comment = $this->demComment($item->content_id);
+            $item->number_comment = $number_comment;
+            $tangs = $this->DetailTag($item->content_id);
+            $item->tags = $tangs;
+           $show_comment = $this->getShowCommnet($item->content_id);
+            $item->showcomment = $show_comment;
             }
             return $row;
         }
@@ -262,7 +273,7 @@ class Tz_pinboardModelManageruser extends JModelList{
             $id_user    = $user_guest;
         }
         $db             = &JFactory::getDbo();
-        $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc
                             FROM #__users AS u
@@ -271,7 +282,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                             LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
                             LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                             WHERE c.created_by =$id_user and c.state=1 order by c.created desc ";
-        $sql2           ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql2           ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
                                 w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                 c.catid as catidc
                         FROM #__users AS u
@@ -289,6 +300,16 @@ class Tz_pinboardModelManageruser extends JModelList{
         foreach($row as $item){
             $check_l = $this->chekcLikeUser($item->content_id);
             $item->checl_l = $check_l;
+             $number_like = $this->CountLike($item->content_id);
+            
+            $item->number_like = $number_like;
+            $number_comment = $this->demComment($item->content_id);
+            $item->number_comment = $number_comment;
+            $tangs = $this->DetailTag($item->content_id);
+            $item->tags = $tangs;
+           $show_comment = $this->getShowCommnet($item->content_id);
+            $item->showcomment = $show_comment;
+
         }
         return $row;
     }
@@ -301,6 +322,20 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(!$this->pagNavPins)
         return '';
         return $this->pagNavPins;
+    }
+
+    /*
+     * method show tag
+    */
+    function detailTag($id){
+        $db = &JFactory::getDbo();
+        $sql ="select t.id as tagid, t.name as tagname
+                from #__tz_pinboard_tags AS t
+                    LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
+                WHERE tx.contentid =$id" ;
+        $db->setQuery($sql);
+        $row = $db->loadObjectList();
+        return $row;
     }
 
     /*
@@ -663,73 +698,8 @@ class Tz_pinboardModelManageruser extends JModelList{
 
 
 
-    /*
-     * method check usert like or not like
-    */
-    function checklike(){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $id_content = $_POST['id_conten'];
-        $db         = JFactory::getDbo();
-        $SQL        = "SELECT id_user_p from #__tz_pinboard_like where id_user_p=$id_user AND id_content=$id_content";
-        $db->setQuery($SQL);
-        $row        = $db->loadObject();
-        return $row;
-    }
-
-    /*
-     * method insert like
-    */
-    function inserLike(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer      =   $_SERVER['HTTP_REFERER'];
-        $url_arr    =   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $id_content = $_POST['id_conten'];
-        $db         = JFactory::getDbo();
-        if(isset($this->checklike()->id_user_p)){
-                 $checklik = $this->checklike()->id_user_p;
-        }
-        if(isset($id_user) && !empty($id_user)){
-            if(isset($checklik) AND !empty($checklik)){
-                $sql    = "update #__tz_pinboard_like set like_p ='1' where id_content=$id_content AND id_user_p=$id_user";
-            }else if(empty($checklik)){
-                $sql    = "INSERT INTO #__tz_pinboard_like  VALUES(NULL,'1','".$id_content."','".$id_user."') ";
-            }
-            $db->setQuery($sql);
-            $db->query();
-        }else{
-            return 'f';
-        }
-    }
 
 
-
-    /*
-     * method insert unlike
-    */
-    function insertUnlike(){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $id_content = $_POST['id_conten'];
-        $db         = JFactory::getDbo();
-        if(isset($this->checklike()->id_user_p)){
-            $checklik = $this->checklike()->id_user_p;
-        }
-        if(isset($id_user) && !empty($id_user)){
-            if(isset($checklik) AND !empty($checklik)){
-                $sql    = "update #__tz_pinboard_like set like_p ='0' where id_content=$id_content AND id_user_p=$id_user   ";
-            }else if(empty($checklik)){
-                $sql    = "INSERT INTO #__tz_pinboard_like  VALUES(NULL,'0','".$id_content."','".$id_user."') ";
-            }
-            $db->setQuery($sql);
-            $db->query();
-        }else{
-            return 'f';
-        }
-    }
 
 // and layout pin
 
@@ -747,7 +717,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         }
 
         $db                 = JFactory::getDbo();
-        $sql                = "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql                = "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, c.hits as content_hit,pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     l.like_p as likes
                                 FROM #__users AS u
@@ -757,7 +727,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                                 LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                                 LEFT JOIN #__tz_pinboard_like AS l ON c.id = l.id_content
                                 WHERE l.id_user_p =$id_user AND l.like_p=1 AND c.state =1 ";
-        $sql2 =             "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql2 =             "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     l.like_p as likes
                             FROM #__users AS u
@@ -774,12 +744,17 @@ class Tz_pinboardModelManageruser extends JModelList{
         $db->setQuery($sql2,$this -> pagNavLike -> limitstart,$this -> pagNavLike -> limit);
         $row = $db->loadObjectList();
         foreach($row as $item){
-            $number_like = $this->CountLike($item->content_id);
+           $check_l = $this->chekcLikeUser($item->content_id);
+            $item->checl_l = $check_l;
+             $number_like = $this->CountLike($item->content_id);
+
             $item->number_like = $number_like;
             $number_comment = $this->demComment($item->content_id);
             $item->number_comment = $number_comment;
-            $check_l = $this->chekcLikeUser($item->content_id);
-            $item->checl_l = $check_l;
+            $tangs = $this->DetailTag($item->content_id);
+            $item->tags = $tangs;
+           $show_comment = $this->getShowCommnet($item->content_id);
+            $item->showcomment = $show_comment;
         }
         return $row;
     }
@@ -1306,74 +1281,27 @@ class Tz_pinboardModelManageruser extends JModelList{
 
     }
 
-    //function check comment
-    function  checkInsertComment(){
-        $user = JFactory::getUser();
-        $id_user = $user->id;
-        $IP =  $_SERVER['REMOTE_ADDR'];
-        $db = &JFactory::getDbo();
-        $sql="select checkIP FROM #__tz_pinboard_comment WHERE id_user=$id_user and IP ='".$IP."' limit 0,1";
-        $db->setQuery($sql);
-        $row = $db->loadObject();
-        return $row;
-    }
-
-    // function commnet
-    function Tz_comment_Content(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer  =   $_SERVER['HTTP_REFERER'];
-        $url_arr=   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'view.html.php');
-        $view           = new Tz_pinboardViewManageruser();
-        $state          = $this->getState('params');
-        $id_content     = strip_tags(htmlspecialchars($_POST['id_content']));
-        $content_cm     = strip_tags(htmlspecialchars( $_POST['content']));
-        $content_cm     = str_replace("'","\'",$content_cm);
-        $delete_text    = $this->setState('remove_comment');
-        $change_comment = $this->setState('change_comment');
-        $arr_commnet    = explode(",",$delete_text);
-        $arr_commnet    = array_map("trim",$arr_commnet);
-        $commnet_replace = str_replace($arr_commnet,$change_comment,$content_cm);
-        $state          = $this->setState('state_comment');
-        $IP             =  $_SERVER['REMOTE_ADDR'];
-        $user           = JFactory::getUser();
-        $id_user        = $user->id;
-        $dt             = JFactory::getDate();
-        $dtime          = $dt->toSql();
-        $db             =& JFactory::getDbo();
-        $checkIP        = $this->checkInsertComment();
-        if($checkIP==""){
-            $sql = "INSERT INTO #__tz_pinboard_comment VALUES('NULL','".$commnet_replace."', '$id_content', '$id_user','".$state."','".$dtime."','".$IP."','1')";
-        }else{
-            $checkIP = $this->checkInsertComment()->checkIP;
-            $sql = "INSERT INTO #__tz_pinboard_comment VALUES('NULL','".$commnet_replace."', '$id_content', '$id_user','".$state."','".$dtime."','".$IP."','.$checkIP.')";
-
-        }
-        $db->setQuery($sql);
-        $db->query();
-    }
 
 
-    function getShowCommnet(){
-        $id_conten      = $_POST['id_content'];
-        $limit_star     = $this->getState('star_page_cm');
-        $limit          = $this->getState('page_cm');
-        $db             = JFactory::getDbo();
-        $sql            ="SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
-                                c.created_by as create_by
-                            FROM #__users AS u
-                            LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
-                            LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
-                            LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
-                            WHERE cm.content_id =$id_conten AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
+
+function getShowCommnet($id_content){
+        $limit_star = $this->getState('star_page_cm');
+        $limit = $this->getState('page_cm');
+        $db = JFactory::getDbo();
+        $sql="SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
+                     c.created_by as create_by
+                FROM #__users AS u
+                    LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
+                    LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
+                    LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
+                WHERE cm.content_id =$id_content AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
         $db->setQuery($sql);
         if($row = $db->loadObjectList()){
             return $row;
         }
-            return false;
-
+        return false;
     }
+
 
     function getDemcommnet(){
         $id_conten = $_POST['id_content'];
@@ -1383,91 +1311,11 @@ class Tz_pinboardModelManageruser extends JModelList{
         $row = $db->loadObject();
         return $row;
     }
-    function getShowcommnetInsert(){
-        $user    = JFactory::getUser();
-        $id_user = $user->id;
-        $db      = JFactory::getDbo();
-        $content_id = JRequest::getInt('id_content');
-        $sql="SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
-        c.created_by as create_by
-        FROM #__users AS u
-        LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
-        LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
-        LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
-        WHERE cm.content_id =$content_id  AND cm.id_user =$id_user AND cm.state=1 AND cm.checkIP=1 order by cm.id desc limit 0,1";
-        $db->setQuery($sql);
-        $row = $db->loadObjectList();
-        return $row;
-    }
-    function ajaxCommnet(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer  =   $_SERVER['HTTP_REFERER'];
-        $url_arr=   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $this->Tz_comment_Content();
-        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
-        $view = new Tz_pinboardViewManageruser();
-        $view-> assign('sosanhuser',$this->getSosanhuser());
-        $view->assign('ShowCommnet',$this->getShowcommnetInsert());
-        return $view->loadTemplate('pin_comment');
-    }
-
-    function TzdeleteCommnet(){
-        $id_cm = $_POST['id_cm'];
-        $db = &JFactory::getDbo();
-        $sql ="delete from #__tz_pinboard_comment where id=$id_cm";
-        $db->setQuery($sql);
-        $db->query();
-    }
-
-    function ajaxdeletecommnet(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer  =   $_SERVER['HTTP_REFERER'];
-        $url_arr=   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $this->TzdeleteCommnet();
-        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
-        $view = new Tz_pinboardViewManageruser();
-        $view-> assign('sosanhuser',$this->getSosanhuser());
-        $view->assign('ShowCommnet',$this->getShowCommnet());
-        return $view->loadTemplate('pin_comment');
-    }
 
 
-    function ajaxcommnet_cm(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer  =   $_SERVER['HTTP_REFERER'];
-        $url_arr=   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $user   = JFactory::getUser();
-        $id_user =$user->id;
-        if(!isset($id_user) && empty($id_user)) return null;
-        $this->Tz_comment_Content();
-        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
-        $view = new Tz_pinboardViewManageruser();
-        $view-> assign('sosanhuser',$this->getSosanhuser());
-        $view->assign('ShowCommnet',$this->getShowcommnetInsert());
-        $arr['contents'] = $view->loadTemplate('pin_cm');
-        $arr['count_number'] = $this->getDemcommnet()->number_id;
-        return $arr;
-    }
 
-    function ajaxphantrangCommnet(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer  =   $_SERVER['HTTP_REFERER'];
-        $url_arr=   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
-        $view = new Tz_pinboardViewManageruser();
-        $page = $_POST['page']; // lay du lieu page khi ajax chay thong qua bien page
-        $limit  = $this ->getState('page_cm'); // lay du lieu tu admin cofig xem phan trang bao nhieu ban ghi tu ham populateState
-        $limitstart1=   $limit * ($page-1); // thuc hinh tinh limitsrtat
-        $offset = (int) $limitstart1; // gan vao offset va chi lay gia tri nguyen
-        $view-> assign('sosanhuser',$this->getSosanhuser());
-        $this -> setState('star_page_cm',$offset); // gan vao bien offset
-        $view->assign('ShowCommnet',$this->getShowCommnet());
-        return $view->loadTemplate('pin_comment');
-    }
+
+ 
 
     function getUserImgLogin(){
         $user = JFactory::getUser();

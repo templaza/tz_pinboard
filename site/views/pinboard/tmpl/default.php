@@ -21,6 +21,7 @@ defined("_JEXEC") or die;
 $app    = &JFactory::getDocument();
 $app    -> addStyleSheet('components/com_tz_pinboard/css/pinboard.css');
 $app    -> addStyleSheet('components/com_tz_pinboard/css/pinboard_more.css');
+$app    -> addStyleSheet('components/com_tz_pinboard/css/comment.css');
 $app    -> addStyleSheet('components/com_tz_pinboard/css/detail.css');
 $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_pinboard/js/jquery.masonry.min.js"></script>');
 $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_pinboard/js/jquery.infinitescroll.min.js"></script>');
@@ -85,19 +86,19 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
             }).success(function(data){
                 data =  data.replace(/^\s+|\s+$/g,'');
                 if(data!="0"){
+                      jQuery("body").css("overflow-y","hidden");
                     jQuery('#tz_repin_more_warp_form').html(data);
-                    jQuery('#tz_repin_more_warp').fadeIn();
-                    jQuery('#tz_repin_more_warp_form_img img').load(function(){
-                        var height_div = jQuery('#tz_repin_more_warp_form').height();
-                        var height_warp = jQuery('#tz_repin_more_warp').height();
-                        if(height_div >= height_warp){
-                            jQuery('#tz_repin_more_warp_form').css({ "height":"80%" });
-                            jQuery('#tz_repin_more_warp_form').animate({top:'6%'},500);
-                        }else if(height_div < height_warp){
-                            // var margin_height = Math.floor(((height_warp - height_div)/2) - 10);
-                            jQuery('#tz_repin_more_warp_form').animate({top:'5%'},500);
-                        }
+                    jQuery('#tz_repin_more_warp').fadeIn(400);
+                    jQuery('#tz_repin_more_warp_form').fadeIn(50);
+                     jQuery('#tz_repin_img_delete').click(function(){
+                    jQuery('#tz_repin_more_warp_form').fadeOut(50);
+                    jQuery('#tz_repin_more_warp').fadeOut(400,function(){
+                        jQuery("body").css("overflow-y","scroll");
                     });
+
+                    });
+
+
                     jQuery('#tz_repin_title').focus(function(){
                         jQuery('#tz_repin_title').keyup(function(){
                             var Max_Text_input = jQuery('#tz_repin_title').attr('maxlength');
@@ -134,10 +135,7 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                         var p_title = document.getElementById('tz_repin_more_descript');
                         p_title.innerHTML=" ";
                     });
-                    jQuery('#tz_repin_img_delete, #tz_repin_more_warp_2').click(function(){
-                        jQuery('#tz_repin_more_warp_form').animate({top:'-100%'},500);
-                        jQuery('#tz_repin_more_warp').fadeOut(1000);
-                    });
+
                 }else{
                     window.location="<?php echo JURI::root() . "index.php?option=com_users&view=login"; ?>";
                 }
@@ -181,24 +179,27 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                 }
             }).success(function(data){
 
-                jQuery("#tz_repin_more_warp_form").animate({top:"-100%"},600);
+                jQuery("#tz_repin_more_warp_form").fadeOut(1000);
                 jQuery("#tz_repin_more_notice").animate({bottom:"60%"},900);
                 jQuery("#tz_repin_more_notice").animate({"opacity":"hide"},1800, function(){
                     jQuery("#tz_repin_more_notice").css({
                     "bottom":"-100%",
                     "display":"block"
                     });
-                    jQuery("#tz_repin_more_warp").fadeOut(400);
-                    jQuery('#tz_pinboard').prepend( jQuery(data) ).masonry( 'reload' );
+                    jQuery("#tz_repin_more_warp").fadeOut(400, function(){
+                           jQuery("body").css("overflow-y","scroll");
+                    });
+                    jQuery('#tz_pinboard').prepend( jQuery(data) ).masonry( 'reload');
+
                     jQuery('.tz_pin_content_class img').load(function(){
                         tz_init(<?php echo $this->width_columns ?>);
                         jQuery('.tz_pin_conmments').toggle(function(){
-                            jQuery(".Tz_plaza").css("display","block");
+                            jQuery(".Tz_plaza .tz_pin_comsPins_from").css("display","block");
                             jQuery('#tz_pinboard').masonry({
                                 itemSelector: '.tz_pin_all_content'
                             });
                         },function(){
-                            jQuery(".Tz_plaza").css("display","none");
+                            jQuery(".Tz_plaza .tz_pin_comsPins_from").css("display","none");
                             jQuery('#tz_pinboard').masonry({
                                 itemSelector: '.tz_pin_all_content'
                             });
@@ -212,7 +213,7 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         jQuery('.tz_pin_content_class').live("mouseenter",function(){
             jQuery(this).find(".tz_pin_comsPins").addClass("Tz_plaza");
             jQuery(this).find(".tz_pin_like").addClass("Tz_plaza_l");
-            jQuery(this).find(".tz_pin_unlike").addClass("Tz_plaza_c")
+            jQuery(this).find(".tz_pin_unlike").addClass("Tz_plaza_c");
         });
         jQuery('.tz_pin_content_class').live("mouseleave",function(){
             jQuery(".tz_pin_like").removeClass("Tz_plaza_l");
@@ -222,26 +223,27 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
 
         // check comment user
-        <?php
-            if(empty($this->sosanhuser) || $this->sosanhuser=="0"){
-        ?>;
-            jQuery('.tz_pin_content_class').live("mouseenter",function(){
-            jQuery(".tz_pin_comsPins").removeClass("Tz_plaza");
-        });
-        <?php
-        }
-        ?>
+
+
 
         jQuery('.tz_pin_conmments').toggle(function(){
-            jQuery(".Tz_plaza").css("display","block");
+            jQuery(".Tz_plaza .tz_pin_comsPins_from").css("display","block");
             jQuery('#tz_pinboard').masonry({
                 itemSelector: '.tz_pin_all_content'
             });
         },function(){
-            jQuery(".Tz_plaza").css("display","none");
+            jQuery(".Tz_plaza .tz_pin_comsPins_from").css("display","none");
             jQuery('#tz_pinboard').masonry({
                 itemSelector: '.tz_pin_all_content'
             });
+        });
+
+        jQuery(".tz_pin_conmments_ero").live("click",function(){
+            window.location="<?php echo JURI::root()."index.php?option=com_users&view=login"; ?>";
+        });
+
+        jQuery(".tz_like_ero").live("click",function(){
+            window.location="<?php echo JURI::root()."index.php?option=com_users&view=login"; ?>";
         });
 
 
@@ -286,7 +288,7 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                     var getData = jQuery.parseJSON(data);
                     jQuery(".Tz_plaza_c").html(getData.count_number + " <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT'); ?>");
                     jQuery(".Tz_plaza textarea").attr("value","");
-                    jQuery(".Tz_plaza .tz_pin_comsPins_content ul").append(getData.contents);
+                    jQuery(".Tz_plaza .tz_pin_comsPins_content ul").prepend(getData.contents);
                     jQuery('#tz_pinboard').masonry({
                         itemSelector: '.tz_pin_all_content'
                     });
@@ -375,6 +377,7 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
         // detail pin
         jQuery('.tz_more_pin').live("click",function(){
+
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.detail.pins',
                 type: 'post',
@@ -382,12 +385,16 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                     id_pins: jQuery(this).attr("data-option-id-img")
                 }
             }).success(function(data){
+                jQuery("body").css("overflow-y","hidden");
                 jQuery('#tz_detail_ajax').html(data);
                 jQuery('#tz_repin_more_warp').fadeIn();
-                jQuery('#tz_more_conten').animate({bottom:'5%'},400);
-                jQuery('.tz_detail_pins, #tz_repin_more_warp_2').click(function(){
-                jQuery('#tz_more_conten').animate({bottom:'-100%'},500);
-                    jQuery('#tz_repin_more_warp').fadeOut(1000);
+                jQuery('#tz_more_conten').fadeIn(50);
+                jQuery('.tz_detail_pins').click(function(){ // click
+                    jQuery('#tz_repin_more_warp').fadeOut(400,function(){
+                        jQuery('#tz_more_conten').fadeOut(50);
+                          jQuery("body").css("overflow-y","scroll");
+                    });
+
                 });
                 jQuery('.tz_erro_follow').click(function(){
                     window.location="<?php echo JURI::root() . "index.php?option=com_users&view=login"; ?>";
@@ -511,6 +518,31 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                 jQuery("#tz_commnet_pt_emty").css("display","none");
                 jQuery("#tz_commnet_pt_a").attr("data-optio-page",2);
             });
+        });
+        // page on
+        jQuery(".Tz_plaza .tz_commnet_pt_span").live("click",function(){
+            jQuery.ajax({
+                url:"index.php?option=com_tz_pinboard&view=pinboard&task=tz.pt.cm",
+                type: "post",
+                data:{
+                    id_pins: jQuery(".Tz_plaza .tz_hd_id_pin").val(),
+                    page: jQuery(this).attr("data-optio-page")
+                }
+            }).success(function(data){
+                        data =  data.replace(/^\s+|\s+$/g,'');
+                        if(data==""){
+                            jQuery(".Tz_plaza .tz_commnet_pt_span").css("display","none");
+                            jQuery(".Tz_plaza .tz_empty_span").css("display","block");
+                        } else{
+                            jQuery(".Tz_plaza .tz_pin_comsPins_content ul").prepend(data);
+                            jQuery('#tz_pinboard').masonry({
+                                itemSelector: '.tz_pin_all_content'
+                            });
+                            var pages =  jQuery(".Tz_plaza .tz_commnet_pt_span").attr("data-optio-page");
+                            var pages = parseInt(pages)+1;
+                            jQuery(".Tz_plaza .tz_commnet_pt_span").attr("data-optio-page",pages);
+                        }
+                    });
         });
 
         jQuery("#tz_commnet_pt_a").live("click",function(){
@@ -728,9 +760,6 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
 
     <div id="tz_repin_more_warp">
-        <div id="tz_repin_more_warp_2">
-
-        </div>
         <div id="tz_repin_more_warp_form">
 
         </div>
