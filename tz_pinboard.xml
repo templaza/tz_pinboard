@@ -7,7 +7,7 @@
 	<license>GNU/GPL v2 or later http://www.gnu.org/licenses/gpl-2.0.html</license>
 	<authorEmail>tunn@templaza.com</authorEmail>
 	<authorUrl>www.templaza.com/</authorUrl>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<description>TZ Pinboard native for Joomla! 3.0.x</description>
     <installfile>install.tz_pinboard.php</installfile>
     <uninstallfile>uninstall.tz_pinboard.php</uninstallfile>
@@ -86,11 +86,13 @@
             <field name="column_board" default="233"/>
             <field name="column_pins" default="233"/>
             <field name="column_follow" default="300"/>
+            <field name="limit_img" default="10"/>
 			<field name="tz_article_limit" default="10" />
 			<field name="limits_like" default="10" />
 			<field name="limits_Follow" default="10" />
 			<field name="portfolio_image_size" default="M"/>
             <field name="pinboard_image_size" default="L"/>
+            <field name="image_repin" default="M" />
 			<field name="tz_image_xsmall" default="100"/>
 			<field name="tz_image_small" default="200"/>
 			<field name="tz_image_medium" default="400"/>

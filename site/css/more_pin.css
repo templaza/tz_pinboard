@@ -1,19 +1,5 @@
 
-#tz_more_conten{
-    background: none repeat scroll 0 0 #F8F8F8;
-    bottom: -100%;
-    box-shadow: 0 3px 8px rgba(34, 25, 25, 0.4);
-    left: 23%;
-    max-height: 594px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    position: fixed;
-    width: 57%;
-    z-index: 99999;
 
-
-
-}
 #tz_more_conten_img_x{
     width: 100%;
     height: 25px;
@@ -56,15 +42,6 @@
     position: relative;
 
     height: 50px;
-}
-.tz_detail_pins {
-    background: none repeat scroll 0 0 #000000;
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 40px;
-    z-index: 99999;
 }
 
 .tz_pin_content_class a {

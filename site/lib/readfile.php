@@ -29,6 +29,7 @@ defined('_JEXEC') or die('Restricted access');
 class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
     function get($url, $extra_headers = null)
     {
+
         if (!$this->allowedURL($url)) {
             trigger_error("Bad URL scheme in url: " . $url,
                           E_USER_WARNING);
@@ -43,6 +44,7 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
         while ($redir && ($off > 0)) {
 
             $parts = parse_url($url);
+            if (!isset($parts['path'])) $parts['path'] = '/';
 
             $specify_port = true;
 

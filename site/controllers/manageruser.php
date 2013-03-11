@@ -66,15 +66,15 @@ class Tz_pinboardControllerManageruser extends JControllerForm{
                     $view->setLayout('default_more_pins');
                     break;
 
-                case'tz.pin.like':
-                    echo $this->model->inserLike();
-                    die();
-                    break;
-
-                case'tz.pin.unlike':
-                    echo $this->model->insertUnlike();
-                    die();
-                    break;
+//                case'tz.pin.like':
+//                    echo $this->model->inserLike();
+//                    die();
+//                    break;
+//
+//                case'tz.pin.unlike':
+//                    echo $this->model->insertUnlike();
+//                    die();
+//                    break;
 
                 case'tz.pin.follow':
                     echo $this->model->inserFollow();
@@ -111,25 +111,25 @@ class Tz_pinboardControllerManageruser extends JControllerForm{
                     $view->setLayout('following');
                     break;
 
-                case'tz.insert.commnet':
-                    echo $this->model->ajaxCommnet();
-                    die();
-                    break;
-
-                case'tz.delete.commnet':
-                    echo $this->model->ajaxdeletecommnet();
-                    die();
-                    break;
-
-                case'tz.ajax.pt.cm':
-                    echo $this->model->ajaxphantrangCommnet();
-                    die();
-                    break;
-
-                case'tz.insert.commnet_cm':
-                    echo json_encode($this->model->ajaxcommnet_cm());
-                    die();
-                    break;
+//                case'tz.insert.commnet':
+//                    echo $this->model->ajaxCommnet();
+//                    die();
+//                    break;
+//
+//                case'tz.delete.commnet':
+//                    echo $this->model->ajaxdeletecommnet();
+//                    die();
+//                    break;
+//
+//                case'tz.ajax.pt.cm':
+//                    echo $this->model->ajaxphantrangCommnet();
+//                    die();
+//                    break;
+//
+//                case'tz.insert.commnet_cm':
+//                    echo json_encode($this->model->ajaxcommnet_cm());
+//                    die();
+//                    break;
 
                 default:
                     $view->setLayout('boars');

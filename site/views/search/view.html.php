@@ -21,11 +21,14 @@ defined("_JEXEC") or die;
 
  class TZ_PinboardViewSearch extends JViewLegacy{
      function display($tpl=null){
-         $state  = $this -> get('State');
-         $search_results  = $state->get('tz_search');
-         $tz_layout = $state->get('tz_layout');
-         $type_detail = $state->get('type_detail');
+         $state  = $this -> get('State') -> get('params');
 
+         $search_results  = $this -> get('State')->get('tz_search');
+         $tz_layout = $state->get('tz_pinboard_layout');
+         $type_detail = $state->get('type_detail');
+         $page_commnet   = $state->get('page_commnet');
+
+         $this->assign('page_com',$page_commnet);
          $this->assign('search_results',$search_results);
          $this->assign('Check_pt_pin',$this->get('Check_pt_pin'));
         $this->assign('tz_search',$this->get('State')->get('tz_search'));

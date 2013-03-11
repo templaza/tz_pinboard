@@ -52,6 +52,8 @@ if(isset($this->showweb_img)){
         </ul>
     <?php
          }
+    }else{
+        echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_ERROR_IMAGES');
     }
 
     ?>

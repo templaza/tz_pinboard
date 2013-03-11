@@ -63,7 +63,7 @@ defined("_JEXEC") or die;
             <img class="tz_imgs" src="<?php echo JUri::root()."/".$img_type_replaca; ?>">
             <?php if(isset($this->show_detail->tags) && !empty($this->show_detail->tags) && $this->show_tags=='1'){ ?>
                 <p class="tz_tag_all">
-                   <span class="tz_tag"> Tag: </span>
+                   <span class="tz_tag"> <?php echo JText::_('COM_TZ_PINBOARD_TAGS'); ?> </span>
                     <?php
                         foreach($this->show_detail->tags as $tag){
                     ?>

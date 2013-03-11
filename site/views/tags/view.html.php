@@ -27,6 +27,8 @@ defined("_JEXEC") or die;
          $width_columns = $state->get('width_columns');
          $type_detail = $state->get('type_detail');
          $limit_pin = $state->get('tz_article_limit');
+         $page_commnet   = $state->get('page_commnet');
+         $this->assign('page_com',$page_commnet);
          $this->assign('limit_pin',$limit_pin);
          $this->assign('tags',$this -> get('State')->get('tag_id'));
          $this->assign('type_detail',$type_detail);

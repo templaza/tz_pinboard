@@ -132,7 +132,7 @@ defined("_JEXEC") or die;
 
                                 },function(){
                                   jQuery(this).removeClass('disabled');
-                                    jQuery(this).html('<span>follow</span>');
+                                    jQuery(this).html('<span><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW'); ?></span>');
                                                             jQuery.ajax({
                                                                 url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.pin.unfollow',
                                                                 type: 'post',
@@ -148,7 +148,7 @@ defined("_JEXEC") or die;
 
         jQuery('.tz_unfollow').toggle(function(){
                       jQuery(this).removeClass('disabled');
-                    jQuery(this).html('<span>Follow</span>');
+                    jQuery(this).html('<span><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW'); ?></span>');
                     jQuery.ajax({
                         url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.pin.unfollow',
                         type: 'post',
@@ -161,7 +161,7 @@ defined("_JEXEC") or die;
                             });
             },function(){
               jQuery(this).addClass('disabled');
-                jQuery(this).html('<span>Unfollow</span>');
+                jQuery(this).html('<span><?php echo JText::_("COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW"); ?></span>');
                                         jQuery.ajax({
                                             url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.pin.follow',
                                             type: 'post',
@@ -186,8 +186,8 @@ defined("_JEXEC") or die;
     ?>
     <div class="alert alert-block">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4>Warning!</h4>
-         errors occur when pins
+        <h4><?php echo JText::_('COM_TZ_PINBOARD_ERRO_DETAIL'); ?></h4>
+        <?php echo JText::_('COM_TZ_PINBOARD_ERRO_DETAIL2'); ?>
     </div>
   <?php
   } ?>

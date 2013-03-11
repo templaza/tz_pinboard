@@ -109,9 +109,10 @@ class TZ_PinboardModelPinboard extends JModelList{
             $catids     =  "where c.state=1 order by c.$type_show_pin $arrangements";
         }
         $db = &JFactory::getDbo();
-        $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit , pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
-                        c.catid as catidc, u.name as user_name,  us.images as user_img
+                        c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
+                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
                 FROM #__users AS u
                     LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
                     LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
@@ -119,9 +120,10 @@ class TZ_PinboardModelPinboard extends JModelList{
                     LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                     LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids";
 
-        $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
-                        c.catid as catidc, u.name as user_name,  us.images as user_img
+                        c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
+                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
                 FROM #__users AS u
                     LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
                     LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
@@ -147,6 +149,10 @@ class TZ_PinboardModelPinboard extends JModelList{
             $item->demL = $demL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
+            $show_comment = $this->getShowCommnet($item->content_id);
+            $item->showcomment = $show_comment;
+            $tangs = $this->DetailTag($item->content_id);
+            $item->tags = $tangs;
         }
         return $row;
     }
@@ -347,7 +353,7 @@ class TZ_PinboardModelPinboard extends JModelList{
             require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
             $view = new TZ_PinboardViewPinboard();
             $param_porfolio = &JComponentHelper::getParams('com_tz_pinboard');
-            $img_size = $param_porfolio->get('portfolio_image_size');
+            $img_size = $param_porfolio->get('image_repin');
             $view->assign('img_size',$img_size);
             $view->assign('repin',$this->getRepin());
             $sate= $this->getState('params');
@@ -484,7 +490,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         }else{
             $catids="where c.created_by =$id_usert order by c.created desc limit 0,1";
         }
-        $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit, pz.images as poro_img,
                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                     c.catid as catidc, u.name as user_name,  us.images as user_img
                 FROM #__users AS u
@@ -504,6 +510,9 @@ class TZ_PinboardModelPinboard extends JModelList{
             $item->demL = $demL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
+            $tangs = $this->DetailTag($item->content_id);
+            $item->tags = $tangs;
+            $item->tags = $tangs;
         }
         return $row;
     }
@@ -540,6 +549,8 @@ class TZ_PinboardModelPinboard extends JModelList{
         $img_size = $param_pinboard->get('portfolio_image_size');
         $width_columns = $param_pinboard->get('width_columns');
         $tz_layout = $param_pinboard->get('tz_pinboard_layout');
+        $page_cm = $this->getState('page_cm');
+        $view->assign('page_com',$page_cm);
         $view->assign('type_detail',$type_detail);
         $view->assign('Limit_comment',$text_commnet);
         $view->assign('UserImgLogin',$this->getUserImgLogin());
@@ -608,8 +619,41 @@ class TZ_PinboardModelPinboard extends JModelList{
     /*
      * method display comment
      */
-    function getShowCommnet(){
-        $id_conten = $_POST['id_conten'];
+//    function getShowCommnet(){
+//        $id_conten = $_POST['id_conten'];
+//        $limit_star = $this->getState('star_page_cm');
+//        $limit = $this->getState('page_cm');
+//        $db = JFactory::getDbo();
+//        $sql="SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
+//                     c.created_by as create_by
+//                FROM #__users AS u
+//                    LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
+//                    LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
+//                    LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
+//                WHERE cm.content_id =$id_conten AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
+//        $db->setQuery($sql);
+//        if($row = $db->loadObjectList()){
+//            return $row;
+//        }
+//        return false;
+//    }
+    function ajaxPTCommnet(){
+        if (!isset($_SERVER['HTTP_REFERER'])) return null;
+        $refer  =   $_SERVER['HTTP_REFERER'];
+        $url_arr=   parse_url($refer);
+        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
+        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
+        $view = new TZ_PinboardViewPinboard();
+        $page = $_POST['page'];
+        $limit  = $this ->getState('page_cm');
+        $limitstart1=   $limit * ($page-1);
+        $offset = (int) $limitstart1;
+        $this -> setState('star_page_cm',$offset);
+        $view->assign('displayComment',$this->getPT_comment());
+        return $view->loadTemplate('commentall');
+    }
+    function getPT_comment(){
+        $id_conten = $_POST['id_pins'];
         $limit_star = $this->getState('star_page_cm');
         $limit = $this->getState('page_cm');
         $db = JFactory::getDbo();
@@ -620,6 +664,23 @@ class TZ_PinboardModelPinboard extends JModelList{
                     LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
                     LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
                 WHERE cm.content_id =$id_conten AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
+        $db->setQuery($sql);
+        if($row = $db->loadObjectList()){
+            return $row;
+        }
+        return false;
+    }
+    function getShowCommnet($id_content){
+        $limit_star = $this->getState('star_page_cm');
+        $limit = $this->getState('page_cm');
+        $db = JFactory::getDbo();
+        $sql="SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
+                     c.created_by as create_by
+                FROM #__users AS u
+                    LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
+                    LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
+                    LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
+                WHERE cm.content_id =$id_content AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
         $db->setQuery($sql);
         if($row = $db->loadObjectList()){
             return $row;
