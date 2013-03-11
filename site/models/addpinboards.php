@@ -40,12 +40,14 @@ class Tz_pinboardModelAddpinboards extends JModelList
         $max_title       = $params->get('text_title');
         $max_introtex    = $params->get('text_descript_pin');
         $state_board     = $params->get('state_boar');
+        $limit_img       = $params->get('limit_img');
         $sizeImage       = array();
         $sizeImage['XS'] = $params->get('tz_image_xsmall', 100);
         $sizeImage['S']  = $params->get('tz_image_small', 200);
         $sizeImage['M']  = $params->get('tz_image_medium', 400);
         $sizeImage['L']  = $params->get('tz_image_large', 600);
         $sizeImage['XL'] = $params->get('tz_image_xlarge', 900);
+        $this->setState('limit_img',$limit_img);
         $this->setState('size_img',$sizeImage);
         $this->setState('remove_comment', $remove_comment);
         $this->setState('change_comment', $changecomment);
@@ -253,6 +255,8 @@ class Tz_pinboardModelAddpinboards extends JModelList
     {
         require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'HTTPFetcher.php');
         require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'readfile.php');
+        $limit_imgs = $this->getState('limit_img');
+    
         $link_url = strip_tags(htmlspecialchars($_POST['link']));
         if (isset($link_url) && !empty($link_url)) {
             $data = $link_url;
@@ -290,6 +294,9 @@ class Tz_pinboardModelAddpinboards extends JModelList
                     foreach ($match[1] as $match_all) {
                         if ($image_element  =   $this->getImageURL($link_url,$match_all)) {
                             $arr[] = $image_element;
+                            if(count($arr) > $limit_imgs){
+                                break;
+                            }
                         }
 
                     }
@@ -421,9 +428,9 @@ class Tz_pinboardModelAddpinboards extends JModelList
             $destPath = $tzFolderPath . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $FileName_img);
             $destPath = str_replace('.' . JFile::getExt($destPath), '_' . $key . '.' . JFile::getExt($destPath), $destPath);
             $newHeight = ($height * $value) / $width;
-            $obj->resize($value, $newHeight, true);
+            $newImage = $obj->resize($value, $newHeight, true);
             $type = $this->_getImageType($FileName_img);
-            $arr_upload[] = $obj->toFile($destPath,$type);
+            $arr_upload[] = $newImage->toFile($destPath,$type);
         }
         preg_match('/media.*?$/', $desttamp, $path_img);
         JFile::delete($desttamp);
@@ -485,10 +492,12 @@ class Tz_pinboardModelAddpinboards extends JModelList
     function uploadLocal()
     {
         $img = $_FILES['upload_pinl'];
+  
         $arr = array('image/jpeg', 'image/jpg', 'image/bmp', 'image/gif', 'image/png', 'image/ico');
         $maxSize = 2 * 1024 * 1024;
         $erro = array();
         $size_img = $this->getState('size_img');
+  
         $tzFolderPath = JPATH_ROOT . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . 'tz_pinboard' . DIRECTORY_SEPARATOR . 'article' . DIRECTORY_SEPARATOR . 'cache';
         if(!JFolder::exists($tzFolderPath)){
             JFolder::create($tzFolderPath);
@@ -507,15 +516,19 @@ class Tz_pinboardModelAddpinboards extends JModelList
             $obj = new JImage($img['tmp_name']);
             $width = $obj->getWidth();
             $height = $obj->getHeight();
+
             $arr_upload = array();
             foreach ($size_img as $key => $newWidth) {
+
                 $destPath    = $tzFolderPath . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $FileName_img);
                 $destPath    = str_replace('.' . JFile::getExt($destPath), '_' . $key . '.' . JFile::getExt($destPath), $destPath);
                 $newHeight   = ($height * (int)$newWidth) / $width;
-                $obj->resize($newWidth, $newHeight, $img['tmp_name']);
+               $newImage     =  $obj->resize($newWidth, $newHeight,true);
                 $type        = $this->_getImageType($FileName_img);
-               $arr_upload[] = $obj->toFile($destPath, $type);
+               $arr_upload[] = $newImage->toFile($destPath, $type);
             }
+      
+
             if($arr_upload[0]==true){
                 preg_match('/media.*?$/', $desttamp, $path_img);
                 return $path_img1 = str_replace('\\', '/', $path_img[0]);

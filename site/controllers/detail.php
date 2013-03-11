@@ -54,6 +54,7 @@ defined("_JEXEC") or die;
                             $model->insertUnfollow();
                             die();
                             break;
+
                      default:
                         $view->setLayout('default');
                        break;

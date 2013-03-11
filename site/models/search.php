@@ -164,7 +164,8 @@ class TZ_PinboardModelSearch extends JModelList{
         $db = &JFactory::getDbo();
         $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
-                        c.catid as catidc, u.name as user_name,  us.images as user_img
+                        c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
+                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
                 FROM #__users AS u
                     LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
                     LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
@@ -174,7 +175,8 @@ class TZ_PinboardModelSearch extends JModelList{
     
         $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
-                        c.catid as catidc, u.name as user_name,  us.images as user_img
+                        c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
+                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
                 FROM #__users AS u
                     LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
                     LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
@@ -199,8 +201,22 @@ class TZ_PinboardModelSearch extends JModelList{
             $item->demL = $demL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
+            $show_comment = $this->getShowCommnet($item->content_id);
+            $item->showcomment = $show_comment;
+            $tangs = $this->DetailTag($item->content_id);
+            $item->tags = $tangs;
         }
     
+        return $row;
+    }
+    function detailTag($id){
+        $db = &JFactory::getDbo();
+        $sql ="select t.id as tagid, t.name as tagname
+                from #__tz_pinboard_tags AS t
+                    LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
+                WHERE tx.contentid =$id" ;
+        $db->setQuery($sql);
+        $row = $db->loadObjectList();
         return $row;
     }
 
@@ -368,11 +384,13 @@ class TZ_PinboardModelSearch extends JModelList{
         $limitstart1    =   $limit * ($page-1);
         $offset         = (int) $limitstart1;
         $this -> setState('limitstar',$offset);
+        $page_cm        = $this->getState('page_cm');
         $text_commnet   = $this->getState('limit_commnet');
         $img_size       = $this->getState('image_thum');
         $width_columns  = $this->getState('width_columns');
         $tz_layout      = $this->getState('tz_layout');
         $type_detail    = $this->getState('type_detail');
+        $view->assign('page_com',$page_cm);
         $view->assign('type_detail',$type_detail);
         $view->assign('Limit_comment',$text_commnet);
         $view->assign('UserImgLogin',$this->getUserImgLogin());
@@ -386,77 +404,22 @@ class TZ_PinboardModelSearch extends JModelList{
 
 
 
-    /*
-     * method check comment
-     */
-    function  checkInsertComment(){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $IP         =  $_SERVER['REMOTE_ADDR'];
-        $db         = &JFactory::getDbo();
-        $sql        = "select checkIP FROM #__tz_pinboard_comment WHERE id_user=$id_user and IP ='".$IP."' limit 0,1";
-        $db -> setQuery($sql);
-        $row        = $db->loadObject();
-        return $row;
-    }
 
-
-
-    /*
-   * method insert commnet
-   */
-    function Tz_comment_Content(){
-    if (!isset($_SERVER['HTTP_REFERER'])) return null;
-    $refer              =   $_SERVER['HTTP_REFERER'];
-    $url_arr            =   parse_url($refer);
-    if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-    require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php');
-    $view   = new TZ_PinboardViewPinboard();
-    $state = $this->getState('params');
-    $id_content         =   strip_tags(htmlspecialchars($_POST['id_content']));
-    $content_cm         =   strip_tags(htmlspecialchars( $_POST['content']));
-    $content_cm         =   str_replace("'","\'",$content_cm);
-    $delete_text        =   $this->setState('remove_comment');
-    $change_comment     =   $this->setState('change_comment');
-    $arr_commnet        =   explode(",",$delete_text);
-    $arr_commnet        =   array_map("trim",$arr_commnet);
-    $commnet_replace    =   str_replace($arr_commnet,$change_comment,$content_cm);
-    $state              =   $this->setState('state_comment');
-    $IP                 =  $_SERVER['REMOTE_ADDR'];
-    $user               =   JFactory::getUser();
-    $id_user            =   $user->id;
-    $dt                 =   JFactory::getDate();
-    $dtime              =   $dt->toSql();
-    $db                 =   & JFactory::getDbo();
-    $checkIP            =   $this->checkInsertComment();
-    if($checkIP==""){
-        $sql            =   "INSERT INTO #__tz_pinboard_comment VALUES('NULL','".$commnet_replace."', '$id_content', '$id_user','".$state."','".$dtime."','".$IP."','1')";
-    }else{
-        $checkIP        =   $this->checkInsertComment()->checkIP;
-        $sql            =   "INSERT INTO #__tz_pinboard_comment VALUES('NULL','".$commnet_replace."', '$id_content', '$id_user','".$state."','".$dtime."','".$IP."','.$checkIP.')";
-
-    }
-    $db->setQuery($sql);
-    $db->query();
-    }
-
-    /*
-    * method display comment
-    */
-    function getShowCommnet(){
-        $id_conten  = $_POST['id_conten'];
+    function getShowCommnet($id_content){
         $limit_star = $this->getState('star_page_cm');
         $limit = $this->getState('page_cm');
         $db = JFactory::getDbo();
         $sql="SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
                      c.created_by as create_by
-            FROM #__users AS u
-                LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
-                LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
-                LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
-            WHERE cm.content_id =$id_conten AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
+                FROM #__users AS u
+                    LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
+                    LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
+                    LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
+                WHERE cm.content_id =$id_content AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
         $db->setQuery($sql);
+
         if($row = $db->loadObjectList()){
+
             return $row;
         }
         return false;
@@ -477,58 +440,7 @@ class TZ_PinboardModelSearch extends JModelList{
 
 
 
-    /*
-    * method Display comments as insert complete
-    */
-    function getShowcommnetInsert(){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $db         = JFactory::getDbo();
-        $content_id = JRequest::getInt('id_content');
-        $sql        = "SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
-                              c.created_by as create_by
-                      FROM #__users AS u
-                        LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
-                        LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
-                        LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
-                      WHERE cm.content_id =$content_id  AND cm.id_user =$id_user AND cm.state=1 AND cm.checkIP=1 order by cm.id desc limit 0,1";
-        $db->setQuery($sql);
-        $row        = $db->loadObjectList();
-        return $row;
-    }
 
-
-    function ajaxCommnet(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer      =   $_SERVER['HTTP_REFERER'];
-        $url_arr    =   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $this->Tz_comment_Content();
-        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'search'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
-        $view       = new TZ_PinboardViewSearch();
-        $view-> assign('sosanhuser',$this->getSosanhuser());
-        $view->assign('ShowCommnet',$this->getShowcommnetInsert());
-        return $view->loadTemplate('pin_comment');
-    }
-
-    function ajaxcommnet_cm(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer      =   $_SERVER['HTTP_REFERER'];
-        $url_arr    =   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $user       =   JFactory::getUser();
-        $id_user    =   $user->id;
-        if(!isset($id_user) && empty($id_user)) return null;
-        $this->Tz_comment_Content();
-        require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'search'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
-        $view   = new TZ_PinboardViewSearch();
-        $view   -> assign('sosanhuser',$this->getSosanhuser());
-        $view   ->  assign('ShowCommnet',$this->getShowcommnetInsert());
-        $arr = array();
-        $arr['contents'] = $view->loadTemplate('pin_cm');
-        $arr['count_number'] = $this->getDemcommnet()->number_id;
-        return $arr;
-    }
 
 
 

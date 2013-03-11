@@ -20,7 +20,6 @@ defined("_JEXEC") or die;
 
         if(isset($this->ShowCommnet) && !empty($this->ShowCommnet)){
             foreach($this->ShowCommnet as $row_cm){
-           
 ?>
             <li>
                      <?php if(isset($row_cm->img_user) && !empty($row_cm->img_user)){  ?>

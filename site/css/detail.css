@@ -8,6 +8,7 @@
     height: 100px;
     position: relative;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
 .tz_tag{
@@ -66,7 +67,7 @@
 .tz_datail_board{
     height: 110px;
 
-
+    overflow: hidden;
     padding: 10px 0px;
 
 }
@@ -113,6 +114,7 @@
     margin: auto;
     display: block;
     padding-bottom: 10px;
+    max-width: 96%;
 }
 .tz_content_cm ul{
     margin: 0;

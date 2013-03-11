@@ -112,6 +112,15 @@
                 description="COM_TZ_PINBOARD_CONFIG_COLUMN_WIDTH_FOLLOW_DS">
 
         </field>
+           <field
+                name="limit_img"
+                type="text"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_CONFIG_LIMIT_IMG"
+                default="10"
+                description="COM_TZ_PINBOARD_CONFIG_LIMIT_IMG_DS">
+
+        </field>
         <field
                name="mymenuitem"
                type="menuitem" default="110" label="Select a menu item" description="Select a menu item" />
@@ -137,6 +146,16 @@
                default="L"
                label="COM_TZ_PINBOARD_CONFIG_IMAGE_DETAIL"
                description="COM_TZ_PINBOARD_CONFIG_IMAGE_DETAIL_DESC">
+            <option value="XS">COM_TZ_PINBOARD_CONFIG_XSMALL</option>
+            <option value="S">COM_TZ_PINBOARD_CONFIG_SMALL</option>
+            <option value="M">COM_TZ_PINBOARD_CONFIG_MEDIUM</option>
+            <option value="L">COM_TZ_PINBOARD_CONFIG_LARGE</option>
+            <option value="XL">COM_TZ_PINBOARD_CONFIG_XLARGE</option>
+        </field>
+          <field name="image_repin" type="list"
+               default="M"
+               label="COM_TZ_PINBOARD_CONFIG_IMAGE_REPIN"
+               description="COM_TZ_PINBOARD_CONFIG_IMAGE_REPIN_DESC">
             <option value="XS">COM_TZ_PINBOARD_CONFIG_XSMALL</option>
             <option value="S">COM_TZ_PINBOARD_CONFIG_SMALL</option>
             <option value="M">COM_TZ_PINBOARD_CONFIG_MEDIUM</option>

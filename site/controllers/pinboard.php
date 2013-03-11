@@ -62,6 +62,10 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 echo json_encode($this->model->ajaxcommnet_cm());
                 die();
                 break;
+            case'tz.pt.cm':
+                echo $this->model->ajaxPTCommnet();
+                die();
+                break;
 
             default:
                 $view->setLayout('default');
