@@ -58,7 +58,7 @@ defined("_JEXEC") or die;
 
                   }else{
                       jQuery.ajax({
-                           url: "index.php?option=com_tz_pinboard&view=detail&task=tz.insert.commnet&Itemid=<?php echo JRequest::getVar('Itemid');?>",
+                           url: "index.php?option=com_tz_pinboard&view=detail&task=tz.insert.comment&Itemid=<?php echo JRequest::getVar('Itemid');?>",
                            type: "post",
                            data: {
                                id_pins: jQuery("#tz_hd_id_pin").val(),
@@ -75,7 +75,7 @@ defined("_JEXEC") or die;
           });
         jQuery(".tz_comment_delete").live("click",function(){
            jQuery.ajax({
-               url: "index.php?option=com_tz_pinboard&view=detail&task=tz.delete.commnet",
+               url: "index.php?option=com_tz_pinboard&view=detail&task=tz.delete.comment",
                 type: "post",
                data:{
                    id: jQuery(this).attr("data-option-id"),
@@ -87,7 +87,7 @@ defined("_JEXEC") or die;
                          jQuery(".tz_content_cm ul").html(getData.contents);
                    });
         });
-      jQuery("#tz_commnet_pt_a").live("click",function(){
+      jQuery("#tz_comment_pt_a").live("click",function(){
                jQuery.ajax({
                    url:"index.php?option=com_tz_pinboard&view=detail&task=tz.ajax.pt.cm",
                    type: "post",
@@ -98,14 +98,14 @@ defined("_JEXEC") or die;
                }).success(function(data){
                      data =  data.replace(/^\s+|\s+$/g,'');
                   if(data==""){
-                      jQuery("#tz_commnet_pt_a").css("display","none");
-                      jQuery("#tz_commnet_pt_emty").css("display","block");
+                      jQuery("#tz_comment_pt_a").css("display","none");
+                      jQuery("#tz_comment_pt_emty").css("display","block");
                   } else{
 
                       jQuery(".tz_content_cm ul").prepend(data);
-                        var pages =  jQuery("#tz_commnet_pt_a").attr("data-optio-page");
+                        var pages =  jQuery("#tz_comment_pt_a").attr("data-optio-page");
                          var pages = parseInt(pages)+1;
-                      jQuery("#tz_commnet_pt_a").attr("data-optio-page",pages);
+                      jQuery("#tz_comment_pt_a").attr("data-optio-page",pages);
                   }
                        });
             });

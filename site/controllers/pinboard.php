@@ -58,12 +58,12 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 die();
                 break;
 
-            case'tz.insert.commnet_cm':
-                echo json_encode($this->model->ajaxcommnet_cm());
+            case'tz.insert.comment_cm':
+                echo json_encode($this->model->ajaxcomment_cm());
                 die();
                 break;
             case'tz.pt.cm':
-                echo $this->model->ajaxPTCommnet();
+                echo $this->model->ajaxPTComment();
                 die();
                 break;
 

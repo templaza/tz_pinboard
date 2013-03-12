@@ -55,15 +55,7 @@ class TZ_PinboardControllerSearch extends JControllerAdmin{
                 die();
                 break;
 
-            case'tz_repin_insert':
-                echo  $this->model->insertRepinAll();
-                die();
-                break;
 
-            case'tz.insert.commnet_cm':
-                echo json_encode($this->model->ajaxcommnet_cm());
-                die();
-                break;
 
             default:
                 $view->setLayout('default');

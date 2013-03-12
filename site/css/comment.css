@@ -46,7 +46,7 @@
     font-family: georgia;
     text-align: center;
 }
-.tz_commnet_pt_span{
+.tz_comment_pt_span{
     padding-top: 3px;
     padding-left: 5px;
     display: block;
@@ -55,13 +55,13 @@
     text-align: center;
 
 }
-.tz_commnet_pt_span:hover{
+.tz_comment_pt_span:hover{
     color: #c0c0c0;
 }
-.tz_commnet_pt_span span{
+.tz_comment_pt_span span{
     color: navy;
 }
-.tz_commnet_pt_span_empty{
+.tz_comment_pt_span_empty{
     padding-top: 5px;
     padding-left: 5px;
     display: none;
@@ -69,14 +69,14 @@
     font-family: georgia;
 
 }
-.tz_more_conten_commnet_imgs{
+.tz_more_conten_comment_imgs{
     width: 40px;
     height: 35px;
     position:  absolute;
     left: 5px;
     top: 8px;
 }
-.tz_more_conten_commnet_p_names{
+.tz_more_conten_comment_p_names{
     width: 70%;
     height: auto;
     font-family: georgia;
@@ -88,7 +88,7 @@
 
 }
 
-.tz_more_conten_commnet_ps{
+.tz_more_conten_comment_ps{
     width: 78%;
     height: auto;
     font-family: georgia;
@@ -96,7 +96,7 @@
     color: #666666;
 
 }
-.tz_more_conten_commnet_dates{
+.tz_more_conten_comment_dates{
     font-family: georgia;
     height: auto;
     margin-left: 58px;
@@ -116,7 +116,7 @@
     height: 40px;
     left: 5px;
 }
-.tz_commnet_add_pin{
+.tz_comment_add_pin{
     width: 64%;
     height: 30px;
     overflow-y: scroll;

@@ -31,8 +31,9 @@ class TZ_PinboardViewPinboard extends JViewLegacy{
         $img_size       = $state->get('portfolio_image_size') ;
         $text_commnet   = $state->get('Limits_comment') ;
         $page_commnet   = $state->get('page_commnet');
-
         $width_columns  = $state->get('width_columns');
+        $show_date_comment  = $state->get('show_date_comment');
+        $this->assign('show_date',$show_date_comment);
         $this->assign('page_com',$page_commnet);
         $this->assign('limit_pin',$limit_pin);
         $this->assign('type_detail',$type_detail);

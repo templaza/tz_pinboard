@@ -683,7 +683,7 @@
     left: 0px;
 
 }
-.tz_buttom_repin{
+.tz_button_repin{
     width: 68px;
     height: 30px;
     cursor: pointer;
@@ -701,12 +701,12 @@
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
 }
-.tz_buttom_repin:hover{
+.tz_button_repin:hover{
     box-shadow: 1px 3px 5px rgba(34, 25, 25, 0.4);
 
 
 }
-.tz_buttom_repin span{
+.tz_button_repin span{
     text-align: center;
     padding-top: 5px;
     display: block;
@@ -800,7 +800,7 @@
     cursor: pointer;
     color: #6B6B6B;
 }
-.tz_buttom_pins{
+.tz_button_pins{
     position: absolute;
     width: auto;
     height: 50px;
@@ -810,7 +810,7 @@
     left: 0px;
 
 }
-.tz_buttom_repin{
+.tz_button_repin{
     width: 68px;
     height: 30px;
     display: block;
@@ -829,12 +829,12 @@
 }
 
 
-.tz_buttom_repin:hover{
+.tz_button_repin:hover{
     box-shadow: 1px 3px 5px rgba(34, 25, 25, 0.4);
 
 
 }
-.tz_buttom_repin span{
+.tz_button_repin span{
     text-align: center;
     padding-top: 5px;
     display: block;
@@ -842,7 +842,7 @@
     font-size: 12px;
     font-family: georgia;
 }
-.tz_pin_content_class:hover .tz_buttom_pins{
+.tz_pin_content_class:hover .tz_button_pins{
     display: block;
     cursor: pointer;
 }

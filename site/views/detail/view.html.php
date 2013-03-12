@@ -25,7 +25,8 @@ defined("_JEXEC") or die;
                     $page_commnet = $sate->get('page_commnet');
                     $show_tags_detail = $sate->get('show_tags_detail');
                     $show_tags_title = $sate->get('show_tags_title');
-
+                    $show_date_comment  = $sate->get('show_date_comment');
+                    $this->assign('show_date',$show_date_comment);
                     $this->assign('page_commnet',$page_commnet);
                     $this->assign('show_title',$show_tags_title);
                     $this->assign('show_tags',$show_tags_detail);

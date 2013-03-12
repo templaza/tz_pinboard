@@ -49,6 +49,8 @@ class TZ_PinboardModelSearch extends JModelList{
         $arrangements_pins = $params->get('arrangements_pins');
         $search = JRequest::getString('tz_search');
         $tz_pin_approve = $params->get('tz_pin_approve');
+        $show_date_comment  = $params->get('show_date_comment');
+        $this->setState('show_date',$show_date_comment);
         $this->setState('image_thum',$image_thum);
         $this->setState('type_detail',$type_detail);
         $this->setState('arrangements_pins',$arrangements_pins);
@@ -390,6 +392,8 @@ class TZ_PinboardModelSearch extends JModelList{
         $width_columns  = $this->getState('width_columns');
         $tz_layout      = $this->getState('tz_layout');
         $type_detail    = $this->getState('type_detail');
+        $show_date = $this->getState('show_date');
+        $view->assign('show_date',$show_date);
         $view->assign('page_com',$page_cm);
         $view->assign('type_detail',$type_detail);
         $view->assign('Limit_comment',$text_commnet);

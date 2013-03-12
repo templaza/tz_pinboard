@@ -46,6 +46,8 @@ class TZ_PinboardModelTags extends JModelList{
         $type_detail    =   $params->get('type_detail');
         $page_commnet   = $params->get('page_commnet');
         $image_thum     = $params->get('portfolio_image_size');
+        $show_date_comment  = $params->get('show_date_comment');
+        $this->setState('show_date',$show_date_comment);
         $tag_id = JRequest::getInt('id_tag');
         $this->setState('image_thum',$image_thum);
         $this->setState('page_cm',$page_commnet);
@@ -326,12 +328,14 @@ class TZ_PinboardModelTags extends JModelList{
         $limitstart1=   $limit * ($page-1);
         $offset     = (int) $limitstart1;
         $this -> setState('limitstar',$offset);
-        $text_commnet   = $this->getStart('limit_commnet');
+        $text_commnet   = $this->getState('limit_commnet');
         $img_size       = $this->getState('image_thum');
         $width_columns  = $this->getState('width_columns');
         $tz_layout      = $this->getState('tz_layout');
         $type_detail    = $this->getState('type_detail');
         $page_cm        = $this->getState('page_cm');
+        $show_date = $this->getState('show_date');
+        $view->assign('show_date',$show_date);
         $view->assign('page_com',$page_cm);
         $view->assign('type_detail',$type_detail);
         $view->assign('Limit_comment',$text_commnet);

@@ -24,8 +24,9 @@ class TZ_PinboardModelDetail extends JModelList{
         function populateState(){
             $app            = &JFactory::getApplication();
             $params         = $app -> getParams();
-            $page_commnet   = $params->get('page_commnet');
             $this -> setState('params',$params);
+            $show_date_comment  = $params->get('show_date_comment');
+            $page_commnet       = $params->get('page_commnet_detail');
             $detail_image_size  = $params->get('pinboard_image_size');
             $delete_text_cm     = $params->get('remove_comment');
             $change_comment     = $params->get('changecomment');
@@ -33,6 +34,8 @@ class TZ_PinboardModelDetail extends JModelList{
             $limit_commnet      = $params->get('Limits_comment');
             $show_tags_detail   = $params->get('show_tags_detail');
             $show_tags_title    = $params->get('show_tags_title');
+
+            $this->setState('show_date',$show_date_comment);
             $this->setState('pinboard_image_size',$detail_image_size);
             $this->setState('show_tags_title',$show_tags_title);
             $this->setState('show_tags_detail',$show_tags_detail);
@@ -218,7 +221,7 @@ class TZ_PinboardModelDetail extends JModelList{
             $db->setQuery($sql);
             $db->query();
         }
-        function ajaxCommnet(){
+        function ajaxcomment(){
             if (!isset($_SERVER['HTTP_REFERER'])) return null;
             $refer  =   $_SERVER['HTTP_REFERER'];
             $url_arr=   parse_url($refer);
@@ -226,6 +229,8 @@ class TZ_PinboardModelDetail extends JModelList{
             $this->Insert_comment_Content();
             require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'detail'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
             $view = new TZ_PinboardViewDetail();
+            $showdate = $this->getState('show_date');
+            $view->assign('show_date',$showdate);
             $view-> assign('sosanhuser',$this->getSosanhuser());
             $view->assign('ShowCommnet',$this->getShowcommnetInsert());
             $arr = array();
@@ -234,7 +239,7 @@ class TZ_PinboardModelDetail extends JModelList{
             return $arr;
         }
 
-        function ajaxdeletecommnet(){
+        function ajaxdeletecomment(){
             if (!isset($_SERVER['HTTP_REFERER'])) return null;
             $refer  =   $_SERVER['HTTP_REFERER'];
             $url_arr=   parse_url($refer);
@@ -242,6 +247,8 @@ class TZ_PinboardModelDetail extends JModelList{
             $this->DeleteCommnet();
             require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'detail'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
             $view = new TZ_PinboardViewDetail();
+            $showdate = $this->getState('show_date');
+            $view->assign('show_date',$showdate);
             $view-> assign('sosanhuser',$this->getSosanhuser());
             $view->assign('ShowCommnet',$this->getShowCommnet());
             $arr = array();
@@ -250,7 +257,7 @@ class TZ_PinboardModelDetail extends JModelList{
             return $arr;
         }
 
-        function ajaxphantrangCommnet(){
+        function ajaxphantrangcomment(){
             if (!isset($_SERVER['HTTP_REFERER'])) return null;
             $refer  =   $_SERVER['HTTP_REFERER'];
             $url_arr=   parse_url($refer);
@@ -261,7 +268,10 @@ class TZ_PinboardModelDetail extends JModelList{
             $limit  = $this ->getState('page_cm');
             $limitstart1=   $limit * ($page-1);
             $offset = (int) $limitstart1;
+
             $this -> setState('star_page_cm',$offset);
+            $show_date = $this->getState('show_date');
+            $view->assign('show_date',$show_date);
             $view-> assign('sosanhuser',$this->getSosanhuser());
             $view->assign('ShowCommnet',$this->getShowCommnet());
             return $view->loadTemplate('comment');
@@ -275,6 +285,9 @@ class TZ_PinboardModelDetail extends JModelList{
             $show_tags_title = $this->getState('show_tags_title');
             $show_tags_detail = $this->getState('show_tags_detail');
             $page_cm = $this->getState('page_cm');
+
+            $showdate = $this->getState('show_date');
+            $view->assign('show_date',$showdate);
             $view->assign('page_commnet',$page_cm);
             $view->assign('show_title',$show_tags_title);
             $view->assign('show_tags',$show_tags_detail);

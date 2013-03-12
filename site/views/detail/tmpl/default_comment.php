@@ -37,9 +37,11 @@ defined("_JEXEC") or die;
                             <p class="tz_comment_cn">
                                      <?php echo $row_cm->content_cm; ?>
                             </p>
-                            <p class="tz_comment_dt">
-                               <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_TIME') ?>:  <?php echo date('Y F d',strtotime($row_cm->dates)); ?>
-                            </p>
+                            <?php if(isset($this->show_date) && $this->show_date ==1){ ?>
+                                <p class="tz_comment_dt">
+                                   <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_TIME') ?>:  <?php echo date('Y F d',strtotime($row_cm->dates)); ?>
+                                </p>
+                            <?php } ?>
                             <?php if($this->sosanhuser == $row_cm->id_user || $this->sosanhuser == $row_cm->create_by){ ?>
                                  <img class="tz_comment_delete" data-option-id=<?php echo $row_cm->id_comment ?> data-option-text=<?php echo $row_cm->content_id_cm; ?>  src="<?php echo JUri::root().'/components/com_tz_pinboard/images/delete3.png'?>" >
                             <?php } ?>

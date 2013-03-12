@@ -354,6 +354,17 @@
                   <option value="0">JHIDE</option>
 
           </field>
+        <field
+                name="show_date_comment"
+                type="radio"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_COMMENT_SHOW_DATE"
+                default="1"
+                description="COM_TZ_PINBOARD_COMMENT_APPROVE_DESCRIPTION">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+
+        </field>
         <field name="Limits_comment"
                    type="text"
                    class="btn-group"
@@ -370,6 +381,14 @@
                    description="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMENT_DESCRIPTION">
 
            </field>
+            <field name="page_commnet_detail"
+                   type="text"
+                   class="btn-group"
+                   label="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMNET_DETAIL"
+                   default="5"
+                   description="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMENT_DETAIL_DESCRIPTION">
+
+            </field>
            <field
                    name="remove_comment"
                    type="textarea"

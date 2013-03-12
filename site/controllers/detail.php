@@ -30,16 +30,16 @@ defined("_JEXEC") or die;
                     $view->setModel($model,true);
                      $task = JRequest::getCmd('task');
                    switch($task){
-                       case'tz.insert.commnet':
-                             echo json_encode($model->ajaxCommnet());
+                       case'tz.insert.comment':
+                             echo json_encode($model->ajaxcomment());
                              die();
                             break;
-                       case'tz.delete.commnet':
-                            echo json_encode($model->ajaxdeletecommnet());
+                       case'tz.delete.comment':
+                            echo json_encode($model->ajaxdeletecomment());
                              die();
                             break;
                        case'tz.ajax.pt.cm':
-                         echo $model->ajaxphantrangCommnet();
+                         echo $model->ajaxphantrangcomment();
                          die();
                         break;
                        case'tz.detail.pins':
