@@ -17,13 +17,22 @@
     background: #F8F8F8;
     position:  relative;
     margin: 47px auto;
-    z-index: 3000;
+    z-index: 3500;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
     padding-top: 10px;
     display: none;
 
 
 
+}
+#tz_warp_hide{
+  top:0;
+    bottom: 0;
+    right: 2%;
+    width: 98%;
+    position: absolute;
+
+    z-index: 3200;
 }
 .tz_a_center{
     text-align:  center;

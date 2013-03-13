@@ -7,7 +7,7 @@
 	<license>GNU/GPL v2 or later http://www.gnu.org/licenses/gpl-2.0.html</license>
 	<authorEmail>tunn@templaza.com</authorEmail>
 	<authorUrl>www.templaza.com/</authorUrl>
-	<version>3.0.2</version>
+	<version>3.0.1</version>
 	<description>TZ Pinboard native for Joomla! 3.0.x</description>
     <installfile>install.tz_pinboard.php</installfile>
     <uninstallfile>uninstall.tz_pinboard.php</uninstallfile>
@@ -100,6 +100,7 @@
 			<field name="tz_image_xlarge" default="900"/>
             <field name="mymenuitem" default="110" />
 			<field name="state_boar" default="1"/>
+            <field name="related_pin" default="12"/>
 			<field name="limits_Board_Pin" default="10"/>
 			<field name="text_boar" default="100"/>
 			<field name="text_boar_description" default="100"/>

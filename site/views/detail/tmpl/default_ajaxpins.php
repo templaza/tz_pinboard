@@ -148,15 +148,15 @@ defined("_JEXEC") or die;
                     <ul>
                          <?php echo $this->loadTemplate('comment'); ?>
                    </ul>
-            <?php if((int)$this->page_commnet < (int)$this->Demcommnet->number_id){ ?>
-                    <div class="thumbnails">
-                        <a id="tz_comment_pt_a" data-optio-page="2" class="btn btn-large btn-block">
-                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LOAD_MORE'); ?>
-                        </a>
-                        <a id="tz_comment_pt_emty">
-                           <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_NOT_PAGES'); ?>
-                        </a>
-                      </div>
-                <?php } ?>
+                    <?php if((int)$this->page_commnet < (int)$this->Demcommnet->number_id){ ?>
+                        <div class="thumbnails">
+                            <a id="tz_comment_pt_a" data-optio-page="2" class="btn btn-large btn-block">
+                                <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LOAD_MORE'); ?>
+                            </a>
+                            <a id="tz_comment_pt_emty">
+                               <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_NOT_PAGES'); ?>
+                            </a>
+                          </div>
+                      <?php } ?>
             </div>
 

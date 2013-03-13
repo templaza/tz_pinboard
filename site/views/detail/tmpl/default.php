@@ -32,6 +32,14 @@ defined("_JEXEC") or die;
                 document.getElementById('tz_comment_erroc_p').innerHTML="";
             
          });
+        // add css
+        jQuery('.tz_content_cm ul li').live("mouseenter",function(){
+            jQuery(this).addClass("Tz_delete");
+        });
+        jQuery('.tz_content_cm ul li').live("mouseleave",function(){
+            jQuery(this).removeClass("Tz_delete");
+        }); // and add css
+
          jQuery('#tz_comment').live("focus",function(){
                     var textra = jQuery('#tz_comment').val();
                      jQuery('#tz_comment').keyup(function(){
@@ -73,7 +81,8 @@ defined("_JEXEC") or die;
                                });
                     }
           });
-        jQuery(".tz_comment_delete").live("click",function(){
+        jQuery(".Tz_delete .tz_comment_delete").live("click",function(){
+            jQuery(".Tz_delete").addClass("tz_d");
            jQuery.ajax({
                url: "index.php?option=com_tz_pinboard&view=detail&task=tz.delete.comment",
                 type: "post",
@@ -84,7 +93,8 @@ defined("_JEXEC") or die;
            }).success(function(data){
                          var getData = jQuery.parseJSON(data);
                          jQuery("#tz_count_number").html(getData.count_number);
-                         jQuery(".tz_content_cm ul").html(getData.contents);
+                        jQuery(".tz_d").remove();
+                         //jQuery(".tz_content_cm ul").html(getData.contents);
                    });
         });
       jQuery("#tz_comment_pt_a").live("click",function(){

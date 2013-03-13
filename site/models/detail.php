@@ -34,7 +34,8 @@ class TZ_PinboardModelDetail extends JModelList{
             $limit_commnet      = $params->get('Limits_comment');
             $show_tags_detail   = $params->get('show_tags_detail');
             $show_tags_title    = $params->get('show_tags_title');
-
+            $related_pin        = $params->get('related_pin');
+            $this->setState('related_pins',$related_pin);
             $this->setState('show_date',$show_date_comment);
             $this->setState('pinboard_image_size',$detail_image_size);
             $this->setState('show_tags_title',$show_tags_title);
@@ -81,11 +82,12 @@ class TZ_PinboardModelDetail extends JModelList{
 
 
         function DetailBoardpins($id){
+            $start = $this->getState('related_pins');
             $db = &JFactory::getDbo();
             $sql ="SELECT c.catid AS catid_cm, c.created_by as created_by_c, xr.images AS xr_img
                     FROM #__tz_pinboard_pins AS c
                         LEFT JOIN #__tz_pinboard_xref_content AS xr ON c.id = xr.contentid
-                    WHERE c.catid=$id order by c.created desc limit 0,12";
+                    WHERE c.catid=$id order by c.created desc limit 0,$start";
             $db->setQuery($sql);
             $row = $db->loadObjectList();
             return $row;

@@ -214,11 +214,11 @@ class Tz_pinboardModelManageruser extends JModelList{
              $number_like = $this->CountLike($item->content_id);
 
             $item->number_like = $number_like;
-            $number_comment = $this->demComment($item->content_id);
+            $number_comment = $this->countComment($item->content_id);
             $item->number_comment = $number_comment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
-           $show_comment = $this->getShowCommnet($item->content_id);
+           $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
             }
             return $row;
@@ -303,11 +303,11 @@ class Tz_pinboardModelManageruser extends JModelList{
              $number_like = $this->CountLike($item->content_id);
             
             $item->number_like = $number_like;
-            $number_comment = $this->demComment($item->content_id);
+            $number_comment = $this->countComment($item->content_id);
             $item->number_comment = $number_comment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
-           $show_comment = $this->getShowCommnet($item->content_id);
+           $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
 
         }
@@ -749,11 +749,11 @@ class Tz_pinboardModelManageruser extends JModelList{
              $number_like = $this->CountLike($item->content_id);
 
             $item->number_like = $number_like;
-            $number_comment = $this->demComment($item->content_id);
+            $number_comment = $this->countComment($item->content_id);
             $item->number_comment = $number_comment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
-           $show_comment = $this->getShowCommnet($item->content_id);
+           $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
         }
         return $row;
@@ -787,7 +787,7 @@ class Tz_pinboardModelManageruser extends JModelList{
     /*
      *  method count the number comment to pin
      */
-    function demComment($id_content){
+    function countComment($id_content){
         $db     = JFactory::getDbo();
         $sql    ="select count(id) as count_l from #__tz_pinboard_comment where content_id=$id_content";
         $db->setQuery($sql);
@@ -1284,7 +1284,7 @@ class Tz_pinboardModelManageruser extends JModelList{
 
 
 
-function getShowCommnet($id_content){
+function getShowComment($id_content){
         $limit_star = $this->getState('star_page_cm');
         $limit = $this->getState('page_cm');
         $db = JFactory::getDbo();

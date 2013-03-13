@@ -221,6 +221,15 @@
                   <option value="1">JSHOW</option>
                   <option value="0">JHIDE</option>
              </field>
+        <field
+                name="related_pin"
+                type="text"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_CONFIG_COLUMN_RELATED_PINS"
+                default="12"
+                description="COM_TZ_PINBOARD_CONFIG_COLUMN_RELATED_PINS_DS">
+
+        </field>
             <field
                     name="column_board"
                     type="text"
@@ -230,15 +239,15 @@
                     description="COM_TZ_PINBOARD_CONFIG_COLUMN_WIDTH_BOARD_DS">
 
             </field>
-             <field
-                    name="limits_Board_Pin"
-                    type="text"
-                    class="btn-group"
-                    label="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD"
-                    default="10"
-                    description="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD">
+         <field
+                name="limits_Board_Pin"
+                type="text"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD"
+                default="10"
+                description="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD">
 
-                </field>
+            </field>
         <field name="text_boar"
                         type="text"
                        label="COM_TZ_PINBOARD_CONFIG_TEXT_BOARD"

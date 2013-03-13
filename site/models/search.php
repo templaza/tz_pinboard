@@ -175,7 +175,7 @@ class TZ_PinboardModelSearch extends JModelList{
                     LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                     LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids";
     
-        $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+        $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,c.hits as content_hit, pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                         c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
                         us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
@@ -199,11 +199,11 @@ class TZ_PinboardModelSearch extends JModelList{
         foreach($row as $item){
             $check_l = $this->chekcLikeUser($item->content_id);
             $item->checl_l = $check_l;
-            $demL = $this->countLike($item->content_id);
-            $item->demL = $demL;
+            $countL = $this->countLike($item->content_id);
+            $item->countL = $countL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
-            $show_comment = $this->getShowCommnet($item->content_id);
+            $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
@@ -409,7 +409,7 @@ class TZ_PinboardModelSearch extends JModelList{
 
 
 
-    function getShowCommnet($id_content){
+    function getShowComment($id_content){
         $limit_star = $this->getState('star_page_cm');
         $limit = $this->getState('page_cm');
         $db = JFactory::getDbo();

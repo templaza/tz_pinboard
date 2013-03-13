@@ -39,9 +39,9 @@ if(isset($this->Pins)){
                     </h6>
                 </a>
                 <p class="tz_pinboard_like">
-                    <span class="tz_pin_like"><?php echo $Pins->demL->count_l; ?> <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKES'); ?></span>
+                    <span class="tz_pin_like"><?php echo $Pins->countL->count_l; ?> <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKES'); ?></span>
                     <span class="tz_pin_comment"><?php echo $Pins->countComment->count_l; ?>  <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT'); ?></span>
-                    <span class="tz_pin_hits"><?php echo $Pins->countComment->count_l; ?>  <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_HITS'); ?></span>
+                    <span class="tz_pin_hits"><?php echo  $Pins->content_hit; ?>  <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_HITS'); ?></span>
                 </p>
         <?php if(isset($Pins->tags) && !empty($Pins->tags)){ ?>
                 <p class="tz_pin_tag">
@@ -170,7 +170,7 @@ if(isset($this->Pins)){
                             ?>
                         </ul>
                         <?php
-                        if(isset($Pins->showcomment) && count($Pins->showcomment) >= $this->page_com ){
+                        if(isset($Pins->showcomment) && ($Pins->countComment->count_l >= $this->page_com) ){
                             ?>
                             <div class="tz_ajax_page_cm">
                                 <a class="tz_comment_pt_span" data-optio-page="2" class="btn btn-large btn-block">

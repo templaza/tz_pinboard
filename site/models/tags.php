@@ -145,11 +145,11 @@ class TZ_PinboardModelTags extends JModelList{
         foreach($row as $item){
             $check_l = $this->chekcLikeUser($item->content_id);
             $item->checl_l = $check_l;
-            $demL = $this->countLike($item->content_id);
-            $item->demL = $demL;
+            $countL = $this->countLike($item->content_id);
+            $item->countL = $countL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
-            $show_comment = $this->getShowCommnet($item->content_id);
+            $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
@@ -357,7 +357,7 @@ class TZ_PinboardModelTags extends JModelList{
     /*
      * method  display comment
     */
-    function getShowCommnet($id_content){
+    function getShowComment($id_content){
         $limit_star = $this->getState('star_page_cm');
         $limit = $this->getState('page_cm');
         $db = JFactory::getDbo();

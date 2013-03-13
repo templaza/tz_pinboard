@@ -149,11 +149,11 @@ class TZ_PinboardModelPinboard extends JModelList{
         foreach($row as $item){
             $check_l = $this->chekcLikeUser($item->content_id);
             $item->checl_l = $check_l;
-            $demL = $this->countLike($item->content_id);
-            $item->demL = $demL;
+            $countL = $this->countLike($item->content_id);
+            $item->countL = $countL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
-            $show_comment = $this->getShowCommnet($item->content_id);
+            $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
@@ -518,7 +518,7 @@ class TZ_PinboardModelPinboard extends JModelList{
             $item->countComment = $countComment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
-            $show_comment = $this->getShowCommnet($item->content_id);
+            $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
         }
         return $row;
@@ -661,7 +661,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         }
         return false;
     }
-    function getShowCommnet($id_content){
+    function getShowComment($id_content){
         $limit_star = $this->getState('star_page_cm');
         $limit = $this->getState('page_cm');
         $db = JFactory::getDbo();
@@ -696,7 +696,7 @@ class TZ_PinboardModelPinboard extends JModelList{
     /*
      * method Display comments as insert complete
      */
-    function getShowcommnetInsert(){
+    function getShowCommentInsert(){
         $user = JFactory::getUser();
         $id_user = $user->id;
         $db=JFactory::getDbo();
@@ -727,7 +727,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $showdate = $this->getState('show_date');
         $view->assign('show_date',$showdate);
         $view-> assign('sosanhuser',$this->getIdUser());
-        $view->assign('displayComment',$this->getShowcommnetInsert());
+        $view->assign('displayComment',$this->getShowCommentInsert());
         $arr = array();
         $arr['contents'] = $view->loadTemplate('comments');
         $arr['count_number'] = $this->getDemcommnet()->number_id;
