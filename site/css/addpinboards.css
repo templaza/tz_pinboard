@@ -51,7 +51,7 @@
     top: 12px;
     font-size: 18px;
     font-weight: bold;
-    font-family: georgia;
+   
     left: 20px;
     color: #666666;
 }
@@ -78,7 +78,7 @@
 #tz_pinboard_add_name_gt span{
      padding: 5px;
     text-align: justify;
-       font-family: georgia;
+      
     font-size: 14px;
     text-align:  center;
     color: #666666;
@@ -146,7 +146,7 @@
     display: block;
 }
 .tz_pinboard_add_pin_webiste p{
-     font-family: georgia;
+    
     font-weight:  bold;
     text-align: center;
     font-size: 12px;
@@ -216,7 +216,7 @@
     top: 16px;
     font-size: 18px;
     font-weight: bold;
-    font-family: georgia;
+   
     left: 20px;
     color: #666666;
 }
@@ -297,7 +297,7 @@
      border-radius: 5px;
      height: 26px;
      margin-top: 10px;
-       font-family: georgia;
+      
 }
 #tz_pin_upload_title{
      background: linear-gradient(#FFFCFC, #F0EDED) repeat scroll 0 0 transparent;
@@ -305,7 +305,7 @@
     border-radius: 5px;
     height: 26px;
     margin-top: 10px;
-      font-family: georgia;
+     
   
 }
 #tz_pin_upload_select{
@@ -314,7 +314,7 @@
     border-radius: 5px;
     height: 35px;
     margin-top: 10px;
-      font-family: georgia;
+     
     padding-top:7px;
     
 }
@@ -324,7 +324,7 @@
     margin-top: 5px;
     z-index: 5;
      border-radius: 5px;
-     font-family: georgia;
+    
 }
 #upload_a_pin{
        height: 33px;
@@ -350,23 +350,23 @@
     cursor: pointer;
     width: 110px;
     font-weight: bold;
-      font-family: georgia;
+     
 }
 
 #tz_p_title{
-    font-family: georgia;
+   
     font-size: 16px;
     color: red;
 
 }
 #tz_p_textarea{
-    font-family: georgia;
+   
     font-size: 16px;
     color: red;
 
 }
 #tz_p_local_keyword{
-    font-family: georgia;
+   
       font-size: 16px;
       color: red;
 }
@@ -399,7 +399,7 @@
     top: 16px;
     font-size: 18px;
     font-weight: bold;
-    font-family: georgia;
+   
     left: 20px;
     color:  #666666;
 }
@@ -436,7 +436,7 @@
    border-radius: 5px;
    height: 26px;
    margin-top: 10px;
-     font-family: georgia;
+    
     float: left;;
 
 }
@@ -467,7 +467,7 @@
     width: 120px;
     font-weight: bold;
     display: block;
-      font-family: georgia;
+     
 }
 #tz_pin_loadding{ /* load ding */
     position: absolute;
@@ -534,7 +534,7 @@
     border-radius: 5px;
     height: 26px;
     margin-top: 10px;
-      font-family: georgia;
+     
 
 }
 #tz_pin_url_keygord{
@@ -543,22 +543,22 @@
     border-radius: 5px;
     height: 26px;
     margin-top: 10px;
-      font-family: georgia;
+     
 
 }
 #tz_url_p_keyword{
     font-size: 14px;
-    font-family: georgia;
+   
     color: red;
 }
 #tz_url_p_title{
     font-size: 14px;
-      font-family: georgia;
+     
       color: red;
 }
 #tz_url_p_textarea{
     font-size: 14px;
-        font-family: georgia;
+       
         color: red;
 }
 #tz_pin_url_select{
@@ -567,7 +567,7 @@
     border-radius: 5px;
     height: 35px;
     margin-top: 10px;
-      font-family: georgia;
+     
     padding-top:7px;
 
 }
@@ -577,7 +577,7 @@
     margin-top: 5px;
     z-index: 5;
      border-radius: 5px;
-     font-family: georgia;
+    
 
 }
 #url_a_pin{
@@ -597,7 +597,7 @@
     cursor: pointer;
     width:110px;
     font-weight: bold;
-      font-family: georgia;
+     
 }
 .cler{
     clear: both;
@@ -656,7 +656,7 @@
     left: 30px;
     color: #666666;
 
-    font-family: georgia;
+   
     font-size: 18px;
     font-style: italic;
 }
@@ -681,7 +681,7 @@
       float: left;
       padding-top: 15px;
       font-size: 16px;
-       font-family: georgia;
+      
       color: #666666;
 }
 .tz_create_board_names input{
@@ -690,7 +690,7 @@
     border-radius: 15px;
     margin-top: 10px;
     display: block;
-    font-family: georgia;
+   
        background: rgb(255,255,255); /* Old browsers */
        background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -704,7 +704,7 @@
       clear: both;
     width: 90%;
     padding-bottom: 5px;
-     font-family: georgia;
+    
     margin: auto;
     height: auto;
 
@@ -715,7 +715,7 @@
     float: left;
     padding-top: 25px;
     font-size: 16px;
-     font-family: georgia;
+    
     color: #666666;
 }
 #create_board_warp_form_name_2_textra{
@@ -723,8 +723,8 @@
         max-height: 120px;
         border-radius: 8px;
        margin-top: 12px;
-           font-family: georgia;
-        font-family: georgia;
+          
+       
               background: rgb(255,255,255); /* Old browsers */
               background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
               background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -745,8 +745,8 @@
        margin-top: 10px;
        display: block;
 
-     font-family: georgia;
-       font-family: georgia;
+    
+      
              background: rgb(255,255,255); /* Old browsers */
              background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
              background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -765,7 +765,7 @@
     width: 130px;
        height: 35px !important;
        border-radius: 5px;
-       font-family: georgia;
+      
        font-size: 16px;
        color: #666666;
        background: rgb(255,255,255); /* Old browsers */
@@ -781,7 +781,7 @@
     color: red;
        margin-left: 150px;
        padding-top: 10px;
-       font-family: georgia;
+      
        height: auto;
 
 }
@@ -789,14 +789,14 @@
     color: red;
        margin-left: 150px;
        padding-top: 10px;
-       font-family: georgia;
+      
        height: auto;
 }
 #p_create_decsipt{
     color: red;
     margin-left: 150px;
     padding-top: 10px;
-    font-family: georgia;
+   
     height: auto;
 
 }
@@ -804,7 +804,7 @@
     color: red;
      margin-left: 150px;
      padding-top: 10px;
-     font-family: georgia;
+    
      height: auto;
 
 }

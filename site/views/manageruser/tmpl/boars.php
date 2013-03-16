@@ -24,6 +24,7 @@ defined("_JEXEC") or die;
     require_once $pth_c;
     jimport('joomla.html');
 
+
 ?>
 <script type="text/javascript">
     /*
@@ -194,6 +195,7 @@ defined("_JEXEC") or die;
                                 <img  src="<?php echo JUri::root().'/'.$img_type_replaca ?>" alt="">
                             </a>
                             <?php } ?>
+                            <div class="cler"></div>
                         </li>
                         <?php
                             if($rowname->created_user_id ==$this->sosanhuser){
@@ -262,7 +264,11 @@ defined("_JEXEC") or die;
                                 <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_NAME_USER'); ?>
                             </span>
                             <a>
-                                <?php echo $this->userInfo->uname ; ?>
+                                <?php
+                                    if(isset($this->userInfo->uname)){
+                                        echo $this->userInfo->uname ;
+                                    }
+                                ?>
                             </a>
                             <p class="cler"></p>
                         </p>
@@ -271,7 +277,11 @@ defined("_JEXEC") or die;
                                 <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_EMAIL_USER'); ?>
                             </span>
                             <a>
-                                <?php echo $this->userInfo->uemail ; ?>
+                                <?php
+                                     if(isset($this->userInfo->uemail)){
+                                        echo $this->userInfo->uemail ;
+                                     }
+                                ?>
                             </a>
                             <p class="cler"></p>
                         </p>
@@ -280,7 +290,11 @@ defined("_JEXEC") or die;
                                 <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_DATE_USER'); ?>
                             </span>
                             <a>
-                                <?php echo date('Y F d, g:i a',strtotime($this->userInfo->udate));  ?>
+                                <?php
+                                    if(isset($this->userInfo->udate)){
+                                        echo date(JText::_('TZ_PINBOARD_DATE_FOMAT'),strtotime($this->userInfo->udate));
+                                    }
+                                ?>
                             </a>
                             <p class="cler"></p>
                         </p>

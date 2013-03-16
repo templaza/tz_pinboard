@@ -57,7 +57,7 @@
     top: 17px;
     left: 56px;
     font-size: 16px;
-    font-family: georgia;
+   
 }
 #tz_pinboard_warp_menu ul li strong{
     color: #000000;
@@ -130,7 +130,7 @@
     left: 30px;
     color: #666666;
 
-    font-family: georgia;
+   
     font-size: 18px;
     font-style: italic;
 }
@@ -170,7 +170,7 @@
     float: left;
     padding-top: 15px;
     font-size: 16px;
-     font-family: georgia;
+    
     color: #666666;
 }
 .create_board_warp_form_name input{
@@ -179,7 +179,7 @@
     border-radius: 15px;
     margin-top: 10px;
     display: block;
-    font-family: georgia;
+   
        background: rgb(255,255,255); /* Old browsers */
        background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -193,7 +193,7 @@
       clear: both;
     width: 90%;
     padding-bottom: 5px;
-     font-family: georgia;
+    
     margin: auto;
     height: auto;
 
@@ -205,7 +205,7 @@
     float: left;
     padding-top: 25px;
     font-size: 16px;
-     font-family: georgia;
+    
     color: #666666;
 }
 #tz_board_textra{
@@ -213,8 +213,8 @@
     max-height: 120px;
     border-radius: 8px;
    margin-top: 12px;
-       font-family: georgia;
-    font-family: georgia;
+      
+   
           background: rgb(255,255,255); /* Old browsers */
           background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
           background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -234,8 +234,8 @@
     padding-top: 5px;
     margin-top: 10px;
     display: block;
-  font-family: georgia;
-    font-family: georgia;
+ 
+   
           background: rgb(255,255,255); /* Old browsers */
           background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
           background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
@@ -276,7 +276,7 @@
     color: red;
        margin-left: 150px;
        padding-top: 10px;
-       font-family: georgia;
+      
        height: auto;
 
 }
@@ -284,7 +284,7 @@
     color: red;
        margin-left: 150px;
        padding-top: 10px;
-       font-family: georgia;
+      
        height: auto;
 
 }
@@ -292,7 +292,7 @@
     color: red;
     margin-left: 150px;
     padding-top: 10px;
-    font-family: georgia;
+   
     height: auto;
 
 }
@@ -304,7 +304,7 @@
     width: auto;
     height: auto;
    color: red;
-    font-family: georgia;
+   
     display: block;
     padding-left: 150px;
 }
@@ -313,7 +313,7 @@
         width: auto;
     height: auto;
    color: red;
-    font-family: georgia;
+   
     display: none;
     padding-left: 150px;
 }
@@ -377,7 +377,7 @@
      padding: 7px;
      position: absolute;
      top: 11%;
-    font-family: georgia;
+   
     display: none;
 }
 .tz_conten_board_class_h5{
@@ -395,7 +395,7 @@
     font-weight: 300;
      color: #666666;
     font-size: 15px;
-     font-family: georgia;
+    
  
    
 
@@ -406,7 +406,7 @@
     display: block;
     color: #3c452d;
      font-weight: 500;
-    font-family: georgia;
+   
     font-size: 11px;
 }
 .tz_conten_board_firs{
@@ -444,7 +444,7 @@
     width: 100%;
     height: 50px;
     clear: both;
-
+    overflow: hidden;
 
 
 }
@@ -455,8 +455,6 @@
     border-right:  1px solid white;
     display: block;
     overflow: hidden;
-
-
 }
 .tz_conten_board_firs_3 span:last-child{
      border-right:  none;
@@ -483,7 +481,7 @@
     padding-bottom: 8px;
     font-size: 14px;
     color: #666666;
-    font-family: georgia;
+   
    
     
 }
@@ -619,7 +617,7 @@
 #tz_board_more_board_name span:first-child{
 
     padding-top: 20px;
-    font-family: georgia;
+   
     color: #666666;
  display: block;
     font-size: 25px;
@@ -660,7 +658,7 @@
     display: block;
     background: #e0e0e0;
     color: #666666;
-    font-family: georgia;
+   
     overflow: hidden;
 }
 .tz_boar_more_pin_web:hover{
@@ -683,36 +681,19 @@
     left: 0px;
 
 }
-.tz_buttom_repin{
-    width: 68px;
-    height: 30px;
-    cursor: pointer;
-    display: block;
-    border-radius: 5px;
-    margin-left: 4px;
-    float: left;
-    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-    background: rgb(255,255,255); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-}
-.tz_buttom_repin:hover{
+
+.tz_button_repin:hover{
     box-shadow: 1px 3px 5px rgba(34, 25, 25, 0.4);
 
 
 }
-.tz_buttom_repin span{
+.tz_button_repin span{
     text-align: center;
     padding-top: 5px;
     display: block;
     color: #666666;
     font-size: 12px;
-    font-family: georgia;
+   
 }
 .tz_board_more_board_pin:hover .tz_buttom_board{
     display: block;
@@ -774,7 +755,7 @@
     height: auto;
     padding: 10px;
     overflow: hidden;
-    font-family: georgia;
+   
     color: #666666;
 
 }
@@ -788,7 +769,7 @@
     display: block;
     background: #E0E0E0;
     color: #606060;
-    font-family: georgia;
+   
     overflow: hidden;
 
 }
@@ -800,7 +781,7 @@
     cursor: pointer;
     color: #6B6B6B;
 }
-.tz_buttom_pins{
+.tz_button_pins{
     position: absolute;
     width: auto;
     height: 50px;
@@ -810,39 +791,11 @@
     left: 0px;
 
 }
-.tz_buttom_repin{
-    width: 68px;
-    height: 30px;
-    display: block;
-    border-radius: 5px;
-    margin-left: 4px;
-    float: left;
-    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-    background: rgb(255,255,255); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-}
 
 
-.tz_buttom_repin:hover{
-    box-shadow: 1px 3px 5px rgba(34, 25, 25, 0.4);
 
 
-}
-.tz_buttom_repin span{
-    text-align: center;
-    padding-top: 5px;
-    display: block;
-    color: #666666;
-    font-size: 12px;
-    font-family: georgia;
-}
-.tz_pin_content_class:hover .tz_buttom_pins{
+.tz_pin_content_class:hover .tz_button_pins{
     display: block;
     cursor: pointer;
 }
@@ -944,7 +897,7 @@ a:focus{
     top:12px;
     color: #666666;
    font-size: 15px;
-   font-family: georgia;
+  
     font-style:  italic;
 
 }
@@ -966,7 +919,7 @@ a:focus{
          top: 5px;
             right: 3px;
     color: #666666;
-    font-family: georgia;
+   
     background: rgb(238,238,238); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
@@ -996,7 +949,7 @@ a:focus{
     padding-bottom: 70px;
     color: #666666;
     font-size: 24px;
-    font-family: georgia;
+   
 }
 .tz_pin_following_button_a img{
     width: 48px;

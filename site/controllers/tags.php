@@ -28,10 +28,10 @@ class TZ_PinboardControllerTags extends JControllerAdmin{
 
     function display(){
 
-        $doc            =   &JFactory::getDocument();
+        $doc            =   JFactory::getDocument();
         $type           =   $doc->getType();
-        $view           =   &$this->getView('tags',$type);
-        $this->model    =   &$this->getModel('tags');
+        $view           =   $this->getView('tags',$type);
+        $this->model    =   $this->getModel('tags');
         $view->setModel($this->model,true);
         $task           = JRequest::getCmd('task');
         switch($task){

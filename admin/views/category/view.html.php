@@ -167,6 +167,6 @@ class TZ_PinboardViewCategory extends JViewLegacy
 		else {
 			$url = null;
 		}
-		JToolBarHelper::help($ref_key, JComponentHelper::getParams( $component )->exists('helpURL'), $url, $component);
+		//JToolBarHelper::help($ref_key, JComponentHelper::getParams( $component )->exists('helpURL'), $url, $component);
 	}
 }

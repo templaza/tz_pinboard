@@ -22,7 +22,7 @@
     top: 30px;
     left: 110px;
     font-size: 20px;
-        font-family: georgia;
+       
      color: #0088CC;
 }
 #tz_pinboard_warp_edit_herder button{
@@ -36,7 +36,7 @@
      color: #0088CC;
     background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
     text-align: center;
-     font-family: georgia;
+    
      border: 1px solid #B7B7B7;
 
     cursor: pointer;
@@ -67,7 +67,7 @@
     width: 30%;
     height: 100%;
     float: left;
-     font-family: georgia;
+    
     padding-top: 20px;
     padding-left: 30px;
     font-size: 16px;
@@ -77,14 +77,14 @@
     height: 28px;
     border-radius: 8px;
    margin-top: 12px;
-       font-family: georgia;
+      
 }
 #aliasboard{
     width: 360px;
     height: 28px;
     border-radius: 8px;
    margin-top: 12px;
-       font-family: georgia;
+      
 }
 #tz_edit_board_1_select{
     width: 380px;
@@ -92,14 +92,14 @@
     border-radius: 8px;
    margin-top: 20px;
     padding-top: 6px;
-       font-family: georgia;
+      
  
 }
 .tz_edit_board_1 span:first-child{
         width: 30%;
     height: auto;
     float: left;
-     font-family: georgia;
+    
     padding-top: 20px;
     padding-left: 30px;
     font-size: 16px;
@@ -108,7 +108,7 @@
 #tz_pinboard_warp_edit_content_1_span_last{
     width: auto;
     height: auto;
-        font-family: georgia;
+       
        padding-top: 20px;
        padding-left: 33px;
        font-size: 16px;
@@ -128,7 +128,7 @@
             width: 30%;
     height: 100%;
     float: left;
-     font-family: georgia;
+    
     padding-top: 20px;
     padding-left: 30px;
     font-size: 16px;
@@ -138,7 +138,7 @@
     max-height: 120px;
     border-radius: 8px;
      margin-top: 12px;
-    font-family: georgia;
+   
     padding: 8px;;
 
  
@@ -160,7 +160,7 @@
     padding: 0.2em 0.2em 0.25em;
     background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
     text-align: center;
-     font-family: georgia;
+    
      border: 1px solid #B7B7B7;
      color: #606060;
     cursor: pointer;
@@ -207,10 +207,10 @@
 .tz_pinboard_delete__p{
     width: auto;
     height: 30px;
-    font-family: georgia;
+   
     padding-top: 10px;
     padding-left:23px;
-         font-family: georgia;
+        
    font-weight: bold;
     font-size: 12px;
     
@@ -218,10 +218,10 @@
 .tz_pinboard_delete_p_2{
     width: auto;
     height: 30px;
-    font-family: georgia;
+   
     padding-top: 14px;
     padding-left:18px;
-         font-family: georgia;
+        
    font-weight: bold;
     font-size: 12px;
 
@@ -238,7 +238,7 @@
     padding: 0.2em 0.2em 0.25em;
     background: -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
     text-align: center;
-     font-family: georgia;
+    
      border: 1px solid #B7B7B7;
      color: #0088CC;
     cursor: pointer;
@@ -256,7 +256,7 @@
     padding: 0.1em 0.2em 0.25em;
     background-image: -moz-linear-gradient(center top , #EB5367, #E04751 50%, #DE404A 50%, #D43638);
     text-align: center;
-     font-family: georgia;
+    
      border: 1px solid #B7B7B7;
      color: white;
     cursor: pointer;
@@ -267,7 +267,7 @@
     color: red;
        margin-left: 150px;
        padding-top: 10px;
-       font-family: georgia;
+      
        height: auto;
 
 }
@@ -275,7 +275,7 @@
     color: red;
            margin-left: 150px;
            padding-top: 10px;
-           font-family: georgia;
+          
            height: auto;
 
 }
@@ -283,7 +283,7 @@
     color: red;
        margin-left: 216px;
        padding-top: 10px;
-       font-family: georgia;
+      
        height: auto;
 
 }
