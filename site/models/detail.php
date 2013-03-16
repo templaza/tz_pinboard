@@ -30,12 +30,13 @@ class TZ_PinboardModelDetail extends JModelList{
             $detail_image_size  = $params->get('pinboard_image_size');
             $delete_text_cm     = $params->get('remove_comment');
             $change_comment     = $params->get('changecomment');
-            $state_comment      =  $params->get('state_comment');
+            $state_comment      = $params->get('state_comment');
             $limit_commnet      = $params->get('Limits_comment');
             $show_tags_detail   = $params->get('show_tags_detail');
             $show_tags_title    = $params->get('show_tags_title');
-            $related_pin        = $params->get('related_pin');
-            $this->setState('related_pins',$related_pin);
+            $type_detail        = $params->get('type_detail');
+
+            $this->setState('type_details',$type_detail);
             $this->setState('show_date',$show_date_comment);
             $this->setState('pinboard_image_size',$detail_image_size);
             $this->setState('show_tags_title',$show_tags_title);
@@ -68,30 +69,34 @@ class TZ_PinboardModelDetail extends JModelList{
                       WHERE  c.id=$id_content";
                 $db->setQuery($sql);
                 $row            = $db->loadObject();
-                $pin_boar       = $this->DetailBoardpins($row->category_id);
-                $row->pinboard  = $pin_boar;
+               
                 $follows        = $this->checkFollow($row->id_user);
                 $row->follow    = $follows;
                 $tangs          = $this->DetailTag($row->content_id);
                 $row->tags      = $tangs;
 
+                 $check_like = $this->chekcLikeUser($row->content_id);
+                $row->check_like = $check_like;
+
                 return $row;
             }
 
         }
+        /*
+     * Method check users like or not
+     */
+    function  chekcLikeUser($id_content){
+        $user = JFactory::getUser();
+        $id_user = $user->id;
+        $db = JFactory::getDbo();
+        $sql ="select like_p as p from #__tz_pinboard_like where id_content=$id_content AND id_user_p =$id_user";
+        $db->setQuery($sql);
+        $row = $db->loadAssoc();
+        return $row;
+    }
 
 
-        function DetailBoardpins($id){
-            $start = $this->getState('related_pins');
-            $db = &JFactory::getDbo();
-            $sql ="SELECT c.catid AS catid_cm, c.created_by as created_by_c, xr.images AS xr_img
-                    FROM #__tz_pinboard_pins AS c
-                        LEFT JOIN #__tz_pinboard_xref_content AS xr ON c.id = xr.contentid
-                    WHERE c.catid=$id order by c.created desc limit 0,$start";
-            $db->setQuery($sql);
-            $row = $db->loadObjectList();
-            return $row;
-        }
+
 
         function checkFollow($id_guest){
             $user       = JFactory::getUser();
@@ -150,6 +155,7 @@ class TZ_PinboardModelDetail extends JModelList{
                     LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
                     LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
                 WHERE cm.content_id =$id_conten AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
+
             $db->setQuery($sql);
             if($row = $db->loadObjectList()){
                 return $row;
@@ -266,10 +272,19 @@ class TZ_PinboardModelDetail extends JModelList{
             if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
             require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'detail'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
             $view = new TZ_PinboardViewDetail();
+
             $page = $_POST['page'];
+            if(isset($_POST['counts'])){
+            $counts = $_POST['counts'];
+            }
             $limit  = $this ->getState('page_cm');
             $limitstart1=   $limit * ($page-1);
+
             $offset = (int) $limitstart1;
+            if(!empty($counts)){
+                $offset = $offset +$counts;
+            }
+
 
             $this -> setState('star_page_cm',$offset);
             $show_date = $this->getState('show_date');
@@ -287,10 +302,11 @@ class TZ_PinboardModelDetail extends JModelList{
             $show_tags_title = $this->getState('show_tags_title');
             $show_tags_detail = $this->getState('show_tags_detail');
             $page_cm = $this->getState('page_cm');
-
+            $type_Detail = $this->getState('type_details');
             $showdate = $this->getState('show_date');
+            $view->assign('type_details',$type_Detail);
             $view->assign('show_date',$showdate);
-            $view->assign('page_commnet',$page_cm);
+            $view->assign('page_comment',$page_cm);
             $view->assign('show_title',$show_tags_title);
             $view->assign('show_tags',$show_tags_detail);
             $view->assign('limit_comment',$Limits_comment);

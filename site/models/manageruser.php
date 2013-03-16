@@ -43,6 +43,8 @@ class Tz_pinboardModelManageruser extends JModelList{
         $max_text_board     = $params->get('text_boar');
         $max_text_board_ds  = $params->get('text_boar_description');
         $state_boar         = $params->get('state_boar');
+        $limit_img_b        = $params->get('limit_img_board');
+        $this->setState('limit_img_b',$limit_img_b);
         $this->setState('type_detail',$type_detail);
         $this->setState('state_boar',$state_boar);
         $this->setState('max_text_board',$max_text_board);
@@ -129,6 +131,7 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method display image of the pin under the board
     */
     function getShowpin($boardId){
+        $star_img = $this->getState('limit_img_b');
         $user_guest     = JRequest::getInt('id_guest');
         $user           = JFactory::getUser();
         $id_user        = $user->id;
@@ -142,7 +145,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                 LEFT JOIN #__tz_pinboard_boards AS ca ON c.catid = ca.id
                 WHERE c.catid =$boardId
                 AND created_by =$id_user AND c.state=1 order by c.created desc
-                LIMIT 0 , 4";
+                LIMIT 0 , $star_img";
         $db -> setQuery($sql);
         $row =  $db->loadObjectList();
         return $row;
@@ -1375,7 +1378,8 @@ function getShowComment($id_content){
         }
         $db     = JFactory::getDbo();
         $SQL    =" SELECT u.id as uid, u.name as uname, u.email as uemail, u.registerDate as udate,
-        tz.twitter as tztwitter,tz.images as tzimg, tz.facebook as tzfacebook, tz.google_one as tzgoogle_one
+        tz.twitter as tztwitter,tz.images as tzimg, tz.facebook as tzfacebook, tz.google_one as tzgoogle_one,
+        tz.description as tzdescription
         FROM #__users  as u left join
         #__tz_pinboard_users as tz on u.id=tz. 	usersid
         WHERE u.id=$id ";

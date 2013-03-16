@@ -144,13 +144,13 @@ class TZ_PinboardViewCategories extends JViewLegacy
 		if ($canDo->get('core.edit.state')) {
 			JToolBarHelper::publish('categories.publish', 'JTOOLBAR_PUBLISH', true);
 			JToolBarHelper::unpublish('categories.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-			JToolBarHelper::divider();
-			JToolBarHelper::archiveList('categories.archive');
+			//JToolBarHelper::divider();
+			//JToolBarHelper::archiveList('categories.archive');
 		}
 
-		if (JFactory::getUser()->authorise('core.admin')) {
-			JToolBarHelper::checkin('categories.checkin');
-		}
+//		if (JFactory::getUser()->authorise('core.admin')) {
+//			JToolBarHelper::checkin('categories.checkin');
+//		}
 
 		if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete', $component)) {
 			JToolBarHelper::deleteList('', 'categories.delete', 'JTOOLBAR_EMPTY_TRASH');
@@ -171,7 +171,7 @@ class TZ_PinboardViewCategories extends JViewLegacy
 		}
 
 		if ($canDo->get('core.admin')) {
-			JToolBarHelper::custom('categories.rebuild', 'refresh.png', 'refresh_f2.png', 'JTOOLBAR_REBUILD', false);
+			//JToolBarHelper::custom('categories.rebuild', 'refresh.png', 'refresh_f2.png', 'JTOOLBAR_REBUILD', false);
 //			JToolBarHelper::preferences($component);
 			JToolBarHelper::preferences('com_tz_pinboard');
 			JToolBarHelper::divider();

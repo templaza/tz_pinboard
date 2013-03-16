@@ -26,10 +26,10 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
     private $model;
 
     function display(){
-        $doc = &JFactory::getDocument();
+        $doc = JFactory::getDocument();
         $type = $doc->getType();
-        $view = &$this->getView('pinboard',$type);
-        $this->model = &$this->getModel('pinboard');
+        $view = $this->getView('pinboard',$type);
+        $this->model = $this->getModel('pinboard');
         $view->setModel($this->model,true);
         $task = JRequest::getCmd('task');
         switch($task){

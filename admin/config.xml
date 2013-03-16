@@ -163,7 +163,14 @@
             <option value="XL">COM_TZ_PINBOARD_CONFIG_XLARGE</option>
         </field>
 
-
+        <field name="tz_user_image_width"
+               type="text"
+               size="5"
+               default="100"
+               label="COM_TZ_PINBOARD_USERS_UPLOAD_IMAGE"
+               description="COM_TZ_PINBOARD_USERS_UPLOAD_IMAGE_DS"
+                >
+        </field>
 
 
                 <field name="tz_image_xsmall"
@@ -222,12 +229,12 @@
                   <option value="0">JHIDE</option>
              </field>
         <field
-                name="related_pin"
+                name="limit_img_board"
                 type="text"
                 class="btn-group"
-                label="COM_TZ_PINBOARD_CONFIG_COLUMN_RELATED_PINS"
-                default="12"
-                description="COM_TZ_PINBOARD_CONFIG_COLUMN_RELATED_PINS_DS">
+                label="COM_TZ_PINBOARD_CONFIG_LIMIT_IMG_BOARD"
+                default="4"
+                description="COM_TZ_PINBOARD_CONFIG_LIMIT_IMG_BOARD_DS">
 
         </field>
             <field

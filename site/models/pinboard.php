@@ -489,13 +489,15 @@ class TZ_PinboardModelPinboard extends JModelList{
     function selectRepin(){
         $user = JFactory::getUser();
         $id_usert = $user->id;
-        $catids = $this->getState('catids');
-        if(isset($catids) && !empty($catids)){
-            $catids = implode(',',$catids);
-            $catids = "where ca.catid in($catids) AND c.created_by =$id_usert order by c.created desc limit 0,1";
-        }else{
+     //   $catids = $this->getState('catids');
+       
+//        if(isset($catids) && !empty($catids)){
+//            $catids = implode(',',$catids);
+//            $catids = "where ca.catid in($catids) AND c.created_by =$id_usert order by c.created desc limit 0,1";
+//        }else{
             $catids="where c.created_by =$id_usert order by c.created desc limit 0,1";
-        }
+      //  }
+
         $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit, pz.images as poro_img,
                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                     c.catid as catidc, u.name as user_name,  us.images as user_img
@@ -512,8 +514,8 @@ class TZ_PinboardModelPinboard extends JModelList{
         foreach($row as $item){
             $check_l = $this->chekcLikeUser($item->content_id);
             $item->checl_l = $check_l;
-            $demL = $this->countLike($item->content_id);
-            $item->demL = $demL;
+            $countL = $this->countLike($item->content_id);
+            $item->countL = $countL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
             $tangs = $this->DetailTag($item->content_id);
@@ -634,9 +636,15 @@ class TZ_PinboardModelPinboard extends JModelList{
         require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
         $view = new TZ_PinboardViewPinboard();
         $page = $_POST['page'];
+        if(isset($_POST['counts'])){
+            $count = $_POST['counts'];
+        }
         $limit  = $this ->getState('page_cm');
         $limitstart1=   $limit * ($page-1);
         $offset = (int) $limitstart1;
+        if(isset($count)){
+            $offset = $offset + $count;
+        }
         $this -> setState('star_page_cm',$offset);
         $showdate = $this->getState('show_date');
         $view->assign('show_date',$showdate);

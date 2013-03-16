@@ -84,7 +84,7 @@ $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
             }
             ?>
             <div class="tz_pins_edit_content_1">
-                <label><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_CATEGORY'); ?></label>
+                <label><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_BOARD'); ?></label>
                 <select id="tz_pins_edit_select" name="select_catogory">
                     <?php
                     if(isset($this->ShowBoarname)){

@@ -30,7 +30,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     */
     function populateState()
     {
-        $app = & JFactory::getApplication();
+        $app =  JFactory::getApplication();
         $params = $app->getParams();
         $this->setState('params', $params);
         $remove_comment  = $params->get('remove_comment');
@@ -90,7 +90,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
         $table->created_by= $id_usert;
         if (empty($table->catid)) return false;
         $table->store();
-        $db = & JFactory::getDbo();
+        $db =  JFactory::getDbo();
         $sql_select = "select id from #__tz_pinboard_pins where created_by=$id_usert order by id desc ";
         $db->query();
         $db->setQuery($sql_select);
@@ -118,7 +118,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
                 $arr[] = $keywords[$i];
             }
         }
-        $db = & JFactory::getDbo();
+        $db =  JFactory::getDbo();
         $newkey = array();
         for ($i = 0; $i < count($arr); $i++) { // get tag name and id
             $sql = "select id from #__tz_pinboard_tags where name='" . trim($arr[$i]) . "'";
@@ -140,7 +140,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
      */
     function  InsertTags()
     {
-        $db = & JFactory::getDbo();
+        $db =  JFactory::getDbo();
         $new = $this->getChecktag();
         $keywords = $new['new'];
         $row_k = $new['id'];
@@ -187,7 +187,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     {
         $id_tag = $this->InsertTags();
         if (is_array($id_tag) && count($id_tag) != 0) {
-            $db = & JFactory::getDbo();
+            $db =  JFactory::getDbo();
             for ($i = 0; $i < count($id_tag); $i++) {
                 $sql_insert = "INSERT INTO #__tz_pinboard_tags_xref VALUES(NULL,'" . $id_tag[$i] . "','" . $id_content . "')";
                 $db->setQuery($sql_insert);
@@ -200,7 +200,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     * method insert into table tag img
     */
     function insertImg($id_content,$path_img){
-        $db = & JFactory::getDbo();
+        $db =  JFactory::getDbo();
         $sql = 'INSERT INTO #__tz_pinboard_xref_content VALUES(NULL, '.$id_content.',"","'. $path_img .'","", "", "", "image", "","", "", "", "", "", "")';
         $db->setQuery($sql);
         $db->query();
@@ -348,7 +348,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     {
         $user = JFactory::getUser();
         $id = $user->id;
-        $db = & JFactory::getDbo();
+        $db =  JFactory::getDbo();
         $sqk = " select id, title from #__tz_pinboard_boards where created_user_id=$id";
         $db->setQuery($sqk);
         $row = $db->loadObjectList();
@@ -395,7 +395,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     function  isertUrlwebsite($id_content)
     {
         $url = strip_tags(htmlspecialchars($_POST['url_img']));
-        $db = & JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql_inert = "INSERT INTO #__tz_pinboard_website VALUES(NULL,'" . $url . "','" . $id_content . "','0','0')";
         $db->setQuery($sql_inert);
         $db->query();
@@ -502,6 +502,8 @@ class Tz_pinboardModelAddpinboards extends JModelList
         if(!JFolder::exists($tzFolderPath)){
             JFolder::create($tzFolderPath);
         }
+
+
         $check_file_type = in_array(strtolower($img['type']), $arr);
         if ($check_file_type == false) {
             $erro[] = "incorrect file type";
@@ -573,7 +575,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
         } else {
             $check = 'WHERE title="' . $name . '" AND  created_user_id=' . $created_user_id . '';
         }
-        $db = & JFactory::getDbo();
+        $db =  JFactory::getDbo();
         $sql = 'select title, alias from #__tz_pinboard_boards ' . $check . '';
         $db->setQuery($sql);
         $num_row = $db->query();
@@ -601,7 +603,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
         $created_user_id = $user->id;
         $erro = $this->checkAlias();
         if ($erro == "0" && isset($created_user_id) && !empty($created_user_id)) {
-            $db = & JFactory::getDbo();
+            $db =  JFactory::getDbo();
             $sql = 'INSERT INTO #__tz_pinboard_boards
             VALUES(NULL,"' . $title . '","' . $alias . '","' . $description . '","' . $state_b . '","' . $created_time . '","","' . $catid . '","' . $created_user_id . '")';
 

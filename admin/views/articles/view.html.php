@@ -140,7 +140,7 @@ class TZ_PinboardViewArticles extends JViewLegacy
 	//		JToolBarHelper::divider();
 		}
 
-		JToolBarHelper::help('JHELP_CONTENT_ARTICLE_MANAGER');
+	//	JToolBarHelper::help('JHELP_CONTENT_ARTICLE_MANAGER');
 
         $doc    = &JFactory::getDocument();
         $doc -> addStyleSheet(JURI::base(true).'/components/com_tz_pinboard/assets/style.css');

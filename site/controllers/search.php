@@ -27,10 +27,10 @@ class TZ_PinboardControllerSearch extends JControllerAdmin{
     private $model;
     function display(){
 
-        $doc            = &JFactory::getDocument();
+        $doc            = JFactory::getDocument();
         $type           = $doc->getType();
-        $view           = &$this->getView('search',$type);
-        $this->model    = &$this->getModel('search');
+        $view           = $this->getView('search',$type);
+        $this->model    = $this->getModel('search');
         $view->setModel($this->model,true);
         $task           = JRequest::getCmd('task');
 

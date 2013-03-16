@@ -21,10 +21,10 @@ class Tz_pinboardControllerAddpinboards extends JControllerForm{
     protected  $model;
     protected  $view;
     function display(){
-        $doc = &JFactory::getDocument();
+        $doc = JFactory::getDocument();
         $type = $doc->getType();
-        $this->view = &$this->getView('addpinboards',$type);
-        $this->model = &$this->getModel('addpinboards');
+        $this->view = $this->getView('addpinboards',$type);
+        $this->model = $this->getModel('addpinboards');
         $this->view->setModel($this->model,true);
         $task = JRequest::getString("task");
         switch($task){

@@ -83,7 +83,7 @@
     text-align: center;
     padding-top: 5px;
     display: block;
-    font-family: georgia;
+   
 }
 .tz_more_Following:hover{
     color: white;
@@ -102,7 +102,7 @@
     left: 70px;
     color: #6f6a6a;
     font-size: 20px;
-    font-family: georgia;
+   
     font-weight: 500;
     font-style: italic;
 }
@@ -143,7 +143,7 @@
     padding: 10px;
     padding-bottom: 0;
     margin:  auto !important;
-    font-family: georgia;
+   
     color: #666666;
       font-size: 13px;
       font-style: italic;
@@ -161,7 +161,7 @@
     width: 90%;
     padding: 10px;
     margin:  auto !important;
-    font-family: georgia;
+   
     color: #666666;
 
       font-size: 13px;
@@ -182,7 +182,7 @@
     width: 90%;
     height: auto;
     margin:  auto !important;
-       font-family: georgia;
+      
        color: #666666;
     text-align: justify;
     display: block;
@@ -193,7 +193,7 @@
     width: 90%;
     height: auto;
     margin:  auto !important;
-       font-family: georgia;
+      
        color: #666666;
     text-align: justify;
     display: block;
@@ -204,7 +204,7 @@
     width: 90%;
     height: auto;
     margin:  auto !important;
-       font-family: georgia;
+      
        color: #666666;
     text-align: justify;
     font-size: 15px;
@@ -214,7 +214,7 @@
     width: 90%;
     height: auto;
     margin:  auto !important;
-       font-family: georgia;
+      
        color: #666666;
     text-align: justify;
     font-size: 15px;
@@ -231,7 +231,7 @@
   width: 90% !important;
     height: 40px ;
     margin-left: 20px;
-    font-family: georgia;
+   
          color: #666666;
     padding: 10px;
     overflow-x: hidden;
@@ -247,7 +247,7 @@
 .tz_more_text_commnet_buttom{
     box-shadow: 1px 1px 3px rgba(34, 25, 25, 0.4);
     width: 80px;
-    font-family: georgia;
+   
     color: #666666;
     border-radius: 6px;
     height: 30px;

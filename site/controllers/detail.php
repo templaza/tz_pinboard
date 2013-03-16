@@ -41,7 +41,7 @@ defined("_JEXEC") or die;
                        case'tz.ajax.pt.cm':
                          echo $model->ajaxphantrangcomment();
                          die();
-                        break;
+                          break;
                        case'tz.detail.pins':
                          echo $model->ajaxDetail();
                          die();

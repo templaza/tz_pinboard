@@ -21,28 +21,30 @@ defined("_JEXEC") or die;
 ?>
 
 <?php if(isset($this->displayComment) && !empty($this->displayComment)){
+    $count = count($this->displayComment);
+    for($i=$count-1; $i >=0; $i--){
 
-    foreach($this->displayComment as $showComemnt){
         ?>
     <li>
 
-        <?php if(isset($showComemnt->img_user) && !empty($showComemnt->img_user)){  ?>
-        <img class="tz_more_conten_comment_imgs"  src="<?php echo JUri::root().'/'.$showComemnt->img_user;  ?>">
+        <?php if(isset($this->displayComment[$i]->img_user) && !empty($this->displayComment[$i]->img_user)){  ?>
+        <img class="tz_more_conten_comment_imgs"  src="<?php echo JUri::root().'/'.$this->displayComment[$i]->img_user;  ?>">
         <?php }else{ ?>
         <img class="tz_more_conten_comment_imgs"  src="<?php echo JUri::root().'/components/com_tz_pinboard/images/avata.jpg'?>">
         <?php } ?>
 
-        <a rel="nofollow" href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardManageruserRoute($showComemnt->id_user)); ?>">
+        <a rel="nofollow" href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardManageruserRoute($this->displayComment[$i]->id_user)); ?>">
             <p class="tz_more_conten_comment_p_names">
-                <?php echo $showComemnt->user_name; ?>
+                <?php echo $this->displayComment[$i]->user_name; ?>
             </p>
         </a>
         <p class="tz_more_conten_comment_ps">
-            <?php echo $showComemnt->content_cm; ?>
+            <?php echo $this->displayComment[$i]->content_cm; ?>
         </p>
         <?php if(isset($this->show_date) && $this->show_date ==1){ ?>
             <p class="tz_more_conten_comment_dates">
-                <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_TIME'); ?>:  <?php echo date('Y F d',strtotime( $showComemnt->dates )); ?>
+
+                <?php echo JText::sprintf("TZ_PINBOARD_TIME_DETAIL",date(JText::_('TZ_PINBOARD_DATE_FOMAT'),strtotime($this->displayComment[$i]->dates ))) ?>
             </p>
          <?php } ?>
     </li>
