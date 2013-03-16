@@ -32,6 +32,8 @@ class TZ_PinboardModelPinboard extends JModelList{
         $app            = &JFactory::getApplication();
         $params         = $app -> getParams();
         $this -> setState('params',$params);
+
+
         $catid          = $params->get('catid');
         $limit_pin      = $params->get('tz_article_limit');
         $limitstart     = JRequest::getCmd('limitstart',0);
@@ -46,6 +48,8 @@ class TZ_PinboardModelPinboard extends JModelList{
         $type_show_pin  = $params->get('type_show_pin');
         $arrangements_pins = $params->get('arrangements_pins');
         $tz_pin_approve = $params->get('tz_pin_approve');
+        $show_date_comment  = $params->get('show_date_comment');
+        $this->setState('show_date',$show_date_comment);
         $this->setState('type_detail',$type_detail);
         $this->setState('arrangements_pins',$arrangements_pins);
         $this->setState('check_status',$tz_pin_approve);
@@ -145,11 +149,11 @@ class TZ_PinboardModelPinboard extends JModelList{
         foreach($row as $item){
             $check_l = $this->chekcLikeUser($item->content_id);
             $item->checl_l = $check_l;
-            $demL = $this->countLike($item->content_id);
-            $item->demL = $demL;
+            $countL = $this->countLike($item->content_id);
+            $item->countL = $countL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
-            $show_comment = $this->getShowCommnet($item->content_id);
+            $show_comment = $this->getShowComment($item->content_id);
             $item->showcomment = $show_comment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
@@ -466,6 +470,8 @@ class TZ_PinboardModelPinboard extends JModelList{
         $img_size = $param_pinboard->get('portfolio_image_size');
         $width_columns = $param_pinboard->get('width_columns');
         $text_commnet = $param_pinboard->get('Limits_comment');
+        $page_cm = $this->getState('page_cm');
+        $view->assign('page_com',$page_cm);
         $type_detail = $this->getState('type_detail');
         $view->assign('type_detail',$type_detail);
         $view->assign('Limit_comment',$text_commnet);
@@ -483,13 +489,15 @@ class TZ_PinboardModelPinboard extends JModelList{
     function selectRepin(){
         $user = JFactory::getUser();
         $id_usert = $user->id;
-        $catids = $this->getState('catids');
-        if(isset($catids) && !empty($catids)){
-            $catids = implode(',',$catids);
-            $catids = "where ca.catid in($catids) AND c.created_by =$id_usert order by c.created desc limit 0,1";
-        }else{
+     //   $catids = $this->getState('catids');
+       
+//        if(isset($catids) && !empty($catids)){
+//            $catids = implode(',',$catids);
+//            $catids = "where ca.catid in($catids) AND c.created_by =$id_usert order by c.created desc limit 0,1";
+//        }else{
             $catids="where c.created_by =$id_usert order by c.created desc limit 0,1";
-        }
+      //  }
+
         $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit, pz.images as poro_img,
                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                     c.catid as catidc, u.name as user_name,  us.images as user_img
@@ -506,13 +514,14 @@ class TZ_PinboardModelPinboard extends JModelList{
         foreach($row as $item){
             $check_l = $this->chekcLikeUser($item->content_id);
             $item->checl_l = $check_l;
-            $demL = $this->countLike($item->content_id);
-            $item->demL = $demL;
+            $countL = $this->countLike($item->content_id);
+            $item->countL = $countL;
             $countComment = $this->countComment($item->content_id);
             $item->countComment = $countComment;
             $tangs = $this->DetailTag($item->content_id);
             $item->tags = $tangs;
-            $item->tags = $tangs;
+            $show_comment = $this->getShowComment($item->content_id);
+            $item->showcomment = $show_comment;
         }
         return $row;
     }
@@ -549,6 +558,8 @@ class TZ_PinboardModelPinboard extends JModelList{
         $img_size = $param_pinboard->get('portfolio_image_size');
         $width_columns = $param_pinboard->get('width_columns');
         $tz_layout = $param_pinboard->get('tz_pinboard_layout');
+        $show_date = $this->getState('show_date');
+        $view->assign('show_date',$show_date);
         $page_cm = $this->getState('page_cm');
         $view->assign('page_com',$page_cm);
         $view->assign('type_detail',$type_detail);
@@ -616,28 +627,8 @@ class TZ_PinboardModelPinboard extends JModelList{
         $db->query();
     }
 
-    /*
-     * method display comment
-     */
-//    function getShowCommnet(){
-//        $id_conten = $_POST['id_conten'];
-//        $limit_star = $this->getState('star_page_cm');
-//        $limit = $this->getState('page_cm');
-//        $db = JFactory::getDbo();
-//        $sql="SELECT u.name as user_name,cm.content_id  as content_id_cm, u.id as id_user, tz.images as img_user, cm.content as content_cm, cm.dates as dates, cm.id as id_comment,
-//                     c.created_by as create_by
-//                FROM #__users AS u
-//                    LEFT JOIN #__tz_pinboard_users AS tz ON u.id = tz.usersid
-//                    LEFT JOIN #__tz_pinboard_comment AS cm ON cm.id_user = u.id
-//                    LEFT JOIN #__tz_pinboard_pins AS c ON cm.content_id = c.id
-//                WHERE cm.content_id =$id_conten AND cm.state=1 AND cm.checkIP=1  order by cm.id desc limit $limit_star,$limit";
-//        $db->setQuery($sql);
-//        if($row = $db->loadObjectList()){
-//            return $row;
-//        }
-//        return false;
-//    }
-    function ajaxPTCommnet(){
+
+    function ajaxPTComment(){
         if (!isset($_SERVER['HTTP_REFERER'])) return null;
         $refer  =   $_SERVER['HTTP_REFERER'];
         $url_arr=   parse_url($refer);
@@ -645,12 +636,20 @@ class TZ_PinboardModelPinboard extends JModelList{
         require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
         $view = new TZ_PinboardViewPinboard();
         $page = $_POST['page'];
+        if(isset($_POST['counts'])){
+            $count = $_POST['counts'];
+        }
         $limit  = $this ->getState('page_cm');
         $limitstart1=   $limit * ($page-1);
         $offset = (int) $limitstart1;
+        if(isset($count)){
+            $offset = $offset + $count;
+        }
         $this -> setState('star_page_cm',$offset);
+        $showdate = $this->getState('show_date');
+        $view->assign('show_date',$showdate);
         $view->assign('displayComment',$this->getPT_comment());
-        return $view->loadTemplate('commentall');
+        return $view->loadTemplate('comments');
     }
     function getPT_comment(){
         $id_conten = $_POST['id_pins'];
@@ -670,7 +669,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         }
         return false;
     }
-    function getShowCommnet($id_content){
+    function getShowComment($id_content){
         $limit_star = $this->getState('star_page_cm');
         $limit = $this->getState('page_cm');
         $db = JFactory::getDbo();
@@ -705,7 +704,7 @@ class TZ_PinboardModelPinboard extends JModelList{
     /*
      * method Display comments as insert complete
      */
-    function getShowcommnetInsert(){
+    function getShowCommentInsert(){
         $user = JFactory::getUser();
         $id_user = $user->id;
         $db=JFactory::getDbo();
@@ -722,7 +721,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         return $row;
     }
 
-    function ajaxcommnet_cm(){
+    function ajaxcomment_cm(){
         if (!isset($_SERVER['HTTP_REFERER'])) return null;
         $refer  =   $_SERVER['HTTP_REFERER'];
         $url_arr=   parse_url($refer);
@@ -733,10 +732,12 @@ class TZ_PinboardModelPinboard extends JModelList{
         $this->Tz_comment_Content();
         require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
         $view = new TZ_PinboardViewPinboard();
+        $showdate = $this->getState('show_date');
+        $view->assign('show_date',$showdate);
         $view-> assign('sosanhuser',$this->getIdUser());
-        $view->assign('ShowCommnet',$this->getShowcommnetInsert());
+        $view->assign('displayComment',$this->getShowCommentInsert());
         $arr = array();
-        $arr['contents'] = $view->loadTemplate('pin_cm');
+        $arr['contents'] = $view->loadTemplate('comments');
         $arr['count_number'] = $this->getDemcommnet()->number_id;
         return $arr;
 

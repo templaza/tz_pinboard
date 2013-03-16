@@ -126,7 +126,7 @@ class TZ_PinboardViewArticle extends JViewLegacy
 		}
 
 		JToolBarHelper::divider();
-		JToolBarHelper::help('JHELP_CONTENT_ARTICLE_MANAGER_EDIT');
+	//	JToolBarHelper::help('JHELP_CONTENT_ARTICLE_MANAGER_EDIT');
 
 //        JToolBarHelper::customX('youtubeHelper','youtube','','COM_TZ_PINBOARD_VIDEO_TUTORIALS');
 //        JToolBarHelper::customX('wikipediaHelper','wikipedia','','COM_TZ_PINBOARD_WIKIPEDIA_TUTORIALS');

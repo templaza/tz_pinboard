@@ -26,10 +26,10 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
     private $model;
 
     function display(){
-        $doc = &JFactory::getDocument();
+        $doc = JFactory::getDocument();
         $type = $doc->getType();
-        $view = &$this->getView('pinboard',$type);
-        $this->model = &$this->getModel('pinboard');
+        $view = $this->getView('pinboard',$type);
+        $this->model = $this->getModel('pinboard');
         $view->setModel($this->model,true);
         $task = JRequest::getCmd('task');
         switch($task){
@@ -58,12 +58,12 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 die();
                 break;
 
-            case'tz.insert.commnet_cm':
-                echo json_encode($this->model->ajaxcommnet_cm());
+            case'tz.insert.comment_cm':
+                echo json_encode($this->model->ajaxcomment_cm());
                 die();
                 break;
             case'tz.pt.cm':
-                echo $this->model->ajaxPTCommnet();
+                echo $this->model->ajaxPTComment();
                 die();
                 break;
 

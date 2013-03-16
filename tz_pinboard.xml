@@ -93,6 +93,7 @@
 			<field name="portfolio_image_size" default="M"/>
             <field name="pinboard_image_size" default="L"/>
             <field name="image_repin" default="M" />
+            <field name="tz_user_image_width" default="100" />
 			<field name="tz_image_xsmall" default="100"/>
 			<field name="tz_image_small" default="200"/>
 			<field name="tz_image_medium" default="400"/>
@@ -100,8 +101,10 @@
 			<field name="tz_image_xlarge" default="900"/>
             <field name="mymenuitem" default="110" />
 			<field name="state_boar" default="1"/>
+
 			<field name="limits_Board_Pin" default="10"/>
 			<field name="text_boar" default="100"/>
+            <field name="limit_img_board" default="4"/>
 			<field name="text_boar_description" default="100"/>
 			<field name="limits" default="10"/>
 			<field name="tz_pin_approve" default="1"/>
@@ -112,6 +115,8 @@
 			<field name="state_comment" default="1"/>
 			<field name="Limits_comment" default="100"/>
 			<field name="page_commnet" default="5"/>
+            <field name="page_commnet_detail" default="5" />
+            <field name="show_date_comment" default="1" />
 			<field name="remove_comment" default="sex"/>
 			<field name="changecomment" default="..."/>
 

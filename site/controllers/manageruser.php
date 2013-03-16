@@ -25,10 +25,10 @@ class Tz_pinboardControllerManageruser extends JControllerForm{
 
 
     function display(){
-            $doc            = &JFactory::getDocument();
+            $doc            = JFactory::getDocument();
             $type           = $doc->getType();
-            $view           = &$this->getView('manageruser',$type);
-            $this->model    = &$this->getModel('manageruser');
+            $view           = $this->getView('manageruser',$type);
+            $this->model    = $this->getModel('manageruser');
             $view->setModel($this->model,true);
             $task           = JRequest::getCmd('task');
             switch($task){

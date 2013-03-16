@@ -163,7 +163,14 @@
             <option value="XL">COM_TZ_PINBOARD_CONFIG_XLARGE</option>
         </field>
 
-
+        <field name="tz_user_image_width"
+               type="text"
+               size="5"
+               default="100"
+               label="COM_TZ_PINBOARD_USERS_UPLOAD_IMAGE"
+               description="COM_TZ_PINBOARD_USERS_UPLOAD_IMAGE_DS"
+                >
+        </field>
 
 
                 <field name="tz_image_xsmall"
@@ -221,6 +228,15 @@
                   <option value="1">JSHOW</option>
                   <option value="0">JHIDE</option>
              </field>
+        <field
+                name="limit_img_board"
+                type="text"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_CONFIG_LIMIT_IMG_BOARD"
+                default="4"
+                description="COM_TZ_PINBOARD_CONFIG_LIMIT_IMG_BOARD_DS">
+
+        </field>
             <field
                     name="column_board"
                     type="text"
@@ -230,15 +246,15 @@
                     description="COM_TZ_PINBOARD_CONFIG_COLUMN_WIDTH_BOARD_DS">
 
             </field>
-             <field
-                    name="limits_Board_Pin"
-                    type="text"
-                    class="btn-group"
-                    label="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD"
-                    default="10"
-                    description="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD">
+         <field
+                name="limits_Board_Pin"
+                type="text"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD"
+                default="10"
+                description="COM_TZ_PINBOARD_CONFIG_LIMIT_PINS_A_BOARD">
 
-                </field>
+            </field>
         <field name="text_boar"
                         type="text"
                        label="COM_TZ_PINBOARD_CONFIG_TEXT_BOARD"
@@ -354,6 +370,17 @@
                   <option value="0">JHIDE</option>
 
           </field>
+        <field
+                name="show_date_comment"
+                type="radio"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_COMMENT_SHOW_DATE"
+                default="1"
+                description="COM_TZ_PINBOARD_COMMENT_APPROVE_DESCRIPTION">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+
+        </field>
         <field name="Limits_comment"
                    type="text"
                    class="btn-group"
@@ -370,6 +397,14 @@
                    description="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMENT_DESCRIPTION">
 
            </field>
+            <field name="page_commnet_detail"
+                   type="text"
+                   class="btn-group"
+                   label="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMNET_DETAIL"
+                   default="5"
+                   description="COM_TZ_PINBOARD_CONFIG_LIMIT_COMMENT_DETAIL_DESCRIPTION">
+
+            </field>
            <field
                    name="remove_comment"
                    type="textarea"

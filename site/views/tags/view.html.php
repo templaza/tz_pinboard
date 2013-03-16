@@ -36,6 +36,8 @@ defined("_JEXEC") or die;
          $this->assign('PaginationPins',$this->get('PaginationPins'));
          $this->assign('UserImgLogin',$this->get('UserImgLogin'));
          $this->assign('sosanhuser',$this->get('Sosanhuser'));
+         $show_date_comment  = $state->get('show_date_comment');
+         $this->assign('show_date',$show_date_comment);
 
          $this->assign('NameTag',$this->get('NameTag'));
          $param_pinboard = &JComponentHelper::getParams('com_tz_pinboard');
