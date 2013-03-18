@@ -24,7 +24,7 @@ jimport('joomla.plugin.plugin');
 
 class plgUserTZ_Pinboard extends JPlugin
 {
-    function plgUserTZ_Pinboard(&$subject, $config) {
+    function plgUserTZ_Pinboard($subject, $config) {
 
         parent::__construct($subject, $config);
     }
@@ -37,7 +37,7 @@ class plgUserTZ_Pinboard extends JPlugin
 
     function onAfterSaveUser($user, $isnew, $success, $msg){
 
-        $mainframe = &JFactory::getApplication();
+        $mainframe = JFactory::getApplication();
         $task = JRequest::getCmd('task');
 
         if($mainframe->isSite() && $task != 'activate'){

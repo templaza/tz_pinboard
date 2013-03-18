@@ -28,9 +28,9 @@ class TZ_PinboardModelSearch extends JModelList{
      * Method to auto-populate the model state.
 
      */
-    function populateState(){
+    function populateState($ordering=null,$direction=null){
 
-        $app            = &JFactory::getApplication();
+        $app            = JFactory::getApplication();
         $params         = $app -> getParams();
         $this -> setState('params',$params);
         $catid          = $params->get('catid');
@@ -86,7 +86,7 @@ class TZ_PinboardModelSearch extends JModelList{
         }else{
             $catids     = "where c.state=1 order by c.$type_show_pin desc";
         }
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
                                 w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                 c.catid as catidc, u.name as user_name,  us.images as user_img
@@ -113,7 +113,7 @@ class TZ_PinboardModelSearch extends JModelList{
         $title      = strip_tags(htmlspecialchars( $_POST['title']));
         $title      = str_replace("'","\'",$title);
         if(isset($title) && !empty($title)){
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $sql    = " select p.title as title, xr.images as imge  from #__tz_pinboard_pins as p left join #__tz_pinboard_xref_content as xr on p.id = xr.contentid where p.title like '%".$title."%'";
             $db->setQuery($sql);
             $row    = $db->loadObjectList();
@@ -163,7 +163,7 @@ class TZ_PinboardModelSearch extends JModelList{
         }else{
             $catids="where c.state=1 order by c.$type_show_pin $arrangements";
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                         c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
@@ -212,7 +212,7 @@ class TZ_PinboardModelSearch extends JModelList{
         return $row;
     }
     function detailTag($id){
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="select t.id as tagid, t.name as tagname
                 from #__tz_pinboard_tags AS t
                     LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid

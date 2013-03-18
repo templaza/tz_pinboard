@@ -168,10 +168,11 @@ defined("_JEXEC") or die;
                 <a id="tz_comment_pt_a" data-optio-page="2" data-optio-id="0">
                     <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LOAD_MORE'); ?>
                 </a>
-                <a id="tz_comment_pt_emty">
-                    <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_NOT_PAGES'); ?>
-                </a>
-            <div id="tz_page_stop">
+                <span id="id_loadding">
+
+                </span>
+                <div class="cler"></div>
+                <div id="tz_page_stop">
                 </div>
         </div>
 

@@ -40,7 +40,7 @@ defined("_JEXEC") or die;
          $this->assign('show_date',$show_date_comment);
 
          $this->assign('NameTag',$this->get('NameTag'));
-         $param_pinboard = &JComponentHelper::getParams('com_tz_pinboard');
+         $param_pinboard = JComponentHelper::getParams('com_tz_pinboard');
          $img_size = $param_pinboard->get('portfolio_image_size');
 
          $text_commnet = $param_pinboard->get('Limits_comment');

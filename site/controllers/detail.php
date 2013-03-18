@@ -22,7 +22,7 @@ defined("_JEXEC") or die;
 
     class TZ_PinboardControllerDetail  extends JControllerAdmin{
 
-            function  display(){
+        function display($cachable=false,$urlparams=array()){
                     $type = JFactory::getDocument();
                     $html = $type->getType();
                     $view = $this->getView('detail',$html);

@@ -44,7 +44,7 @@ defined("_JEXEC") or die;
         <?php if(isset($this->show_date) && $this->show_date ==1){ ?>
             <p class="tz_more_conten_comment_dates">
 
-                <?php echo JText::sprintf("TZ_PINBOARD_TIME_DETAIL",date(JText::_('TZ_PINBOARD_DATE_FOMAT'),strtotime($this->displayComment[$i]->dates ))) ?>
+                <?php echo JText::sprintf("TZ_PINBOARD_TIME_DETAIL",date(JText::_('TZ_PINBOARD_DATE_FOMAT_COMMENT'),strtotime($this->displayComment[$i]->dates ))) ?>
             </p>
          <?php } ?>
     </li>

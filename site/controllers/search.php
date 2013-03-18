@@ -25,7 +25,7 @@ class TZ_PinboardControllerSearch extends JControllerAdmin{
 
 
     private $model;
-    function display(){
+    function display($cachable=false,$urlparams=array()){
 
         $doc            = JFactory::getDocument();
         $type           = $doc->getType();

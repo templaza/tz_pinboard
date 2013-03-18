@@ -20,7 +20,7 @@
 class Tz_pinboardControllerAddpinboards extends JControllerForm{
     protected  $model;
     protected  $view;
-    function display(){
+    function display($cachable=false,$urlparams=array()){
         $doc = JFactory::getDocument();
         $type = $doc->getType();
         $this->view = $this->getView('addpinboards',$type);

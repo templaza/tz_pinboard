@@ -28,7 +28,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     * Method to auto-populate the model state.
 
     */
-    function populateState()
+    function populateState($ordering=null,$direction=null)
     {
         $app =  JFactory::getApplication();
         $params = $app->getParams();

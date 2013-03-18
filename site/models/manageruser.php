@@ -21,8 +21,8 @@ jimport( 'joomla.filesystem.folder');
 class Tz_pinboardModelManageruser extends JModelList{
 
 
-    function populateState(){
-        $app                = &JFactory::getApplication();
+    function populateState($ordering=null,$direction=null){
+        $app                = JFactory::getApplication();
         $params             = $app -> getParams();
         $this -> setState('params',$params);
         $check_status       = $params->get('tz_pin_approve');
@@ -76,7 +76,7 @@ class Tz_pinboardModelManageruser extends JModelList{
     * method display category
     */
     function getCategory(){
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $sql    = " select id, title from #__tz_pinboard_category";
         $db->setQuery($sql);
         $row    =  $db->loadObjectList();
@@ -96,7 +96,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(isset($user_guest) && !empty($user_guest)){
             $id_user    = $user_guest;
         }
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            = "SELECT  id as id_board, title as name_board, created_user_id
                             from #__tz_pinboard_boards
                             where created_user_id=$id_user AND state=1 order by created_time desc";
@@ -138,7 +138,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(isset($user_guest) && !empty($user_guest)){
             $id_user    = $user_guest;
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql = "SELECT pt.images AS img, created_by  as id_users
                 FROM #__tz_pinboard_xref_content AS pt
                 LEFT JOIN #__tz_pinboard_pins AS c ON pt.contentid = c.id
@@ -163,11 +163,11 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(isset($user_guest) && !empty($user_guest)){
         $id_user        = $user_guest;
         }
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            = "SELECT  count(c.id) as numberpin
                             FROM   #__tz_pinboard_pins AS c INNER JOIN #__tz_pinboard_boards AS ca ON c.catid = ca.id
                             WHERE c.catid = $boardId  AND  created_by=$id_user ";
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $db -> setQuery($sql);
         $row =  $db->loadObject();
         return $row;
@@ -188,7 +188,7 @@ class Tz_pinboardModelManageruser extends JModelList{
             if(isset($user_guest) && !empty($user_guest)){
                 $id_user    = $user_guest;
             }
-            $db             = &JFactory::getDbo();
+            $db             = JFactory::getDbo();
             $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,
                                       c.hits as content_hit, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
                                 FROM #__users AS u
@@ -247,7 +247,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(isset($user_guest) && !empty($user_guest)){
         $id_user = $user_guest;
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="SELECT id, title from #__tz_pinboard_boards where id = $id_board AND created_user_id  =$id_user ";
 
         $db->setQuery($sql);
@@ -275,7 +275,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(isset($user_guest) && !empty($user_guest)){
             $id_user    = $user_guest;
         }
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc
@@ -331,7 +331,7 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method show tag
     */
     function detailTag($id){
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="select t.id as tagid, t.name as tagname
                 from #__tz_pinboard_tags AS t
                     LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
@@ -356,43 +356,13 @@ class Tz_pinboardModelManageruser extends JModelList{
 
 
 
-//    function  ShowDetails(){
-//    $user_guest = JRequest::getInt('id_guest');
-//    $user = JFactory::getUser();
-//    $id_user = $user->id;
-//    if(isset($user_guest) && !empty($user_guest)){
-//    $id_user = $user_guest;
-//    }
-//    $id_conten = $_POST['id_conten'];
-//    if(isset($id_conten) && !empty($id_conten)){
-//    $db = &JFactory::getDbo();
-//    $sql ="SELECT u.id as id_user, u.name as name_user, tz_u.images as img_user, ca.id as category_id, c.title as conten_title, c.introtext as content_introtext
-//    , c.id as content_id, pz.images as poro_img, w.url as website
-//    FROM #__tz_pinboard_users as tz_u inner join #__users AS u on tz_u.usersid  = u.id
-//    LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
-//    LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
-//    LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
-//    LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
-//    WHERE  c.id=$id_conten";
-//    $db->setQuery($sql);
-//
-//    $row = $db->loadObject();
-//    $follows = $this->checkFollow($row->id_user);
-//    $row->follow = $follows;
-//    $tangs = $this->DetailsTag($row->content_id);
-//
-//    $row->tags = $tangs;
-//
-//    return $row;
-//    }
-    //}
 
     /*
      * method display detail tag
     */
     function DetailsTag($id){
         if(isset($id) && !empty($id)){
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $sql    ="select t.id as tagid, t.name as tagname
                     from #__tz_pinboard_tags AS t
                     LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
@@ -424,7 +394,7 @@ class Tz_pinboardModelManageruser extends JModelList{
     function  getShowBoarname(){
         $user       = JFactory::getUser();
         $id_user    = $user->id;
-        $db         = &JFactory::getDbo();
+        $db         = JFactory::getDbo();
         $sql        = "select id, title from #__tz_pinboard_boards where  created_user_id=$id_user ";
         $db->setQuery($sql);
         $row        = $db->loadObjectList();
@@ -439,7 +409,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         $id_user        = $user->id;
         $id_content     = JRequest::getInt('id_pins');
         if(isset($id_content)){
-            $db         = &JFactory::getDbo();
+            $db         = JFactory::getDbo();
             $sql        = "SELECT im.images as img_im, c.id as content_id, c.title as content_title,
                                     c.introtext as content_introtext, c.catid as content_catid, c.alias as alias_content,
                                     w.url as url, tg.name as tag
@@ -465,7 +435,7 @@ class Tz_pinboardModelManageruser extends JModelList{
     function checkAlias_pins(){
         $name           = strip_tags(htmlspecialchars(JRequest::getString('edittitle')));
         $alias          = strip_tags(htmlspecialchars( JRequest::getString('aliaspins')));
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            = 'select title, alias from #__tz_pinboard_pins where title="'.$name.'" || alias="'.$alias.'"';
         $db->setQuery($sql);
         $num_row        = $db->query();
@@ -495,7 +465,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         $id_user        = $user->id;
         $dt             = JFactory::getDate();
         $modified       =  $dt->toSql();
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            = "UPDATE #__tz_pinboard_pins SET title='".$title."', introtext='".$introtext."', catid='".$catid."',
                                     modified='".$modified."', alias='".$alias."'
                             WHERE id=$id_c AND created_by =$id_user ";
@@ -509,7 +479,7 @@ class Tz_pinboardModelManageruser extends JModelList{
     */
     function deleteEditTang(){
         $id_conten      = strip_tags(htmlspecialchars( $_POST['id_pins']));
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            = "delete from #__tz_pinboard_tags_xref where contentid=$id_conten";
         $db->setQuery($sql);
         $db->query();
@@ -535,7 +505,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                 $arr[]  = $keywords[$i];
             }
         }
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $newkey         = array();
         for($i = 0; $i< count($arr); $i++){
             $sql        = " select id from #__tz_pinboard_tags where name='".trim($arr[$i])."'";
@@ -558,7 +528,7 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method insert Tags
      */
     function  insertUrltag(){
-        $db         = &JFactory::getDbo();
+        $db         = JFactory::getDbo();
         $new        = $this->getChecktag();
         $keywords   = $new['new'];
         $row_k      = $new['id'];
@@ -607,7 +577,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         $id_conten  = strip_tags(htmlspecialchars( $_POST['id_pins']));
         $id_tag     = $this->insertUrltag();
         if(is_array($id_tag) && count($id_tag) !=0){
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             for($i=0; $i< count($id_tag); $i++){
                 $sql_insert = "INSERT INTO #__tz_pinboard_tags_xref VALUES(NULL,'".$id_tag[$i]."','".$id_conten."')";
                 $db->setQuery($sql_insert);
@@ -672,6 +642,8 @@ class Tz_pinboardModelManageruser extends JModelList{
         }
     }
 
+
+
     /*
      * method delete tag delete tags pins
     */
@@ -679,6 +651,17 @@ class Tz_pinboardModelManageruser extends JModelList{
         $id_content = JRequest::getInt('id_pins');
         $db         = JFactory::getDbo();
         $sql        = "delete from #__tz_pinboard_tags_xref where contentid=$id_content";
+        $db->setQuery($sql);
+        $db->query();
+    }
+
+    /*
+     *  method delete comments
+    */
+    function deleteComments(){
+        $id_content = JRequest::getInt('id_pins');
+        $db         = JFactory::getDbo();
+        $sql        = "delete from #__tz_pinboard_comment where content_id=$id_content";
         $db->setQuery($sql);
         $db->query();
     }
@@ -695,6 +678,7 @@ class Tz_pinboardModelManageruser extends JModelList{
             $this->deleteImgPins();
             $this->deletewebPins();
             $this->deleteTagPins();
+            $this->deleteComments();
         }
         return $id_board;
     }
@@ -1010,7 +994,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(empty($alias)){
             $alias = $name;
         }
-        $db         = &JFactory::getDbo();
+        $db         = JFactory::getDbo();
         $sql        = 'select title, alias from #__tz_pinboard_boards where created_user_id ="'.$created_user_id.'" AND title="'.$name.'" || alias="'.$alias.'"';
         $db->setQuery($sql);
         $num_row    =   $db->query();
@@ -1043,7 +1027,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         $erro            = $this->checkAlias();
 
         if($erro =="0" && isset($created_user_id) && !empty($created_user_id)){
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $sql    = 'INSERT INTO #__tz_pinboard_boards
                         VALUES(NULL,"'.$title.'","'.$alias.'","'.$description.'","'.$state_b.'","'.$created_time.'","","'.$catid.'","'.$created_user_id.'")';
             $db->setQuery($sql);
@@ -1072,7 +1056,7 @@ class Tz_pinboardModelManageruser extends JModelList{
     function getEditboard(){
         $id_b = JRequest::getInt('id_board');
         if(isset($id_b) && !empty($id_b)){
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $sql    ="SELECT catid, id as id_board, title as board, description, created_time, alias
                     from #__tz_pinboard_boards
                     where id =$id_b" ;
@@ -1127,7 +1111,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         $alias      = strip_tags(htmlspecialchars( JRequest::getString('aliasboard')));
         $user       = JFactory::getUser();
         $id_user    = $user->id;
-        $db         = &JFactory::getDbo();
+        $db         = JFactory::getDbo();
         $sql        ='select title, alias from #__tz_pinboard_boards where (title="'.$name.'" || alias="'.$alias.'") AND  not id = '.$id_b.' AND created_user_id='.$id_user.'';
         $db->setQuery($sql);
         $num_row    = $db->query();
@@ -1182,7 +1166,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         if(isset($user_guest) && !empty($user_guest)){
             $id_user    = $user_guest;
         }
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
         $sql            = 'select created_user_id from #__tz_pinboard_boards where created_user_id='.$id_user.'';
         $db->setQuery($sql);
         $row            = $db->loadResult();
@@ -1331,7 +1315,7 @@ function getShowComment($id_content){
     }
     function deleteimg_content(){
         $artId =   JRequest::getInt('id_pins');
-        $urlparams = &JComponentHelper::getParams('com_tz_pinboard');
+        $urlparams = JComponentHelper::getParams('com_tz_pinboard');
         $sizes = array();
         $sizes['XS']  = $urlparams->get('tz_image_xsmall',100);
         $sizes['S']  = $urlparams->get('tz_image_small',200);
@@ -1340,7 +1324,7 @@ function getShowComment($id_content){
         $sizes['XL']  = $urlparams->get('tz_image_xlarge',900);
         $query  ="SELECT * FROM #__tz_pinboard_xref_content
         WHERE contentid = $artId";
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             echo $db -> getErrorMsg();

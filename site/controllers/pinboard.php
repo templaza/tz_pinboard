@@ -25,7 +25,7 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
 
     private $model;
 
-    function display(){
+    function display($cachable=false,$urlparams=array()){
         $doc = JFactory::getDocument();
         $type = $doc->getType();
         $view = $this->getView('pinboard',$type);
@@ -72,7 +72,7 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 break;
         }
 
-        $view->display();
+        $view->display($tpl=null);
     }
 
 

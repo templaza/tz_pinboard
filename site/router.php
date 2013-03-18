@@ -89,7 +89,7 @@ defined('_JEXEC') or die;
                                 if (strpos($query['id_guest'], ':') === false) {
                                     $aquery  = 'SELECT name FROM #__users';
                                     $aquery  .= ' WHERE id='.(int)$query['id_guest'];
-                                    $db     = &JFactory::getDbo();
+                                    $db     = JFactory::getDbo();
                                     $db -> setQuery($aquery);
                                     $name    = $db -> loadResult();
                                     //Convert name of user to alias.
@@ -104,7 +104,7 @@ defined('_JEXEC') or die;
                             if (strpos($query['id_board'], ':') === false) {
                                 $aquery  = 'SELECT alias FROM #__tz_pinboard_boards';
                                 $aquery  .= ' WHERE id='.$query['id_board'];
-                                $db     = &JFactory::getDbo();
+                                $db     = JFactory::getDbo();
                                 $db -> setQuery($aquery);
                                 $alias    = $db -> loadResult();
 
@@ -120,7 +120,7 @@ defined('_JEXEC') or die;
                                 $aquery  = 'SELECT alias FROM #__tz_pinboard_pins';
                                 $aquery  .= ' WHERE id='.$query['id_pins'];
 
-                                $db     = &JFactory::getDbo();
+                                $db     = JFactory::getDbo();
                                 $db -> setQuery($aquery);
                                 $alias    = $db -> loadResult();
 
@@ -133,7 +133,7 @@ defined('_JEXEC') or die;
                                    if (strpos($query['id_tag'], ':') === false) {
                                        $aquery  = 'SELECT name FROM #__tz_pinboard_tags';
                                        $aquery  .= ' WHERE id='.$query['id_tag'];
-                                       $db     = &JFactory::getDbo();
+                                       $db     = JFactory::getDbo();
                                        $db -> setQuery($aquery);
                                        $name_t    = $db -> loadResult() ;
 

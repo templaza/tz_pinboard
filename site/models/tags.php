@@ -27,8 +27,8 @@ class TZ_PinboardModelTags extends JModelList{
      * Method to auto-populate the model state.
 
      */
-    function populateState(){
-        $app            =   &JFactory::getApplication();
+    function populateState($ordering=null,$direction=null){
+        $app            =   JFactory::getApplication();
         $params         =   $app -> getParams();
         $this           ->  setState('params',$params);
         $limit_pin      =   $params->get('tz_article_limit');
@@ -77,7 +77,7 @@ class TZ_PinboardModelTags extends JModelList{
         if(isset($tag_id) && !empty($tag_id)){
             $tag = $tag_id;
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql="select name from #__tz_pinboard_tags where id=$tag";
         $db->setQuery($sql);
         return  $db->loadObject();
@@ -101,7 +101,7 @@ class TZ_PinboardModelTags extends JModelList{
         }else{
             $tags       =  "";
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                         c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
@@ -157,7 +157,7 @@ class TZ_PinboardModelTags extends JModelList{
         return $row;
     }
     function detailTag($id){
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="select t.id as tagid, t.name as tagname
                 from #__tz_pinboard_tags AS t
                     LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid

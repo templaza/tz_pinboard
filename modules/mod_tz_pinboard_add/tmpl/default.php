@@ -17,7 +17,7 @@
 #-------------------------------------------------------------------------*/
     defined("_JEXEC") or die;
 
-    $doc = &JFactory::getDocument();
+    $doc = JFactory::getDocument();
     $doc->addStyleSheet('modules/mod_tz_pinboard_add/css/tz_add.css');
     $doc->addStyleSheet('modules/mod_tz_pinboard_add/css/anythingslider.css');
     $doc -> addCustomTag('<script type="text/javascript" src="modules/mod_tz_pinboard_add/js/jquery.anythingslider.js"></script>');
