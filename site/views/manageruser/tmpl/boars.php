@@ -17,7 +17,7 @@
 
 -------------------------------------------------------------------------*/
 defined("_JEXEC") or die;
-    $doc = &JFactory::getDocument();
+    $doc = JFactory::getDocument();
     $doc->addStyleSheet('components/com_tz_pinboard/css/manageruser.css');
     $pth_c = JPATH_ADMINISTRATOR.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.
     'com_tz_pinboard'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'html'.DIRECTORY_SEPARATOR.'category.php';

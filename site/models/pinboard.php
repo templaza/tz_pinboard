@@ -28,8 +28,8 @@ class TZ_PinboardModelPinboard extends JModelList{
      * Method to auto-populate the model state.
 
      */
-    function populateState(){
-        $app            = &JFactory::getApplication();
+    function populateState($ordering=null,$direction=null){
+        $app            = JFactory::getApplication();
         $params         = $app -> getParams();
         $this -> setState('params',$params);
 
@@ -38,7 +38,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $limit_pin      = $params->get('tz_article_limit');
         $limitstart     = JRequest::getCmd('limitstart',0);
         $width_columns  = $params->get('width_columns');
-        $type_detail    =$params->get('type_detail');
+        $type_detail    = $params->get('type_detail');
         $tz_layout      = $params->get('tz_pinboard_layout');
         $limit_commnet  = $params->get('Limits_comment');
         $state_comment  = $params->get('state_comment');
@@ -112,7 +112,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         }else{
             $catids     =  "where c.state=1 order by c.$type_show_pin $arrangements";
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit , pz.images as poro_img,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                         c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
@@ -311,7 +311,7 @@ class TZ_PinboardModelPinboard extends JModelList{
     function showBoardweb(){
         $user = JFactory::getUser();
         $id = $user->id;
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sqk = " select id, title from #__tz_pinboard_boards where created_user_id=$id";
         $db->setQuery($sqk);
         $row = $db->loadObjectList();
@@ -324,7 +324,7 @@ class TZ_PinboardModelPinboard extends JModelList{
     function  getRepin(){
         $id_conten = $_POST['id_conten'];
         if(isset($id_conten) && !empty($id_conten)){
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="SELECT u.id as id_user, u.name as name_user, ca.id as category_id, c.title as conten_title, c.introtext as content_introtext
                           ,c.id as content_id, pz.images as poro_img, w.url as website, c.alias as content_alias, c.access as content_access
                    FROM #__users AS u
@@ -356,7 +356,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         if(isset($id) && !empty($id)){ // check id exists or not ?
             require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
             $view = new TZ_PinboardViewPinboard();
-            $param_porfolio = &JComponentHelper::getParams('com_tz_pinboard');
+            $param_porfolio = JComponentHelper::getParams('com_tz_pinboard');
             $img_size = $param_porfolio->get('image_repin');
             $view->assign('img_size',$img_size);
             $view->assign('repin',$this->getRepin());
@@ -390,7 +390,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $user = JFactory::getUser();
         $id_usert = $user->id;
         $status = $this->getState('check_status');
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql_inert = "INSERT INTO #__tz_pinboard_pins VALUES (NULL, '0', '".$title."', '".$alias."', '".$tz_descript."', '', '$status', '$board', '$dtime', '$id_usert', '', '0000-00-00 00:00:00', '0', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '1', '0', '', '', '".$access."', '0', '', '0', '', '')";
         $sql_select ="select id from #__tz_pinboard_pins where created_by=$id_usert order by id desc ";
         $db->setQuery($sql_inert);
@@ -416,7 +416,7 @@ class TZ_PinboardModelPinboard extends JModelList{
            $id_user_repin =0;
            $tz_user_name =0;
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql_inert ="INSERT INTO #__tz_pinboard_website VALUES(NULL,'".$url."','.$id_conten.','$id_user_repin','".$tz_user_name."')";
         $db->setQuery($sql_inert);
         $db->query();
@@ -428,7 +428,7 @@ class TZ_PinboardModelPinboard extends JModelList{
     function  insertRepinimg(){
         $id_conten = $this->getState('id_content');
         $path_img=$_POST['img_conten'];
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql = 'INSERT INTO #__tz_pinboard_xref_content VALUES (NULL, '.$id_conten.',"","'.$path_img.'","", "", "", "image", "","", "", "", "", "", "")';
         $db->setQuery($sql);
         $db->query();
@@ -443,7 +443,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $tz_tag = $_POST['tz_tag'];
         $tz_tag = explode(",",$tz_tag);
         array_pop($tz_tag);
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         for($i= 0; $i< count($tz_tag); $i++){
             $sql_insert = "INSERT INTO #__tz_pinboard_tags_xref VALUES(NULL,'".trim($tz_tag[$i])."','".$id_conten."')";
             $db->setQuery($sql_insert);
@@ -466,7 +466,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $this->getimageCopy();
         require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'pinboard'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
         $view   = new TZ_PinboardViewPinboard();
-        $param_pinboard = &JComponentHelper::getParams('com_tz_pinboard');
+        $param_pinboard = JComponentHelper::getParams('com_tz_pinboard');
         $img_size = $param_pinboard->get('portfolio_image_size');
         $width_columns = $param_pinboard->get('width_columns');
         $text_commnet = $param_pinboard->get('Limits_comment');
@@ -489,14 +489,9 @@ class TZ_PinboardModelPinboard extends JModelList{
     function selectRepin(){
         $user = JFactory::getUser();
         $id_usert = $user->id;
-     //   $catids = $this->getState('catids');
-       
-//        if(isset($catids) && !empty($catids)){
-//            $catids = implode(',',$catids);
-//            $catids = "where ca.catid in($catids) AND c.created_by =$id_usert order by c.created desc limit 0,1";
-//        }else{
+
             $catids="where c.created_by =$id_usert order by c.created desc limit 0,1";
-      //  }
+
 
         $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit, pz.images as poro_img,
                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
@@ -527,7 +522,7 @@ class TZ_PinboardModelPinboard extends JModelList{
     }
 
     function detailTag($id){
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql ="select t.id as tagid, t.name as tagname
                 from #__tz_pinboard_tags AS t
                     LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
@@ -553,7 +548,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $limitstart1=   $limit * ($page-1);
         $offset = (int) $limitstart1;
         $this -> setState('limitstar',$offset);
-        $param_pinboard = &JComponentHelper::getParams('com_tz_pinboard');
+        $param_pinboard = JComponentHelper::getParams('com_tz_pinboard');
         $text_commnet = $param_pinboard->get('Limits_comment');
         $img_size = $param_pinboard->get('portfolio_image_size');
         $width_columns = $param_pinboard->get('width_columns');
@@ -582,7 +577,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $user = JFactory::getUser();
         $id_user = $user->id;
         $IP =  $_SERVER['REMOTE_ADDR'];
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql="select checkIP FROM #__tz_pinboard_comment WHERE id_user=$id_user and IP ='".$IP."' limit 0,1";
         $db->setQuery($sql);
         $row = $db->loadObject();
@@ -615,7 +610,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $id_user = $user->id;
         $dt = JFactory::getDate();
         $dtime = $dt->toSql();
-        $db =& JFactory::getDbo();
+        $db = JFactory::getDbo();
         $checkIP = $this->checkInsertComment();
         if($checkIP==""){
             $sql = "INSERT INTO #__tz_pinboard_comment VALUES('NULL','".$commnet_replace."', '$id_content', '$id_user','".$state."','".$dtime."','".$IP."','1')";
@@ -754,7 +749,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $rowimages=$path_img;
         $row = explode("/",$rowimages);
         $name = $row[count($row)-1];
-        $urlparams = &JComponentHelper::getParams('com_tz_pinboard');
+        $urlparams = JComponentHelper::getParams('com_tz_pinboard');
         $sizes = array();
         $sizes['XS']  = $urlparams->get('tz_image_xsmall',100);
         $sizes['S']  = $urlparams->get('tz_image_small',200);
@@ -774,7 +769,7 @@ class TZ_PinboardModelPinboard extends JModelList{
                 }
             }
         }
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $sql = 'INSERT INTO #__tz_pinboard_xref_content VALUES (NULL, '.$id_conten.',"","'.$path22.'","", "", "", "image", "","", "", "", "", "", "")';
         $db->setQuery($sql);
         $db->query();

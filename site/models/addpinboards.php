@@ -28,7 +28,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     * Method to auto-populate the model state.
 
     */
-    function populateState()
+    function populateState($ordering=null,$direction=null)
     {
         $app =  JFactory::getApplication();
         $params = $app->getParams();
@@ -266,10 +266,13 @@ class Tz_pinboardModelAddpinboards extends JModelList
             if ($contentURL = $docUrl->get($data)) {
                 if (empty($content['title'])) {
                     if (preg_match('/<title>(.*?)<\/title>/i', $contentURL->body, $match)) {
+
                         $title_url = str_replace($check_text, '', $match[1]);
                         $content['title'] =  $this->length_character($title_url,$this->getState('max_text_title'));
+
                     }
                 }
+
 
                 if (preg_match('/<meta.*?name="description".*?\/>/i', $contentURL->body, $match)) {
                     if (preg_match_all('/content="(.*?)"/', $match[0], $_match))
@@ -279,6 +282,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
                     $content['introtext'] = $this->length_character($introtext_url,$this->getState('max_text_descript'));
                 }
 
+
                 if (preg_match('/<meta.*?name="keywords".*?\/>/i', $contentURL->body, $_match)) {
                     if (preg_match_all('/content="(.*?)"/', $_match[0], $key)) {
                     $arr_s_key = array_pop($key[0]);
@@ -287,26 +291,28 @@ class Tz_pinboardModelAddpinboards extends JModelList
                     $content['keywoa'] = $this->length_character($keyword_url,$this->getState('max_text_keyword'));
                     }
                 }
+                // get host name
+                $referer = parse_url($link_url);
+                 $url_return  =    $referer['scheme'].'://' . $referer['host'];
+                $content['url'] = $url_return;
 
+                // get host name 2
+                $slash = strrpos($link_url, '/') + 1;
+                $link_url = substr($link_url, 0, $slash);
+                $content['url2'] = $link_url;
 
                 if (preg_match_all('/<img.*?src="(.*?)".*?/i', $contentURL->body, $match)) {
-                    $arr = array();
-                    foreach ($match[1] as $match_all) {
-                        if ($image_element  =   $this->getImageURL($link_url,$match_all)) {
-                            $arr[] = $image_element;
-                            if(count($arr) > $limit_imgs){
-                                break;
-                            }
-                        }
+                    $arr            = array();
+                    $arr            = $match[1];
+                    $content['img'] = $arr;
 
-                    }
-                    if (isset($arr) && !empty($arr)) {
-                        $content['img'] = $arr;
-                    }
-                    return $content;
+
                 }
+
+                return $content;
             }
         }
+
     }
 
     /**
@@ -325,19 +331,22 @@ class Tz_pinboardModelAddpinboards extends JModelList
             $host = substr($host, 0, $slash);
             $image_return   =    $host . $image;
         }
-        if(isset($image_return)) {
-            $src = @getimagesize($image_return);
-            if (is_array($src)) {
-                $width_height = explode(" ", $src[3]);
-                $width = $width_height[0];
-                preg_match('/[0-9]+/', $width, $img_width);
-            if ($img_width[0] > 150 && $img_width[0] < 2500) {
-                return $image_return;
-            }
-            } else {
-                return false;
-            }
-        }
+
+//        if(isset($image_return)) {
+//            $src = @getimagesize($image_return);
+//            if (is_array($src)) {
+//                $width_height = explode(" ", $src[3]);
+//                $width = $width_height[0];
+//                preg_match('/[0-9]+/', $width, $img_width);
+//            if ($img_width[0] > 150 && $img_width[0] < 2500) {
+//                return $image_return;
+//            }
+//            } else {
+//                return false;
+//            }
+//        }
+
+        return $image_return;
     }
 
 
@@ -361,32 +370,23 @@ class Tz_pinboardModelAddpinboards extends JModelList
     */
     function ajaxUploadweb()
     {
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
+        if (!isset($_SERVER['HTTP_REFERER'])) return false;
             $refer = $_SERVER['HTTP_REFERER'];
             $url_arr = parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $check_erro = $this->getWebsite();
+        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return false;
+            $check_erro = $this->getWebsite();
+
         if (isset($check_erro['title']) && !empty($check_erro['title'])) {
-            if ($check_erro['title'] == 'f') return null;
+            if ($check_erro['title'] == 'f') return false;
         }
         if (isset($check_erro['keywoa']) && !empty($check_erro['keywoa'])) {
-            if ($check_erro['keywoa'] == 'f') return null;
+            if ($check_erro['keywoa'] == 'f') return false;
         }
         if (isset($check_erro['introtext']) && !empty($check_erro['introtext'])) {
-            if ($check_erro['introtext'] == 'f') return null;
+            if ($check_erro['introtext'] == 'f') return false;
         }
-        require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'addpinboards' . DIRECTORY_SEPARATOR . 'view.html.php'); // chen file view.html.php vao
-        $view = new Tz_pinboardViewAddpinboards();
-        $state = $this->getState('params');
-        $max_title = $state->get('text_title');
-        $max_key = $state->get('text_keyword');
-        $max_introtext = $state->get('text_descript_pin');
-        $view->assign('max_keywords', $max_key);
-        $view->assign('text_title', $max_title);
-        $view->assign('text_descript', $max_introtext);
-        $view->assign('showweb_img', $this->getWebsite());
-        $view->assign('Showboardd', $this->showBoardweb());
-        return $view->loadTemplate('web');
+
+        return $check_erro;
     }
 
     /*

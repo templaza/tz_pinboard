@@ -124,18 +124,17 @@ foreach($this->Pins as $Pins){
         <div class="tz_pin_comsPins_content">
             <?php if(isset($Pins->showcomment) && ($Pins->countComment->count_l > $this->page_com )){ ?>
                 <div class="tz_ajax_page_cm">
-                    <a class="tz_comment_pt_span" data-optio-page="2"  data-optio-id="0">
-                            <span>
+                    <a class="tz_comment_page" data-optio-page="2"  data-optio-id="0">
+
                             <?php
                                 echo JText::_('COM_TZ_PINBOARD_VIEW_COMMENT');
                                 ?>
-                            </span>
+
                     </a>
-                    <a class="tz_empty_span" style="display: none">
-                            <span>
-                                <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_NOT_PAGES'); ?>
-                            </span>
-                    </a>
+                    <span id="id_load_thum"></span>
+
+                    <div class="cler"></div>
+
                     <div class="tz_ajax_page_stop"></div>
                 </div>
             <?php } ?>

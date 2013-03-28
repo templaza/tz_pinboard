@@ -48,7 +48,7 @@ defined("_JEXEC") or die;
             $this->assign('Boarpin',$this->get('Boarpin'));
             $this->assign('Showpinboard',$this->get('Showpinboard'));
 
-            $param_porfolio = &JComponentHelper::getParams('com_tz_pinboard');
+            $param_porfolio = JComponentHelper::getParams('com_tz_pinboard');
             $img_size = $param_porfolio->get('portfolio_image_size');
             $this->assign('img_size',$img_size);
 

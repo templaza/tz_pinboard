@@ -25,13 +25,14 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
 
     private $model;
 
-    function display(){
-        $doc = JFactory::getDocument();
-        $type = $doc->getType();
-        $view = $this->getView('pinboard',$type);
-        $this->model = $this->getModel('pinboard');
-        $view->setModel($this->model,true);
-        $task = JRequest::getCmd('task');
+    function display($cachable=false,$urlparams=array()){
+        $doc    = JFactory::getDocument();
+        $type   = $doc->getType();
+        $view   = $this->getView('pinboard',$type);
+        $this   -> model = $this->getModel('pinboard');
+        $view   -> setModel($this->model,true);
+        $task   = JRequest::getCmd('task');
+
         switch($task){
             case'tz.pin.like':
                 echo $this->model->inserLike();
@@ -72,7 +73,7 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 break;
         }
 
-        $view->display();
+        $view->display($tpl=null);
     }
 
 

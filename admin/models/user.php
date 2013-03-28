@@ -163,7 +163,7 @@ class TZ_PinboardModelUser extends JModelAdmin
 
         $query  = 'SELECT * FROM #__tz_pinboard_users'
                   .' WHERE usersid='.$userId;
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             $this -> setError($db -> getErrorMsg());

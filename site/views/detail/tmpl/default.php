@@ -27,6 +27,7 @@ defined("_JEXEC") or die;
 ?>
 <script type="text/javascript">
     jQuery(document).ready(function(){
+        jQuery(".tz_detail_pins").remove();
         jQuery('.tz_repin').click(function(){ // show light box repin
             jQuery.ajax({
             url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz_repin',
@@ -202,8 +203,8 @@ defined("_JEXEC") or die;
           });
             jQuery(".Tz_delete .tz_comment_delete").live("click",function(){
                 jQuery(".Tz_delete").addClass("tz_d");
-                jQuery(".tz_notice_detail").fadeIn();
-                jQuery(".tz_notice_detail").animate({"top":"30%"},300);
+                jQuery(".tz_notice_detail").fadeIn(10);
+                jQuery(".tz_notice_detail").animate({"top":"30%"},200);
                 jQuery(".tz_detail_canel").click(function(){
 
                     jQuery(".tz_notice_detail").animate({"top":"-100%"},function(){
@@ -211,51 +212,35 @@ defined("_JEXEC") or die;
                         jQuery("li").removeClass("tz_d");
                     });
 
-                })
-                jQuery(".tz_detail_delete").live("click",function(){
-
-                    jQuery.ajax({
-                        url: "index.php?option=com_tz_pinboard&view=detail&task=tz.delete.comment",
-                        type: "post",
-                        data:{
-                            id: jQuery(".tz_d .tz_comment_delete").attr("data-option-id"),
-                            id_pins: jQuery(".tz_d .tz_comment_delete").attr('data-option-text')
-                        }
-                    }).success(function(data){
-                                var getData = jQuery.parseJSON(data);
-                                jQuery("#tz_count_number").html(getData.count_number);
-                                jQuery(".tz_d").remove();
-                                jQuery(".tz_notice_detail").animate({"top":"-100%"},function(){
-                                    jQuery(".tz_notice_detail").css("display","none");
-                                });
-                                //jQuery(".tz_content_cm ul").html(getData.contents);
-                                var pages =  jQuery("#tz_comment_pt_a").attr("data-optio-id");
-                                var pages = parseInt(pages) - 1;
-                                jQuery("#tz_comment_pt_a").attr("data-optio-id",pages);
-                            });
                 });
+
             });
-//        jQuery(".Tz_delete .tz_comment_delete").live("click",function(){
-//            jQuery(".Tz_delete").addClass("tz_d");
-//           jQuery.ajax({
-//               url: "index.php?option=com_tz_pinboard&view=detail&task=tz.delete.comment",
-//                type: "post",
-//               data:{
-//                   id: jQuery(this).attr("data-option-id"),
-//                   id_pins: jQuery(this).attr('data-option-text')
-//               }
-//           }).success(function(data){
-//                         var getData = jQuery.parseJSON(data);
-//                         jQuery("#tz_count_number").html(getData.count_number);
-//                        jQuery(".tz_d").remove();
-//                         //jQuery(".tz_content_cm ul").html(getData.contents);
-//                       var pages =  jQuery("#tz_comment_pt_a").attr("data-optio-id");
-//                       var pages = parseInt(pages) - 1;
-//                       jQuery("#tz_comment_pt_a").attr("data-optio-id",pages);
-//                   });
-//        });
+        jQuery(".tz_detail_delete").live("click",function(){
+
+            jQuery.ajax({
+                url: "index.php?option=com_tz_pinboard&view=detail&task=tz.delete.comment",
+                type: "post",
+                data:{
+                    id: jQuery(".tz_d .tz_comment_delete").attr("data-option-id"),
+                    id_pins: jQuery(".tz_d .tz_comment_delete").attr('data-option-text')
+                }
+            }).success(function(data){
+                        var getData = jQuery.parseJSON(data);
+                        jQuery("#tz_count_number").html(getData.count_number);
+                        jQuery(".tz_d").remove();
+                        jQuery(".tz_notice_detail").animate({"top":"-100%"},function(){
+                            jQuery(".tz_notice_detail").css("display","none");
+                        });
+                        //jQuery(".tz_content_cm ul").html(getData.contents);
+                        var pages =  jQuery("#tz_comment_pt_a").attr("data-optio-id");
+                        var pages = parseInt(pages) - 1;
+                        jQuery("#tz_comment_pt_a").attr("data-optio-id",pages);
+                    });
+        });
+
       jQuery("#tz_comment_pt_a").live("click",function(){
           jQuery("#tz_page_stop").css("display","block");
+          jQuery('#id_loadding').html("<img src='<?php echo JUri::root().'/components/com_tz_pinboard/images/ajax-comment.gif'?>' />").fadeIn('fast');
                jQuery.ajax({
                    url:"index.php?option=com_tz_pinboard&view=detail&task=tz.ajax.pt.cm",
                    type: "post",
@@ -265,10 +250,11 @@ defined("_JEXEC") or die;
                        counts: jQuery("#tz_comment_pt_a").attr("data-optio-id")
                    }
                }).success(function(data){
+                           jQuery('#id_loadding').fadeOut();
                      data =  data.replace(/^\s+|\s+$/g,'');
                   if(data==""){
                       jQuery("#tz_comment_pt_a").css("display","none");
-                      jQuery("#tz_comment_pt_emty").css("display","block");
+                      jQuery(".tz_detail_page").css("display","none");
                   } else{
 
                       jQuery(".tz_content_cm ul").prepend(data);

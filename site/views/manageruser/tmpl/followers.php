@@ -18,7 +18,7 @@
 -------------------------------------------------------------------------*/
 defined("_JEXEC") or die;
 
-    $doc    =  &JFactory::getDocument();
+    $doc    =  JFactory::getDocument();
     $doc    -> addStyleSheet('components/com_tz_pinboard/css/manageruser.css');
     $doc    -> addStyleSheet('components/com_tz_pinboard/css/more_pin.css');
     $doc    -> addStyleSheet('components/com_tz_pinboard/css/like.css');
