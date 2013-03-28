@@ -27,6 +27,7 @@ defined("_JEXEC") or die;
 ?>
 <script type="text/javascript">
     jQuery(document).ready(function(){
+        jQuery(".tz_detail_pins").remove();
         jQuery('.tz_repin').click(function(){ // show light box repin
             jQuery.ajax({
             url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz_repin',

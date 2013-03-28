@@ -26,12 +26,13 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
     private $model;
 
     function display($cachable=false,$urlparams=array()){
-        $doc = JFactory::getDocument();
-        $type = $doc->getType();
-        $view = $this->getView('pinboard',$type);
-        $this->model = $this->getModel('pinboard');
-        $view->setModel($this->model,true);
-        $task = JRequest::getCmd('task');
+        $doc    = JFactory::getDocument();
+        $type   = $doc->getType();
+        $view   = $this->getView('pinboard',$type);
+        $this   -> model = $this->getModel('pinboard');
+        $view   -> setModel($this->model,true);
+        $task   = JRequest::getCmd('task');
+
         switch($task){
             case'tz.pin.like':
                 echo $this->model->inserLike();

@@ -34,6 +34,7 @@ class TZ_PinboardControllerTags extends JControllerAdmin{
         $this->model    =   $this->getModel('tags');
         $view->setModel($this->model,true);
         $task           = JRequest::getCmd('task');
+
         switch($task){
             case'tz.pin.like':
                 echo $this->model->inserLike();

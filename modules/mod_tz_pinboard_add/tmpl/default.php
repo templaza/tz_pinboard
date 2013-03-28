@@ -29,10 +29,11 @@ jQuery(document).ready(function(){
         jQuery('#tz_pinboard_add_warp').fadeIn();
         jQuery('#tz_pinboard_add').css("display","block");
         jQuery('#tz_pinboard_add').animate({top:'25%'},500);
-        jQuery('#tz_pinboard_add_name_img').click(function(){
-            jQuery('#tz_pinboard_add').animate({top:'-60%'},600);
-            jQuery('#tz_pinboard_add_warp').fadeOut();
-        });
+
+    });
+    jQuery('#tz_pinboard_add_name_img').click(function(){
+        jQuery('#tz_pinboard_add').animate({top:'-60%'},600);
+        jQuery('#tz_pinboard_add_warp').fadeOut();
     });
     jQuery("#add_button_pin_err").click(function(){
         alert("<?php echo JText::_('MOD_TZ_PINBOARD_LOGIN'); ?>");
@@ -91,6 +92,7 @@ jQuery(document).ready(function(){
     });
     //pin url
     jQuery('#tz_pin_url_button').click(function(){
+        jQuery("#slider li").remove();
         var srt3 =/^http(s)?:\/\/(www\.)?([a-zA-Z0-9\_])+\.([a-zA-Z0-9\/]{1,5})+(\.[A-Za-z0-9\/]{1,4})?([a-zA-Z0-9\/\.&=_\+\#\-\?]*)?$/;
         var check_url_img = jQuery('#tz_url_img').val();
         if(check_url_img ==""){
@@ -111,20 +113,51 @@ jQuery(document).ready(function(){
             }
         }).success(function(data){
             jQuery('#tz_pin_loadding').fadeOut('fast');
-            if(data!=""){
+
+            var getData = jQuery.parseJSON(data);
+
+            if(getData != false){
+
+                jQuery("#tz_pin_url_keygord").val(getData.keywoa);
+                jQuery("#tz_pin_url_title").val(getData.title);
+                jQuery("#tz_pin_url_textarea").val(getData.introtext);
+                var str_http = /^http.*$/;
+                var str     = /^\/.*$/;
+
+                var i=0;
+
+                for(i; i<getData.img.length; i++ ){
+
+                    if(str_http.test(getData.img[i])==true){
+                            getData.img[i] = getData.img[i];
+                    }else if(str.test(getData.img[i]) == true ){
+                            getData.img[i] =  getData.url+getData.img[i];
+                    }else{
+                            getData.img[i]  = getData.url2+getData.img[i];
+                    }
+
+
+                    var img = jQuery('<img src="'+ getData.img[i] +'"/>').load(function(){
+                        if(this.width > 200 && this.height > 100){
+                        jQuery("#slider").append('<li><img src="'+this.src+'"/></li>');
+                    }
+                        jQuery('#slider').anythingSlider({
+                            enableArrows        : true,      // if false, arrows will be visible, but not clickable.
+                            enableNavigation    : false,      // if false, navigation links will still be visible, but not clickable.
+                            enableStartStop     : false
+                        });
+
+                    });
+
+
+                }
+
                 jQuery('#tz_pin_add_url_pin').animate({bottom:'5%'},500);
                 jQuery('#tz_pin_url_content_2').slideDown();
-                jQuery('#tz_pin_url_content_2').html(data);
-                jQuery('#tz_pin_url_keygord').hover(function(){
-                      jQuery('.tz_tootlips').tooltip('show');
-                });
-                jQuery('#slider').anythingSlider({
-                enableArrows        : true,      // if false, arrows will be visible, but not clickable.
-                enableNavigation    : false,      // if false, navigation links will still be visible, but not clickable.
-                enableStartStop     : false
-                });
+
+
                 jQuery('#tz_pin_url_keygord').focus(function(){
-                    jQuery('#tz_pin_url_keygord').keyup(function(){
+                        jQuery('#tz_pin_url_keygord').keyup(function(){
                         var Max_Text_input = jQuery('#tz_pin_url_keygord').attr('maxlength');
                         var Text_value_input = jQuery('#tz_pin_url_keygord').attr('value');
                         var Den_text_input = Text_value_input.length;
@@ -180,8 +213,14 @@ jQuery(document).ready(function(){
                     p_title.innerHTML=" ";
                 });
                 jQuery('#url_a_pin').click(function(){
-                    var srcc = jQuery('li.activePage > img').attr("src");
-                    jQuery('#img_hidder').attr('value',srcc);
+                    if(jQuery('li').hasClass('activePage')==false){
+                        var srcc = jQuery('li.panel > img').attr("src");
+                        jQuery('#img_hidder').attr('value',srcc);
+                    }else{
+                        var srcc = jQuery('li.activePage > img').attr("src");
+                        jQuery('#img_hidder').attr('value',srcc);
+                    }
+
                 });
                 jQuery('#url_a_pin').click(function(){
                     var Texra = jQuery('#tz_pin_url_textarea').attr('value');
@@ -204,9 +243,9 @@ jQuery(document).ready(function(){
                     }
                 });
             } else{
-            alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_URL'); ?>");
-            jQuery('#tz_url_img').focus();
-            return false;
+                alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_URL'); ?>");
+                jQuery('#tz_url_img').focus();
+                return false;
             }
         });
     });

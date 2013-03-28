@@ -102,8 +102,6 @@ class Tz_pinboardControllerManageruser extends JControllerForm{
                     $view->setLayout('following');
                     break;
 
-
-
                 default:
                     $view->setLayout('boars');
                     break;

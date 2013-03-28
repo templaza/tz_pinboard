@@ -642,8 +642,6 @@ class Tz_pinboardModelManageruser extends JModelList{
         }
     }
 
-
-
     /*
      * method delete tag delete tags pins
     */
@@ -654,10 +652,6 @@ class Tz_pinboardModelManageruser extends JModelList{
         $db->setQuery($sql);
         $db->query();
     }
-
-    /*
-     *  method delete comments
-    */
     function deleteComments(){
         $id_content = JRequest::getInt('id_pins');
         $db         = JFactory::getDbo();
