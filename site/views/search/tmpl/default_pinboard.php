@@ -127,16 +127,16 @@ if(isset($this->Pins)){
                         if(isset($Pins->showcomment) && ($Pins->countComment->count_l >= $this->page_com) ){
                             ?>
                             <div class="tz_ajax_page_cm">
-                                <a class="tz_comment_pt_span" data-optio-page="2" data-optio-id="0" class="btn btn-large btn-block">
+                                <a class="tz_comment_page" data-optio-page="2" data-optio-id="0" class="btn btn-large btn-block">
                                     <span>
                                         <?php
                                         echo JText::_('COM_TZ_PINBOARD_VIEW_COMMENT');
                                         ?>
                                     </span>
                                 </a>
-                                <a class="tz_empty_span" style="display: none">
-                                    <span><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_NOT_PAGES'); ?></span>
-                                </a>
+                                <span id="id_load_thum"></span>
+
+                                <div class="cler"></div>
                                 <div class="tz_ajax_page_stop"></div>
                             </div>
                             <?php } ?>
@@ -162,7 +162,7 @@ if(isset($this->Pins)){
                                     </p>
                                     <?php if(isset($this->show_date) && $this->show_date ==1){ ?>
                                     <p class="tz_more_conten_comment_dates">
-                                        <?php echo JText::sprintf("TZ_PINBOARD_TIME_DETAIL",date(JText::_('TZ_PINBOARD_DATE_FOMAT'),strtotime($Pins->showcomment[$i]->dates ))) ?>
+                                        <?php echo JText::sprintf("TZ_PINBOARD_TIME_DETAIL",date(JText::_('TZ_PINBOARD_DATE_FOMAT_COMMENT'),strtotime($Pins->showcomment[$i]->dates ))) ?>
                                     </p>
                                     <?php } ?>
                                 </li>

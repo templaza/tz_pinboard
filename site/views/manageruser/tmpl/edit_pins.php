@@ -18,7 +18,7 @@
 -------------------------------------------------------------------------*/
 defined("_JEXEC") or die;
 
-$doc = &JFactory::getDocument();
+$doc = JFactory::getDocument();
 $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
 
 ?>

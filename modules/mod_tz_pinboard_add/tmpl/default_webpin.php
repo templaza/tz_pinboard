@@ -40,6 +40,56 @@ defined("_JEXEC") or die;
         <div id="tz_pin_loadding">
         </div>
         <div id="tz_pin_url_content_2">
+                <div id="tz_pin_url_content_2_left">
+                    <ul id="slider">
+                    </ul>
+                    <div class="cler"></div>
+                </div>
+                <div id="tz_pin_url_content_2_right">
+                    <div class="tz_pin_url_input">
+                        <input id="tz_pin_url_keygord" type="text" name="keywords_pin_local"  maxlength="<?php echo $text_key; ?>"  value="">
+                        <p id="tz_url_p_keyword">
+                        </p>
+                    </div>
+                    <div class="tz_pin_url_input">
+                        <input id="tz_pin_url_title" type="text" name="title_pin_local" title="Title" maxlength="<?php echo $text_title; ?>"  value="">
+                        <input type="hidden" name="img_hidde" id="img_hidder" value="">
+                        <p id="tz_url_p_title">
+                        </p>
+                    </div>
+                    <div class="tz_pin_url_input">
+                        <select name="board" id="tz_pin_url_select">
+                        <?php
+                        if(isset($bord) && !empty($bord)){
+                        foreach($bord as $row){
+                        ?>
+                        <option value="<?php echo $row->id ?>">
+                        <?php echo $row->title; ?>
+                        </option>
+                        <?php
+                        }
+                        }else{
+                        ?>
+                        <option value="">
+
+                        </option>
+                        <?php
+                        }
+                        ?>
+                        </select>
+
+                    </div>
+                    <div class="tz_pin_url_input">
+                        <textarea id="tz_pin_url_textarea" title="Descript" name="tz_descript_url" style="width: 299px; height: 118px;" maxlength="<?php echo $text_title_ds; ?>"  ></textarea>
+                        <p id="tz_url_p_textarea"></p>
+                    </div>
+                    <div class="tz_pin_url_input">
+                        <input type="hidden" name="task" value="task_upload_pin">
+                        <input  class="btn btn-large" id="url_a_pin" type="submit" name="uploadpin" value="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_WEB_PIN'); ?>">
+                        <?php echo JHtml::_('form.token'); ?>
+                    </div>
+                </div>
+                <div class="cler"></div>
         </div>
         <input type="hidden" name="option" value="com_tz_pinboard" />
         <input type="hidden" name="view" value="addpinboards" />

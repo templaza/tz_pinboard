@@ -39,7 +39,7 @@ defined("_JEXEC") or die;
          $this->assign('sosanhuser',$this->get('Sosanhuser'));
          $show_date_comment  = $state->get('show_date_comment');
          $this->assign('show_date',$show_date_comment);
-         $param_pinboard = &JComponentHelper::getParams('com_tz_pinboard');
+         $param_pinboard = JComponentHelper::getParams('com_tz_pinboard');
          $img_size = $param_pinboard->get('portfolio_image_size');
          $width_columns = $param_pinboard->get('width_columns');
          $text_commnet = $param_pinboard->get('Limits_comment');

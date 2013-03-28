@@ -191,6 +191,7 @@
     border: 1px solid #000000;
     border-radius: 12px;
     background: white;
+    margin-left: 6px;
 }
 .tz_detail_pl .disabled_d{
     background: #c5c5c5;
@@ -271,7 +272,7 @@
     margin-top: 5px;
 }
 .tz_detail_page{
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     padding-top: 10px;
     position: relative;
     width: 98%;
@@ -287,6 +288,7 @@
     height: 100%;
     z-index: 99;
     display: none;
+
 
 }
 .tz_comment_delete{
@@ -313,8 +315,8 @@
    
     font-size: 12px;
     padding-left: 5px;
-    padding-top: 10px;
-
+    float: left;
+    padding-right: 10px;
     cursor: pointer;
 }
 #tz_comment_pt_emty

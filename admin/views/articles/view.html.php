@@ -142,7 +142,7 @@ class TZ_PinboardViewArticles extends JViewLegacy
 
 	//	JToolBarHelper::help('JHELP_CONTENT_ARTICLE_MANAGER');
 
-        $doc    = &JFactory::getDocument();
+        $doc    = JFactory::getDocument();
         $doc -> addStyleSheet(JURI::base(true).'/components/com_tz_pinboard/assets/style.css');
 
 
@@ -164,7 +164,7 @@ class TZ_PinboardViewArticles extends JViewLegacy
 		);
 
         require_once(JPATH_COMPONENT_ADMINISTRATOR.'/models/categories.php');
-        $model      = &JModelLegacy::getInstance('Categories','TZ_PinboardModel',array('ignore_request' => true));
+        $model      = JModelLegacy::getInstance('Categories','TZ_PinboardModel',array('ignore_request' => true));
         $model -> setState('filter.group',$this -> state -> get('filter.group'));
 
 

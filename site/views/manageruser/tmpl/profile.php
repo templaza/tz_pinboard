@@ -17,13 +17,13 @@
 
 -------------------------------------------------------------------------*/
  
-$doc    = &JFactory::getDocument();
+$doc    = JFactory::getDocument();
 $doc -> addStyleSheet('components/com_tz_pinboard/css/manageruser.css');
 
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
-$lang   = &JFactory::getLanguage();
+$lang   = JFactory::getLanguage();
 $lang -> load('com_users');
 $lang -> load('com_tz_pinboard',JPATH_ADMINISTRATOR);
 

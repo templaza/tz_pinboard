@@ -21,8 +21,8 @@
 
 class TZ_PinboardModelDetail extends JModelList{
 
-        function populateState(){
-            $app            = &JFactory::getApplication();
+    function populateState($ordering=null,$direction=null){
+            $app            = JFactory::getApplication();
             $params         = $app -> getParams();
             $this -> setState('params',$params);
             $show_date_comment  = $params->get('show_date_comment');
@@ -56,7 +56,7 @@ class TZ_PinboardModelDetail extends JModelList{
             $this->updateHist();
             if($id_content =='f') return false;
             if(isset($id_content) && !empty($id_content)){
-                $db = &JFactory::getDbo();
+                $db = JFactory::getDbo();
                 $sql ="SELECT u.id as id_user, u.name as name_user, tz_u.images as img_user,
                                 ca.id as category_id,  ca.title as boar_title,
                                 c.title as conten_title, c.introtext as content_introtext,
@@ -109,7 +109,7 @@ class TZ_PinboardModelDetail extends JModelList{
         }
 
         function DetailTag($id){
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $sql    = "select t.id as tagid, t.name as tagname
                         from  #__tz_pinboard_tags AS t
                           LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
@@ -121,7 +121,7 @@ class TZ_PinboardModelDetail extends JModelList{
 
         function updateHist(){
             $id_content =JRequest::getInt('id_pins');
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql = "update #__tz_pinboard_pins set hits = hits+1 where  id=$id_content";
 
             $db->setQuery($sql);
@@ -167,7 +167,7 @@ class TZ_PinboardModelDetail extends JModelList{
             $user = JFactory::getUser();
             $id_user = $user->id;
             $IP =  $_SERVER['REMOTE_ADDR'];
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql="select checkIP FROM #__tz_pinboard_comment WHERE id_user=$id_user and IP ='".$IP."' limit 0,1";
             $db->setQuery($sql);
             $row = $db->loadObject();
@@ -192,7 +192,7 @@ class TZ_PinboardModelDetail extends JModelList{
             $id_user = $user->id;
             $dt = JFactory::getDate();
             $dtime = $dt->toSql();
-            $db =& JFactory::getDbo();
+            $db = JFactory::getDbo();
             $checkIP = $this->checkInsertComment();
             if($checkIP==""){
             $sql = "INSERT INTO #__tz_pinboard_comment VALUES('NULL','".$commnet_replace."', '$id_content', '$id_user','".$state."','".$dtime."','".$IP."','1')";
@@ -224,7 +224,7 @@ class TZ_PinboardModelDetail extends JModelList{
         }
         function DeleteCommnet(){
             $id_cm = $_POST['id'];
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="delete from #__tz_pinboard_comment where id=$id_cm";
             $db->setQuery($sql);
             $db->query();
@@ -314,7 +314,7 @@ class TZ_PinboardModelDetail extends JModelList{
             $view-> assign('sosanhuser',$this->getSosanhuser());
             $view->assign('Demcommnet',$this->getDemcommnet());
             $view->assign('ShowCommnet',$this->getShowCommnet());
-            $param_pinboard = &JComponentHelper::getParams('com_tz_pinboard');
+            $param_pinboard = JComponentHelper::getParams('com_tz_pinboard');
             $img_size = $this->getState('pinboard_image_size');
             $view->assign('img_size',$img_size);
             return $view->loadTemplate('ajaxpins');

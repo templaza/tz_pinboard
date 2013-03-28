@@ -30,7 +30,7 @@ class plgSystemTZ_Pinboard extends JPlugin {
     // Extend user forms with TZ Portfolio fields
 	function onAfterDispatch() {
         JFactory::getLanguage() -> load('com_tz_pinboard');
-        $mainframe = &JFactory::getApplication();
+        $mainframe = JFactory::getApplication();
         
 		if($mainframe->isAdmin())return;
 
@@ -38,21 +38,31 @@ class plgSystemTZ_Pinboard extends JPlugin {
 		$view = JRequest::getCmd('view');
 		$task = JRequest::getCmd('task');
 		$layout = JRequest::getCmd('layout');
-		$user = &JFactory::getUser();
+		$user = JFactory::getUser();
 
         if($option == 'com_users' && $view == 'registration' && !$layout){
                 require_once (JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_users'.DIRECTORY_SEPARATOR.'controller.php');
                 $controller = new UsersController;
                 $views = $controller->getView($view, 'html');
-                $views->addTemplatePath(JPATH_SITE.DIRECTORY_SEPARATOR.'components'
-                                       .DIRECTORY_SEPARATOR.'com_tz_pinboard'
-                                       .DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'tmpl');
+
+                $tplName    = JFactory::getApplication() -> getTemplate();
+                $tplPath    = JPATH_THEMES.DIRECTORY_SEPARATOR.$tplName.DIRECTORY_SEPARATOR.'html'
+                              .DIRECTORY_SEPARATOR.'com_tz_pinboard'.DIRECTORY_SEPARATOR.'manageruser';
+
+                if(!JFile::exists($tplPath.DIRECTORY_SEPARATOR.'register.php')){
+                    $tplPath    = JPATH_SITE.DIRECTORY_SEPARATOR.'components'
+                                  .DIRECTORY_SEPARATOR.'com_tz_pinboard'
+                                  .DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'tmpl';
+                }
+
+                $views->addTemplatePath($tplPath);
+            
                 $views->setLayout('register');
 
                 ob_start();
                 $views->display();
                 $contents = ob_get_clean();
-                $document = &JFactory::getDocument();
+                $document = JFactory::getDocument();
                 $document->setBuffer($contents, 'component');
         }
         if($user -> username && $option == 'com_users'
@@ -64,9 +74,18 @@ class plgSystemTZ_Pinboard extends JPlugin {
             $controller = new UsersController;
 
             $views = $controller->getView($view, 'html');
-            $views->addTemplatePath(JPATH_SITE.DIRECTORY_SEPARATOR.'components'
-                                   .DIRECTORY_SEPARATOR.'com_tz_pinboard'
-                                   .DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'tmpl');
+
+            $tplName    = JFactory::getApplication() -> getTemplate();
+            $tplPath    = JPATH_THEMES.DIRECTORY_SEPARATOR.$tplName.DIRECTORY_SEPARATOR.'html'
+                          .DIRECTORY_SEPARATOR.'com_tz_pinboard'.DIRECTORY_SEPARATOR.'manageruser';
+
+            if(!JFile::exists($tplPath.DIRECTORY_SEPARATOR.'profile.php')){
+                $tplPath    = JPATH_SITE.DIRECTORY_SEPARATOR.'components'
+                              .DIRECTORY_SEPARATOR.'com_tz_pinboard'
+                              .DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'manageruser'.DIRECTORY_SEPARATOR.'tmpl';
+            }
+
+            $views->addTemplatePath($tplPath);
             $views->setLayout('profile');
 
             require_once(JPATH_ADMINISTRATOR.DIRECTORY_SEPARATOR.'components'
@@ -87,7 +106,7 @@ class plgSystemTZ_Pinboard extends JPlugin {
             $views -> assign('user',$user);
             $views->display();
             $contents = ob_get_clean();
-            $document = &JFactory::getDocument();
+            $document = JFactory::getDocument();
             $document->setBuffer($contents, 'component');
         }
 
