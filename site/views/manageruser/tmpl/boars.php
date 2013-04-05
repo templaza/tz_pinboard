@@ -50,8 +50,15 @@ defined("_JEXEC") or die;
     });
 
     jQuery(document).ready(function(){
+
+
         tz_init(<?php echo $this->width_columns; ?>); //call functon tz_init
-        jQuery('#Tz_create_boar_new').click(function(){
+
+        var ua = navigator.userAgent, // Check device
+        event  = (ua.match(/iPad/i)) ? "touchstart" : "click";
+
+
+        jQuery('#Tz_create_boar_new').live(event,function(){
             jQuery('#create_board').fadeIn();
         });
         jQuery('#create_board_warp_form_img').click(function(){
@@ -226,9 +233,7 @@ defined("_JEXEC") or die;
         <?php if(isset($this->newboard) && $this->newboard==$this->sosanhuser){ ?>
             <div id="Tz_board_new" class="tz_conten_board_class">
                 <div id="Tz_create_boar_new">
-                    <p id="Tz_create_boar_p">
-                        <?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_CREATE_BOARD'); ?>
-                    </p>
+
                 </div>
             </div>
         <?php } ?>

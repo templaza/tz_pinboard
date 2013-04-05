@@ -17,13 +17,20 @@
 #-------------------------------------------------------------------------*/
     defined("_JEXEC") or die;
 
-    $doc = JFactory::getDocument();
-    $doc->addStyleSheet('modules/mod_tz_pinboard_add/css/tz_add.css');
-    $doc->addStyleSheet('modules/mod_tz_pinboard_add/css/anythingslider.css');
-    $doc -> addCustomTag('<script type="text/javascript" src="modules/mod_tz_pinboard_add/js/jquery.anythingslider.js"></script>');
+    $doc    =  JFactory::getDocument();
+    $doc    -> addStyleSheet('modules/mod_tz_pinboard_add/css/tz_add.css');
+    $doc    -> addStyleSheet('modules/mod_tz_pinboard_add/css/anythingslider.css');
+    $doc    -> addCustomTag('<script type="text/javascript" src="modules/mod_tz_pinboard_add/js/jquery.anythingslider.js"></script>');
 
 ?>
 <script type="text/javascript">
+// method check text
+function checkText(text, maxtext){
+    var countText = text.length;
+    var text      = maxtext - countText;
+    return text;
+}
+
 jQuery(document).ready(function(){
     jQuery('#add_button_pin_board').click(function(){
         jQuery('#tz_pinboard_add_warp').fadeIn();
@@ -93,7 +100,7 @@ jQuery(document).ready(function(){
     //pin url
     jQuery('#tz_pin_url_button').click(function(){
         jQuery("#slider li").remove();
-        var srt3 =/^http(s)?:\/\/(www\.)?([a-zA-Z0-9\_])+\.([a-zA-Z0-9\/]{1,5})+(\.[A-Za-z0-9\/]{1,4})?([a-zA-Z0-9\/\.&=_\+\#\-\?]*)?$/;
+        var srt3 = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!-\/]))?/;
         var check_url_img = jQuery('#tz_url_img').val();
         if(check_url_img ==""){
             alert("<?php echo JText::_('MOD_TZ_PINBOARD_CHECK_TITLE'); ?>");
@@ -121,7 +128,7 @@ jQuery(document).ready(function(){
                 jQuery("#tz_pin_url_keygord").val(getData.keywoa);
                 jQuery("#tz_pin_url_title").val(getData.title);
                 jQuery("#tz_pin_url_textarea").val(getData.introtext);
-                var str_http = /^http.*$/;
+                var str_http = /^http.*$|^\/\//;
                 var str     = /^\/.*$/;
 
                 var i=0;
@@ -135,10 +142,8 @@ jQuery(document).ready(function(){
                     }else{
                             getData.img[i]  = getData.url2+getData.img[i];
                     }
-
-
                     var img = jQuery('<img src="'+ getData.img[i] +'"/>').load(function(){
-                        if(this.width > 200 && this.height > 100){
+                        if(this.width > 200 && this.height > 150){
                         jQuery("#slider").append('<li><img src="'+this.src+'"/></li>');
                     }
                         jQuery('#slider').anythingSlider({
@@ -158,15 +163,14 @@ jQuery(document).ready(function(){
 
                 jQuery('#tz_pin_url_keygord').focus(function(){
                         jQuery('#tz_pin_url_keygord').keyup(function(){
-                        var Max_Text_input = jQuery('#tz_pin_url_keygord').attr('maxlength');
-                        var Text_value_input = jQuery('#tz_pin_url_keygord').attr('value');
-                        var Den_text_input = Text_value_input.length;
-                        var p_title = document.getElementById('tz_url_p_keyword');
-                        var HieuText = Max_Text_input - Den_text_input;
-                        if(HieuText >0){
-                             p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY'); ?>: "+HieuText;
+                        var Max_Text_input      = jQuery('#tz_pin_url_keygord').attr('maxlength');
+                        var Text_value_input    = jQuery('#tz_pin_url_keygord').attr('value');
+                        var p_title             = document.getElementById('tz_url_p_keyword');
+                        var Text_k              = checkText(Text_value_input,Max_Text_input);
+                        if(Text_k >0){
+                             p_title.innerHTML  = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY'); ?>: "+Text_k;
                         }else{
-                              p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY_0'); ?>";
+                              p_title.innerHTML = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY_0'); ?>";
                         }
                     });
                 });
@@ -176,15 +180,14 @@ jQuery(document).ready(function(){
                 });
                 jQuery('#tz_pin_url_title').focus(function(){
                     jQuery('#tz_pin_url_title').keyup(function(){
-                        var Max_Text_input = jQuery('#tz_pin_url_title').attr('maxlength');
-                        var Text_value_input = jQuery('#tz_pin_url_title').attr('value');
-                        var Den_text_input = Text_value_input.length;
-                        var p_title = document.getElementById('tz_url_p_title');
-                        var HieuText = Max_Text_input - Den_text_input;
-                        if(HieuText >0){
-                            p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_TITLE') ?>: "+HieuText;
+                        var Max_Text_input      = jQuery('#tz_pin_url_title').attr('maxlength');
+                        var Text_value_input    = jQuery('#tz_pin_url_title').attr('value');
+                        var p_title             = document.getElementById('tz_url_p_title');
+                        var Text_t              = checkText(Text_value_input,Max_Text_input);
+                        if(Text_t >0){
+                            p_title.innerHTML   = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_TITLE') ?>: "+Text_t;
                         }else{
-                            p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_TITLE') ?>: 0";
+                            p_title.innerHTML   = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_TITLE') ?>: 0";
                         }
                     });
                 });
@@ -196,13 +199,12 @@ jQuery(document).ready(function(){
 
                 jQuery('#tz_pin_url_textarea').focus(function(){ // jquery  Descript
                     jQuery('#tz_pin_url_textarea').keyup(function(){
-                        var Max_Text_input = jQuery('#tz_pin_url_textarea').attr('maxlength');
+                        var Max_Text_input   = jQuery('#tz_pin_url_textarea').attr('maxlength');
                         var Text_value_input = jQuery('#tz_pin_url_textarea').attr('value');
-                        var Den_text_input = Text_value_input.length;
-                        var p_title = document.getElementById('tz_url_p_textarea');
-                        var HieuText = Max_Text_input - Den_text_input;
-                        if(HieuText >0){
-                            p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION'); ?>: "+HieuText;
+                        var p_title          = document.getElementById('tz_url_p_textarea');
+                        var Text_d           = checkText(Text_value_input,Max_Text_input);
+                        if(Text_d >0){
+                            p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION'); ?>: "+Text_d;
                         }else{
                             p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION_0'); ?>";
                         }
@@ -212,6 +214,7 @@ jQuery(document).ready(function(){
                     var p_title = document.getElementById('tz_url_p_textarea');
                     p_title.innerHTML=" ";
                 });
+
                 jQuery('#url_a_pin').click(function(){
                     if(jQuery('li').hasClass('activePage')==false){
                         var srcc = jQuery('li.panel > img').attr("src");
@@ -221,9 +224,6 @@ jQuery(document).ready(function(){
                         jQuery('#img_hidder').attr('value',srcc);
                     }
 
-                });
-                jQuery('#url_a_pin').click(function(){
-                    var Texra = jQuery('#tz_pin_url_textarea').attr('value');
                     var Title = jQuery('#tz_pin_url_title').attr('value');
                     var boards = jQuery("#tz_pin_upload_select").val();
                     if(Title ==""){
@@ -231,11 +231,7 @@ jQuery(document).ready(function(){
                         jQuery('#tz_pin_url_title').focus();
                         return false;
                     }
-                    if(Texra ==""){
-                        alert("<?php echo JText::_('MOD_TZ_PINBOARD_CHECK_TITLE'); ?>");
-                        jQuery('#tz_pin_url_textarea').focus();
-                        return false;
-                    }
+
                     if(boards==""){
                         alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_SELECT'); ?>");
                         jQuery("#tz_pin_upload_select").focus();
@@ -267,19 +263,18 @@ jQuery(document).ready(function(){
     });
 /////////////////////////////////////////////////// check name board
     jQuery('#boardnames').focus(function(){
-        var inpName =jQuery('#boardnames').attr('value');
-        var p_title = document.getElementById("p_create_name");
+        var inpName     =jQuery('#boardnames').attr('value');
+        var p_title     = document.getElementById("p_create_name");
         jQuery('#boardnames').keyup(function(){
             var maxName = jQuery('#boardnames').attr('maxlength');
-            var inpName =jQuery('#boardnames').attr('value');
-            var countTen =inpName.length;
-            var HieuName = maxName - countTen;
-            if(HieuName > 0){
-                p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_BOARD_NAME'); ?>" +  HieuName;
+            var inpName = jQuery('#boardnames').attr('value');
+            var Text_b  = checkText(inpName,maxName);
+            if(Text_b > 0){
+                p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_BOARD_NAME'); ?>" +  Text_b;
             }else {
                 p_title.innerHTML ="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_BOARD_NAME_0') ?>";
             }
-            });
+        });
     });
     jQuery('#boardnames').blur(function(){
         var p_title = document.getElementById("p_create_name");
@@ -293,10 +288,9 @@ jQuery(document).ready(function(){
         jQuery('#aliasnames').keyup(function(){
             var maxName = jQuery('#aliasnames').attr('maxlength');
             var inpName =jQuery('#aliasnames').attr('value');
-            var countTen =inpName.length;
-            var HieuName = maxName - countTen;
-            if(HieuName > 0){
-                p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_BOARD_ALIAS'); ?>" +  HieuName;
+            var Text_a = checkText(inpName,maxName);
+            if(Text_a > 0){
+                p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_BOARD_ALIAS'); ?>" +  Text_a;
             }else {
                 p_title.innerHTML ="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_BOARD_ALIAS_0') ?>";
             }
@@ -314,10 +308,9 @@ jQuery(document).ready(function(){
         jQuery('#create_board_textra').keyup(function(){
             var maxName = jQuery('#create_board_textra').attr('maxlength');
             var inpName =jQuery('#create_board_textra').attr('value');
-            var countTen =inpName.length;
-            var HieuName = maxName - countTen;
-            if(HieuName > 0){
-                p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION'); ?>" +  HieuName;
+            var Text_d  = checkText(inpName,maxName);
+            if(Text_d > 0){
+                p_title.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION'); ?>" +  Text_d;
             }else {
                 p_title.innerHTML ="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION_0') ?>";
             }
@@ -350,14 +343,13 @@ jQuery(document).ready(function(){
     jQuery('#tz_pin_upload_keyword').focus(function(){
             jQuery('#tz_pin_upload_keyword').keyup(function(){
                 var max_text_ky = jQuery('#tz_pin_upload_keyword').attr('maxlength');
-                var text_key = jQuery('#tz_pin_upload_keyword').val();
-                var dem_text_key = text_key.length;
-                var HieuText_key = max_text_ky - dem_text_key;
-                var p_key = document.getElementById('tz_p_local_keyword');
-            if(HieuText_key > 0){
-                p_key.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY'); ?>: "+HieuText_key;
+                var text_key    = jQuery('#tz_pin_upload_keyword').val();
+                var p_key       = document.getElementById('tz_p_local_keyword');
+                var Text_w      = checkText(text_key,max_text_ky);
+            if(Text_w > 0){
+                p_key.innerHTML = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY'); ?>: "+Text_w;
             }else{
-                p_key.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY_0'); ?>";
+                p_key.innerHTML = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_KEY_0'); ?>";
             }
         })
     });
@@ -367,12 +359,11 @@ jQuery(document).ready(function(){
     jQuery('#tz_pin_upload_title').focus(function(){
         jQuery('#tz_pin_upload_title').keyup(function(){
             var max_text_ky = jQuery('#tz_pin_upload_title').attr('maxlength');
-            var text_key = jQuery('#tz_pin_upload_title').val();
-            var dem_text_key = text_key.length;
-            var HieuText_key = max_text_ky - dem_text_key;
-            var p_key = document.getElementById('tz_p_title');
-            if(HieuText_key > 0){
-                p_key.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_TITLE'); ?>: "+HieuText_key;
+            var text_key    = jQuery('#tz_pin_upload_title').val();
+            var p_key       = document.getElementById('tz_p_title');
+            var  Text_t     = checkText(text_key,max_text_ky);
+            if(Text_t > 0){
+                p_key.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_TITLE'); ?>: "+Text_t;
             }else{
                 p_key.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_TITLE_0'); ?>";
             }
@@ -384,15 +375,14 @@ jQuery(document).ready(function(){
 
     jQuery('#tz_pin_pin_textarea').focus(function(){
         jQuery('#tz_pin_pin_textarea').keyup(function(){
-            var max_text_ky = jQuery('#tz_pin_pin_textarea').attr('maxlength');
-            var text_key = jQuery('#tz_pin_pin_textarea').val();
-            var dem_text_key = text_key.length;
-            var HieuText_key = max_text_ky - dem_text_key;
-            var p_key = document.getElementById('tz_p_textarea');
-            if(HieuText_key > 0){
-            p_key.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION'); ?>: "+HieuText_key;
+            var max_text_ky     = jQuery('#tz_pin_pin_textarea').attr('maxlength');
+            var text_key        = jQuery('#tz_pin_pin_textarea').val();
+            var p_key           = document.getElementById('tz_p_textarea');
+            var Text_d          = checkText(text_key,max_text_ky);
+            if(Text_d > 0){
+                p_key.innerHTML = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION'); ?>: "+Text_d;
             }else{
-            p_key.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION_0'); ?>";
+                p_key.innerHTML = "<?php echo JText::_('MOD_TZ_PINBOARD_PIN_WEBSITE_DESCRIPTION_0'); ?>";
             }
         });
     });
@@ -403,11 +393,9 @@ jQuery(document).ready(function(){
     //  button Pin
     jQuery('#upload_a_pin').click(function(){
         var content_title = jQuery('#tz_pin_upload_title').val();
-        var title_p = document.getElementById("tz_p_title");
-        var content_textarea = jQuery('#tz_pin_pin_textarea').val();
-        var title_textarea = document.getElementById("tz_p_textarea");
-        var boards = jQuery("#tz_pin_upload_select").val();
-        if(boards==""){
+        var title_p       = document.getElementById("tz_p_title");
+        var boards        = jQuery("#tz_pin_upload_select").val();
+        if(boards == ""){
             alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_SELECT'); ?>");
             jQuery("#tz_pin_upload_select").focus();
             return false;
@@ -416,16 +404,10 @@ jQuery(document).ready(function(){
             title_p.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_LOCAL_TITLE'); ?>";
             jQuery('#pin_add_upload_title_pin_local').focus();
             return false;
-            }else{
+        }else{
             title_p.innerHTML="";
         }
-        if(content_textarea==""){
-            title_textarea.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_LOCAL_DESCRIPTION'); ?>";
-            jQuery('#tz_pin_pin_textarea').focus();
-            return false;
-            }else{
-            title_textarea.innerHTML="";
-        }
+
     });
 });
 </script>
@@ -455,10 +437,11 @@ jQuery(document).ready(function(){
 <?php } ?>
 
 
-<div id="tz_pinboard_add_warp">
+<div id="tz_pinboard_add_warp" class="row-fluid">
     <div id="tz_pinboard_full">
     </div>
-    <div id="tz_pinboard_add">
+    <div id="tz_pinboard_add" >
+
         <div id="tz_pinboard_add_name">
             <span>
             <?php echo JText::_("MOD_TZ_PINBOARD_ADD"); ?>
@@ -503,12 +486,12 @@ jQuery(document).ready(function(){
         </div>
     </div>
     <div id="tz_pin_add_upload_pin">
-    <?php require JModuleHelper::getLayoutPath('mod_tz_pinboard_add', $params->get('layout', 'default'.'_uploadpin')); ?>
+        <?php require JModuleHelper::getLayoutPath('mod_tz_pinboard_add', $params->get('layout', 'default'.'_uploadpin')); ?>
     </div>
     <div id="tz_pin_add_url_pin">
-    <?php require JModuleHelper::getLayoutPath('mod_tz_pinboard_add', $params->get('layout', 'default'.'_webpin')); ?>
+        <?php require JModuleHelper::getLayoutPath('mod_tz_pinboard_add', $params->get('layout', 'default'.'_webpin')); ?>
     </div>
-    <div id="tz_create_board_add">
-    <?php require JModuleHelper::getLayoutPath('mod_tz_pinboard_add', $params->get('layout', 'default'.'_createboard')); ?>
+    <div id="tz_create_board_add" class="span6">
+        <?php require JModuleHelper::getLayoutPath('mod_tz_pinboard_add', $params->get('layout', 'default'.'_createboard')); ?>
     </div>
 </div>

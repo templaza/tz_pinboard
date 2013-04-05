@@ -51,11 +51,9 @@
 }
 
 .tz_pin_content_class{
-
-       margin-left: 10px;
-       margin-top: 10px;
-       box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
-       position: relative;
+   margin-left: 10px;
+   margin-top: 10px;
+   position: relative;
 }
 
 .tz_pin_content_class a{
@@ -76,10 +74,9 @@
 
 .tz_pin_img_user{
     float: left;
-    height: 40px;
     margin: 10px 0px 3px 3px;
-    width: 45px;
-    border: 1px solid #c0c0c0;
+    max-width: 45px;
+
 }
 .tz_pin_name_user{
     color: #666666;
@@ -98,16 +95,7 @@
     color: #6B6B6B;
     font-size: 11px;
 }
-.tz_button_pins{
-    position: absolute;
-    width: auto;
-    height: 50px;
-    display: none;
 
-    top:5px;
-    left: 0px;
-
-}
 
 .tz_button_repin span{
     text-align: center;
@@ -117,10 +105,11 @@
     font-size: 12px;
    
 }
-.tz_pin_content_class:hover .tz_button_pins{
-    display: block;
-    cursor: pointer;
-}
+
+/*.tz_pin_content_class:hover .tz_button_pins{*/
+    /*display: block;*/
+    /*cursor: pointer;*/
+/*}*/
 a:focus{
     outline: none !important;
       outline-offset: 0 !important;

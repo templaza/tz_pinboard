@@ -33,10 +33,10 @@ class TZ_PinboardControllerTags extends JControllerLegacy
     function display(){
         $this->_link     = 'index.php?option=com_tz_pinboard&view=tags';
 
-        $doc    = &JFactory::getDocument();
+        $doc    = JFactory::getDocument();
         $type   = $doc -> getType();
-        $view   = &$this -> getView('Tags',$type);
-        if($this -> model = &$this -> getModel('Tags')){
+        $view   = $this -> getView('Tags',$type);
+        if($this -> model = $this -> getModel('Tags')){
             $view -> setModel($this -> model,true);
         }
 

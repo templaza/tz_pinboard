@@ -52,18 +52,18 @@
     
 }
 #tz_pinboard_warp_menu ul li span{
+
     color: #666666;
-    position: absolute;
-    top: 17px;
-    left: 56px;
+    display: inline-block;
     font-size: 16px;
-   
+    padding-left: 8px;
 }
 #tz_pinboard_warp_menu ul li strong{
     color: #000000;
-      position: absolute;
-      top: 18px;
-      left: 33px;
+    display: inline-block;
+
+    padding-left: 38px;
+    padding-top: 13px;
 }
 #tz_pinboard_warp_menu ul li a:hover{
     background: #ffffff;
@@ -358,28 +358,11 @@
     position: relative;
      box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.3);
      position: relative;
-}
-#Tz_create_boar_new:hover{
-    background:url("../images/add-item.png") no-repeat scroll center 105px #B0B0B0  ;
     cursor: pointer;
 }
-#Tz_create_boar_new:hover #Tz_create_boar_p{
-    display: block;
-}
 
-#Tz_create_boar_p{
-    background: none repeat scroll 0 0 #ECEBEB;
-     border: 1px solid snow;
-     border-radius: 5px 5px 5px 5px;
-     color: #666666;
-     font-size: 19px;
-     left: 20%;
-     padding: 7px;
-     position: absolute;
-     top: 11%;
-   
-    display: none;
-}
+
+
 .tz_conten_board_class_h5{
     width: 100%;
     height: 50px;
@@ -597,21 +580,11 @@
 
 }
 #tz_board_more_board_name{
-    width: 100%;
-    height: 65px;
-
+    padding: 10px;
     position: relative;
     text-align: center;
-    background: rgb(255,255,255); /* Old browsers */
-       background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
-       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
-       background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
-       background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
-       background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
-       background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
-       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-       box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
-       z-index: 100;
+    z-index: 100;
+
 
 }
 #tz_board_more_board_name span:first-child{
@@ -710,10 +683,10 @@
 
 /* ket thuc repin */
 #tz_pinboar_warp_conten_pins{
-         width: 100%;
-        position:  relative;
-    background:#f3f5f6;
-        height: auto;
+    width: 100%;
+    position:  relative;
+
+    height: auto;
     padding-top: 20px;
 
 }
@@ -762,10 +735,10 @@
 .tz_pin_content_class_2_web{
     width: 91%;
      height: auto;
-     padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 11px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     display: block;
     background: #E0E0E0;
     color: #606060;
@@ -781,24 +754,8 @@
     cursor: pointer;
     color: #6B6B6B;
 }
-.tz_button_pins{
-    position: absolute;
-    width: auto;
-    height: 50px;
-    display: none;
-
-    top:5px;
-    left: 0px;
-
-}
 
 
-
-
-.tz_pin_content_class:hover .tz_button_pins{
-    display: block;
-    cursor: pointer;
-}
 a:focus{
     outline: none !important;
       outline-offset: 0 !important;
@@ -913,22 +870,14 @@ a:focus{
     width: 68px;
         height: 30px;
         display: block;
-        border-radius: 4px;
+
         position: absolute;
-    border: 1px solid #c0c0c0;
-         top: 5px;
-            right: 3px;
-    color: #666666;
-   
-    background: rgb(238,238,238); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+
+        top: 5px;
+        right: 3px;
+
 }
+
 .tz_pin_following_button_a{
     width: 23%;
     height: 48px;

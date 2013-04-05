@@ -40,24 +40,10 @@ class TZ_PinboardControllerSearch extends JControllerAdmin{
                 echo $this->model->ajaxseacrch();
                 die();
                 break;
-
-            case'tz.pin.like':
-                echo $this->model->inserLike();
-                die();
-                break;
-
-            case'tz.pin.unlike':
-                echo $this->model->insertUnlike();
-                die();
-                break;
-
             case'add_ajax':
                 echo $this->model->PinAjax();
                 die();
                 break;
-
-
-
             default:
                 $view->setLayout('default');
                 break;

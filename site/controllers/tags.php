@@ -33,38 +33,16 @@ class TZ_PinboardControllerTags extends JControllerAdmin{
         $view           =   $this->getView('tags',$type);
         $this->model    =   $this->getModel('tags');
         $view->setModel($this->model,true);
-        $task           = JRequest::getCmd('task');
+        $task           =   JRequest::getCmd('task');
 
         switch($task){
-            case'tz.pin.like':
-                echo $this->model->inserLike();
-                die();
-                break;
-
-            case'tz.pin.unlike':
-                echo $this->model->insertUnlike();
-                die();
-                break;
-
             case'add_ajax':
                 echo $this->model->PinAjax();
                 die();
                 break;
-
-            case'tz_more_repins':
-                echo $this->model->ajaxChitetiPins();
-                die();
-                break;
-
-            case'tz.insert.commnet_cm':
-                echo json_encode($this->model->ajaxcommnet_cm());
-                die();
-                break;
-
             default:
                 $view->setLayout('default');
             break;
-
         }
 
         $view->display();

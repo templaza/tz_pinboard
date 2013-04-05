@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
 jimport('joomla.html.pagination');
     class TZ_PinboardModelComment extends JModelList{
         function populateState(){
-                       $app    = &JFactory::getApplication();
+                       $app    = JFactory::getApplication();
 
                     // Adjust the context to support modal layouts.
                     if ($layout = $app->input->get('layout'))
@@ -58,7 +58,7 @@ jimport('joomla.html.pagination');
             parent::__construct();
         }
      function getAuthors(){
-    $db = &JFactory::getDbo();
+    $db = JFactory::getDbo();
     $sql ="SELECT u.id AS value, u.name AS text
            FROM  #__users as u inner join #__tz_pinboard_comment as c on u.id = c.id_user group by u.id";
     $db->setQuery($sql);
@@ -132,7 +132,7 @@ jimport('joomla.html.pagination');
                 $sear =null;
             }
 
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="select u.name as u_name, cm.ip as cm_ip, cm.content as cm_content, cm.content_id as cm_idcontent, cm.dates as cm_date, cm.id as cm_id,
                           cm.state as state_cm, cm.checkIP as checkip
                    from #__tz_pinboard_comment as cm left join #__users as u on cm.id_user = u.id
@@ -159,7 +159,7 @@ jimport('joomla.html.pagination');
         function delete(){
               $idd = $this->getState('id_input');
               $rr = implode(",",$idd);
-              $db = &JFactory::getDbo();
+              $db = JFactory::getDbo();
                           $sql ="delete from  #__tz_pinboard_comment  WHERE id in($rr)";
 
                           $db->setQuery($sql);
@@ -168,7 +168,7 @@ jimport('joomla.html.pagination');
         function unpulich(){
             $idd = $this->getState('id_input');
             $rr = implode(",",$idd);
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="UPDATE #__tz_pinboard_comment SET state =0 WHERE id in($rr)";
             $db->setQuery($sql);
             $db->query();
@@ -176,7 +176,7 @@ jimport('joomla.html.pagination');
         function publish(){
             $idd = $this->getState('id_input');
             $rr = implode(",",$idd);
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="UPDATE #__tz_pinboard_comment SET state =1 WHERE id in($rr)";
             $db->setQuery($sql);
             $db->query();
@@ -185,7 +185,7 @@ jimport('joomla.html.pagination');
         function getCheckIP(){
             $idd = $this->getState('id_input');
              $rr = implode(",",$idd);
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql = "select IP from #__tz_pinboard_comment where id in($rr)";
             $db->setQuery($sql);
             $row = $db->loadObject();
@@ -193,14 +193,14 @@ jimport('joomla.html.pagination');
         }
         function unpulichIP(){
             $IP = $this->getCheckIP()->IP;
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="UPDATE #__tz_pinboard_comment SET checkIP =0 WHERE IP='".$IP."'";
             $db->setQuery($sql);
             $db->query();
          }
         function publishIP(){
             $IP = $this->getCheckIP()->IP;
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="UPDATE #__tz_pinboard_comment SET checkIP =1 WHERE IP='".$IP."'";
             $db->setQuery($sql);
             $db->query();
@@ -216,7 +216,7 @@ jimport('joomla.html.pagination');
                     $id = $id_link;
                 }
              if(isset($id) && !empty($id)){
-               $db = &JFactory::getDbo();
+               $db = JFactory::getDbo();
                $sql="select u.name as u_name,  cm.ip as cm_ip, cm.content as cm_content, cm.content_id as cm_idcontent, cm.dates as cm_date, cm.id as cm_id,
                       cm.state as cm_state
                       from #__tz_pinboard_comment as cm left join #__users as u on cm.id_user = u.id left join #__content as c on cm.content_id=c.id

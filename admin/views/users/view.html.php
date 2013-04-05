@@ -96,7 +96,7 @@ class TZ_PinboardViewUsers extends JViewLegacy
 		JToolBarHelper::help('JHELP_USERS_USER_MANAGER');
         JHtmlSidebar::setAction('index.php?option=com_users&view=users');
 
-        $doc    = &JFactory::getDocument();
+        $doc    = JFactory::getDocument();
         $doc -> addStyleSheet(JURI::base(true).'/components/com_tz_pinboard/assets/style.css');
         // Special HTML workaround to get send popup working
 

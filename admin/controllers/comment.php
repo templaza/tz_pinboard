@@ -21,10 +21,10 @@ defined('_JEXEC') or die;
     class TZ_PinboardControllerComment extends JControllerAdmin{
         function  display(){
 
-             $doc = &JFactory::getDocument();
+             $doc = JFactory::getDocument();
               $type = $doc->getType();
-              $view= &$this -> getView('comment',$type);
-              $model=&$this->getModel('comment');
+              $view= $this -> getView('comment',$type);
+              $model=$this->getModel('comment');
               $view-> setModel($model,true);
              $task = JRequest::getCmd('task');
 

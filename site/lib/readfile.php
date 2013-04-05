@@ -47,7 +47,6 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
             if (!isset($parts['path'])) $parts['path'] = '/';
 
             $specify_port = true;
-
             // Set a default port.
             if (!array_key_exists('port', $parts)) {
                 $specify_port = false;
