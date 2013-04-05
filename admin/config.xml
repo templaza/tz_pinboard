@@ -81,7 +81,7 @@
         <field type="text"
                name="curl_key"
                label="COM_TZ_PINBOARD_TEXT_WEBSITE_CURL_KEY"
-               default=""
+               default="AIzaSyDiEruel1IfSAR0k0bc8pU4wvYYFCdbzow"
                description="COM_TZ_PINBOARD_TEXT_WEBSITE_CURL_KEY_DS">
 
         </field>
