@@ -12,13 +12,6 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
 
-04/05/13 - 3.0.3
-
-	Bootstrap integrate
-	[bug] Fix error check link url
-	[feature] Check token when submit ajax
-	[feature] Convert url to shortlink
-
 03/25/13 - 3.0.1
 
 	This is start version
