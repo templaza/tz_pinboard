@@ -13,6 +13,7 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 *** Changelog ***
 
 04/05/13 - 3.0.3
+
 	Bootstrap integrate
 	[bug] Fix error check link url
 	[feature] Check token when submit ajax
