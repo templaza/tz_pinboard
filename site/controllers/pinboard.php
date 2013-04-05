@@ -55,6 +55,7 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 break;
 
             case'tz_repin_insert':
+
                 echo  $this->model->insertRepinAll();
                 die();
                 break;

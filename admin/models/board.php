@@ -19,7 +19,7 @@
 jimport('joomla.html.pagination'); // phan trang
     class TZ_PinboardModelBoard extends JModelList{
         function populateState(){
-              $app    = &JFactory::getApplication();
+              $app    = JFactory::getApplication();
                 if ($layout = $app->input->get('layout'))
                 {
                     $this->context .= '.'.$layout;
@@ -120,7 +120,7 @@ jimport('joomla.html.pagination'); // phan trang
                             break;
               }
 
-                $db = &JFactory::getDbo();
+                $db = JFactory::getDbo();
                 $sql ="select b.id as id_b, b.title as title_b , b.catid  as catid_b, u.name as name_u, b.state as state_b, b.created_time as created_time_b,
                                 c.title  as title_c
                       from #__tz_pinboard_boards as b inner join #__tz_pinboard_category as c on b.catid = c.id left join  #__users as u on b.created_user_id  = u.id
@@ -146,7 +146,7 @@ jimport('joomla.html.pagination'); // phan trang
              return $this->pagNav;
          }
         function getAuthors(){
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="SELECT u.id AS value, u.name AS text
                    FROM #__users as u  inner join #__tz_pinboard_boards as b on u.id = b.created_user_id group by u.id";
             $db->setQuery($sql);
@@ -158,7 +158,7 @@ jimport('joomla.html.pagination'); // phan trang
         function unpulich(){
                     $idd = $this->getState('id_input');
                     $rr = implode(",",$idd);
-                    $db = &JFactory::getDbo();
+                    $db = JFactory::getDbo();
                     $sql ="UPDATE #__tz_pinboard_boards SET state =0 WHERE id in($rr)";
                     $db->setQuery($sql);
                     $db->query();
@@ -166,7 +166,7 @@ jimport('joomla.html.pagination'); // phan trang
         function publish(){
             $idd = $this->getState('id_input');
             $rr = implode(",",$idd);
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
                         $sql ="UPDATE #__tz_pinboard_boards SET state =1 WHERE id in($rr)";
                         $db->setQuery($sql);
                         $db->query();
@@ -175,7 +175,7 @@ jimport('joomla.html.pagination'); // phan trang
         function delete(){
             $idd = $this->getState('id_input');
             $rr = implode(",",$idd);
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $sql ="delete from  #__tz_pinboard_boards  WHERE id in($rr)";
             $db->setQuery($sql);
             $db->query();
@@ -197,7 +197,7 @@ jimport('joomla.html.pagination'); // phan trang
                        $id =0;
                    }
 
-                  $db = &JFactory::getDbo();
+                  $db = JFactory::getDbo();
                   $sql="SELECT b.id  as id_b, b.title as title_b, b.alias as  	alias_b, b.description as description_b, b.state as state_b,
                               b.created_time as created_time_b, b.modified_time as modified_time_b, b.catid as  	catid_b,
                               u.name as name_b

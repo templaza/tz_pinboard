@@ -77,11 +77,7 @@
 
 
 
-.tz_pin_like{
-    margin-left: 2px;
 
-    color: #767673;
-}
 .tz_pin_unlike{
     margin-left: 10px;
 
@@ -116,16 +112,7 @@
     color: #6B6B6B;
     font-size: 11px;
 }
-.tz_button_pins{
-    position: absolute;
-    width: auto;
-    height: 50px;
-    display: none;
 
-    top:5px;
-    left: 0px;
-
-}
 
 
 
@@ -142,10 +129,7 @@
     font-size: 12px;
 
 }
-.tz_pin_content_class:hover .tz_button_pins{
-    display: block;
-    cursor: pointer;
-}
+
 a:focus{
     outline: none !important;
       outline-offset: 0 !important;

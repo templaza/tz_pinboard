@@ -82,6 +82,9 @@
             <field name="show_tags_detail" default="1" />
             <field name="show_tags_title" default="1" />
             <field name="arrangements_pins" default="DESC" />
+            <field name="curl_api" default="0" />
+            <field name="curl_key" default="" />
+            <field name="text_web" default="4"/>
 			<field name="width_columns" default="233"/>
             <field name="column_board" default="233"/>
             <field name="column_pins" default="233"/>

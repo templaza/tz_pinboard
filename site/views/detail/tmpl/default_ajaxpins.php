@@ -28,70 +28,72 @@ defined("_JEXEC") or die;
         <span class="tz_detail_pins">
         </span>
     <?php } ?>
-    <?php
-        $img_size = $this->img_size;
-        $img_type = JFile::getExt($this->show_detail->poro_img);
-        $img_type_replaca = str_replace(".$img_type","_$img_size.$img_type",$this->show_detail->poro_img);
-    ?>
-    <img class="tz_imgs" src="<?php echo JUri::root()."/".$img_type_replaca; ?>">
-    <div class="tz_detail_pl">
-        <button class="tz_button_repin  tz_btn tz_repin" data-option-id="<?php echo $this->show_detail->content_id; ?>" > <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_REPIN'); ?></button>
+    <div class="tz-detail-hover">
+
         <?php
-            if($this->show_detail->id_user == $this->sosanhuser ){
+            $img_size = $this->img_size;
+            $img_type = JFile::getExt($this->show_detail->poro_img);
+            $img_type_replaca = str_replace(".$img_type","_$img_size.$img_type",$this->show_detail->poro_img);
         ?>
-            <a href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardManageruserRoute('',$this->show_detail->content_id)) ?>"  rel="nofollow">
-                <button class="tz_button_repin  tz_btn"> <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_EDITS'); ?></button>
-            </a>
-        <?php
+
+        <img class="tz_imgs" src="<?php echo JUri::root()."/".$img_type_replaca; ?>">
+        <div class="tz_detail_pl">
+            <button class="tz_button_repin  tz_btn tz_repin" data-option-id="<?php echo $this->show_detail->content_id; ?>" > <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_REPIN'); ?></button>
+            <?php
+            if($this->show_detail->id_user == $this->sosanhuser ){
+                ?>
+                <a href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardManageruserRoute('',$this->show_detail->content_id)) ?>"  rel="nofollow">
+                    <button class="tz_button_repin  tz_btn"> <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_EDITS'); ?></button>
+                </a>
+                <?php
             }else{
 
-//                if($this->show_detail->check_like['p'] =='0'  || $this->show_detail->check_like['p']  =='')
-//                {
-        ?>
-                    <button class="tz_button_repin  tz_btn   <?php   if($this->show_detail->check_like['p']=='1' ){  echo "tz_check_like"; } ?>  <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_like_ero"; }else{ echo"tz_like"; }  ?>" data-option-id="<?php echo $this->show_detail->content_id; ?>">
-                        <?php  echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKE'); ?>
-                    </button>
-<!--        --><?php
-//            }else
-//                if($this->show_detail->check_like['p']=='1' ){
-//        ?>
-                    <button class="tz_button_repin  tz_btn disabled_d tz_unlike <?php  if($this->show_detail->check_like['p'] =='0'  || $this->show_detail->check_like['p']  ==""){ echo "tz_check_like"; } ?> " data-option-id="<?php echo $this->show_detail->content_id; ?>">
-                        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNLIKE'); ?>
-                    </button>
-        <?php
+
+                ?>
+                <button class="tz_button_repin  tz_btn   <?php   if($this->show_detail->check_like['p']=='1' ){  echo "tz_check_like"; } ?>  <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_like_ero"; }else{ echo"tz_like"; }  ?>" data-option-id="<?php echo $this->show_detail->content_id; ?>">
+                    <?php  echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKE'); ?>
+                </button>
+
+                <button class="tz_button_repin  tz_btn disabled_d tz_unlike <?php  if($this->show_detail->check_like['p'] =='0'  || $this->show_detail->check_like['p']  ==""){ echo "tz_check_like"; } ?> " data-option-id="<?php echo $this->show_detail->content_id; ?>">
+                    <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNLIKE'); ?>
+                </button>
+                <?php
             }
-        ?>
+            ?>
 
-        <?php
-        if($this->show_detail->id_user != $this->sosanhuser){
-        ?>
-        <?php
-        if($this->show_detail->follow['f'] =='0' || $this->show_detail->follow['f']=='' )
-        {
-        ?>
-        <button class="tz_button_repin  tz_btn  <?php if(!isset($this->sosanhuser) || empty($this->sosanhuser)){ echo "tz_erro_follow"; }else{ echo "tz_follow"; } ?> " data-option-text="<?php echo $this->show_detail->name_user; ?>"  data-option-id="<?php echo $this->show_detail->id_user; ?>">
-        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW'); ?>
-        </button>
-        <?php
-        }else if($this->show_detail->follow['f'] =='1'){
-        ?>
-            <button class="tz_button_repin  tz_btn disabled_d tz_unfollow" data-option-id="<?php echo $this->show_detail->id_user; ?>">
-            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW'); ?>
-            </button>
-        <?php
+            <?php
+            if($this->show_detail->id_user != $this->sosanhuser){
+                ?>
+                <?php
+                if($this->show_detail->follow['f'] =='0' || $this->show_detail->follow['f']=='' )
+                {
+                    ?>
+                    <button class="tz_button_repin  tz_btn  <?php if(!isset($this->sosanhuser) || empty($this->sosanhuser)){ echo "tz_erro_follow"; }else{ echo "tz_follow"; } ?> " data-option-text="<?php echo $this->show_detail->name_user; ?>"  data-option-id="<?php echo $this->show_detail->id_user; ?>">
+                        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW'); ?>
+                    </button>
+                    <?php
+                }else if($this->show_detail->follow['f'] =='1'){
+                    ?>
+                    <button class="tz_button_repin  tz_btn disabled_d tz_unfollow" data-option-id="<?php echo $this->show_detail->id_user; ?>">
+                        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW'); ?>
+                    </button>
+                    <?php
+                }
+            } ?>
+            <?php if(isset($this->show_detail->website) && !empty($this->show_detail->website)){ ?>
+            <a target="_blank"  href="<?php echo $this->show_detail->website; ?>" rel="nofollow">
+                <button class="btn tz_btn"><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_VITSIT_SITE'); ?></button>
+            </a>
+
+            <?php
         }
-        } ?>
-        <?php if(isset($this->show_detail->website) && !empty($this->show_detail->website)){ ?>
-        <a target="_blank"  href="<?php echo $this->show_detail->website; ?>" rel="nofollow">
-        <button class="btn tz_btn"><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_VITSIT_SITE'); ?></button>
-        </a>
+            ?>
 
-        <?php
-        }
-        ?>
 
+        </div>
 
     </div>
+
 
     <div id="tz_detail_user">
     <div class="tz_detail_user_left">
@@ -105,18 +107,24 @@ defined("_JEXEC") or die;
     </div>
     <div class="tz_detail_user_right">
     <?php if(isset($this->show_title) && $this->show_title==1){ ?>
-    <h6>
-    <?php echo $this->show_detail->conten_title; ?>
-    </h6>
+        <h6>
+            <?php echo $this->show_detail->conten_title; ?>
+        </h6>
     <?php } ?>
     <p>
-    <?php if(isset($this->show_detail->website) && !empty($this->show_detail->website)){ ?>
-    <span class="tz_web"><?php echo JText::_('COM_TZ_PINBOARD_SOURCE_BY'); ?> </span>
-    <a target="_blank"  href="<?php echo $this->show_detail->website; ?>" rel="nofollow">
-    <?php echo $this->show_detail->website; ?>
-    </a>
-    <?php
-    }
+        <?php if(isset($this->show_detail->website) && !empty($this->show_detail->website)){ ?>
+            <span class="tz_web"><?php echo JText::_('COM_TZ_PINBOARD_SOURCE_BY'); ?></span>
+            <a target="_blank"  href="<?php echo $this->show_detail->website; ?>" rel="nofollow">
+            <?php
+                    $arr_web = explode('/',$this->show_detail->website);
+                    $arr_web = array_slice($arr_web,0,$this->text_website);
+                    $str_web = implode(" ",$arr_web);
+                    $str = str_replace(" ","/",$str_web);
+                    echo $str;
+                ?>
+            </a>
+        <?php
+            }
         ?>
     </p>
 

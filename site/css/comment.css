@@ -1,9 +1,7 @@
 .tz_pin_comsPins{
     width: 100%;
     height: auto;
-
     position: relative;
-    padding-top: 10px;
     display: block;
 
 }
@@ -85,16 +83,12 @@
 
 }
 .tz_more_conten_comment_imgs{
-    width: 40px;
-    height: 35px;
-    position:  absolute;
-    left: 5px;
-    top: 8px;
+    max-width: 40px;
+    float: left;
 }
 .tz_more_conten_comment_p_names{
     width: 70%;
     height: auto;
-   
     margin-left: 48px;
     color: #000000;
     display: block;
@@ -106,7 +100,7 @@
 .tz_more_conten_comment_ps{
     width: 78%;
     height: auto;
-   
+   overflow: hidden;
     margin-left: 48px;
     color: #666666;
 

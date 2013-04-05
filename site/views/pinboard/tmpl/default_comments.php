@@ -28,9 +28,9 @@ defined("_JEXEC") or die;
     <li>
 
         <?php if(isset($this->displayComment[$i]->img_user) && !empty($this->displayComment[$i]->img_user)){  ?>
-        <img class="tz_more_conten_comment_imgs"  src="<?php echo JUri::root().'/'.$this->displayComment[$i]->img_user;  ?>">
+            <img class="tz_more_conten_comment_imgs"  src="<?php echo JUri::root().'/'.$this->displayComment[$i]->img_user;  ?>">
         <?php }else{ ?>
-        <img class="tz_more_conten_comment_imgs"  src="<?php echo JUri::root().'/components/com_tz_pinboard/images/avata.jpg'?>">
+            <img class="tz_more_conten_comment_imgs"  src="<?php echo JUri::root().'/components/com_tz_pinboard/images/avata.jpg'?>">
         <?php } ?>
 
         <a rel="nofollow" href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardManageruserRoute($this->displayComment[$i]->id_user)); ?>">

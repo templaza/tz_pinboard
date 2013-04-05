@@ -26,7 +26,7 @@ $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
     jQuery(document).ready(function(){
         jQuery('#tz_pins_delete_b').click(function(){
             jQuery('#tz_delete_pins').fadeIn();
-            jQuery('#tz_delete_pins_all').slideDown(1200);
+            jQuery('#tz_delete_pins_all').slideDown(600);
         });
         jQuery('#button_cancel').click(function(){
             jQuery('#tz_delete_pins').fadeOut();
@@ -141,13 +141,13 @@ $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
             <p id="tz_delete_pins_p">
                 <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_NOTICE_DATELETE_PIN'); ?>
             </p>
-            <button id="button_cancel">
+            <button id="button_cancel" class="btn btn-primary">
 
                 <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_NOTICE_CANCEL'); ?>
 
             </button>
                 <a  href="<?php echo JRoute::_('index.php?option=com_tz_pinboard&view=manageruser&task=tz.delete.pins&id_board='.$this->editpin->content_catid.'&id_pins='.$this->editpin->content_id);?>" rel="nofollow">
-            <button id="button_delete">
+            <button id="button_delete" class="btn btn-danger">
 
                 <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_DELETE_PIN'); ?>
 

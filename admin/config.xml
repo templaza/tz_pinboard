@@ -68,6 +68,31 @@
                  <option value="ASC">COM_TZ_PINBOARD_PINS_TYPE_SHOW_ASC</option>
                  <option value="DESC">COM_TZ_PINBOARD_PINS_TYPE_SHOW_DESC</option>
         </field>
+        <field
+                name="curl_api"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_TEXT_WEBSITE_CURL_API"
+                default="0"
+                description="COM_TZ_PINBOARD_TEXT_WEBSITE_CURL_API_DS">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
+        <field type="text"
+               name="curl_key"
+               label="COM_TZ_PINBOARD_TEXT_WEBSITE_CURL_KEY"
+               default=""
+               description="COM_TZ_PINBOARD_TEXT_WEBSITE_CURL_KEY_DS">
+
+        </field>
+        <field
+                type="text"
+                name="text_web"
+                label="COM_TZ_PINBOARD_TEXT_WEBSITE"
+                default="4"
+                description="COM_TZ_PINBOARD_TEXT_WEBSITE_DS">
+
+        </field>
 
         <field type="text"
                name="width_columns"

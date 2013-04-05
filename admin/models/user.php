@@ -322,7 +322,7 @@ class TZ_PinboardModelUser extends JModelAdmin
         $query  = 'DELETE FROM #__tz_pinboard_users'
             .' WHERE usersid='.$data['usersid'];
 
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             $this -> setError($db -> getErrorMsg());
