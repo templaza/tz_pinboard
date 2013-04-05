@@ -30,8 +30,8 @@ class Tz_pinboardModelAddpinboards extends JModelList
     */
     function populateState($ordering=null,$direction=null)
     {
-        $app =  JFactory::getApplication();
-        $params = $app->getParams();
+        $app             = JFactory::getApplication();
+        $params          = $app->getParams();
         $this->setState('params', $params);
         $remove_comment  = $params->get('remove_comment');
         $changecomment   = $params->get('changecomment');
@@ -408,11 +408,12 @@ class Tz_pinboardModelAddpinboards extends JModelList
     {
         $curl       = $this->getState('curl_api');
         $key        = trim($this->getState('curl_key'));
-        $url        = strip_tags(htmlspecialchars($_POST['url_img']));
+        $url        = trim(strip_tags(htmlspecialchars(JRequest::getString('url_img'))));
+
         if($curl==1){
-            require(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'gooleApi.php');
-            $googer = new GoogleURLAPI($key);
-            $url = $googer->shorten($url);
+            require(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'googleApi.php');
+            $Google = new GoogleURL($key);
+            $url = $Google->shorten($url);
 
         }else{
             $url = $url;
