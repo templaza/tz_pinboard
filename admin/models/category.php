@@ -99,7 +99,7 @@ class TZ_PinboardModelCategory extends JModelAdmin
                   .' LEFT JOIN #__tz_pinboard_categories AS c ON c.groupid=x.groupid'
                   .$where
                   .' GROUP BY f.id';
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             var_dump($db -> getErrorMsg());
@@ -161,7 +161,7 @@ class TZ_PinboardModelCategory extends JModelAdmin
             $where  = ' WHERE catid='.$catid;
         $query  = 'SELECT groupid FROM #__tz_pinboard_categories'
                   .$where;
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             var_dump($db -> getErrorMsg());
@@ -179,7 +179,7 @@ class TZ_PinboardModelCategory extends JModelAdmin
 
         $fieldsgroup    = '';
         
-        $dbo            = &JFactory::getDbo();
+        $dbo            = JFactory::getDbo();
         $rows           = array();
         $arr            = array();
 
@@ -507,7 +507,7 @@ class TZ_PinboardModelCategory extends JModelAdmin
 
         $query  = 'SELECT * FROM #__tz_pinboard_categories'
                   .$where;
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             echo $db -> getErrorMsg();
@@ -616,7 +616,7 @@ class TZ_PinboardModelCategory extends JModelAdmin
             $catId  = implode(',',$pks);
             $query  = 'SELECT * FROM #__tz_pinboard_categories'
                       .' WHERE catid IN('.$catId.')';
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $db -> setQuery($query);
             if(!$db -> query()){
                 $this -> setError($db -> getErrorMsg());

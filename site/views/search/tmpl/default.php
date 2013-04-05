@@ -46,6 +46,12 @@ defined("_JEXEC") or die;
         });
 
     }
+    // method check text
+    function checkText(text, maxtext){
+        var countText = text.length;
+        var text      = maxtext - countText;
+        return text;
+    }
 
     var resizeTimer = null;
     jQuery(window).bind('load resize', function() {
@@ -55,8 +61,27 @@ defined("_JEXEC") or die;
     var  urls ="<?php echo JRoute::_("index.php?option=com_users&view=login") ; ?>";
 
     jQuery(document).ready(function(){
-        // add css
-        jQuery('.tz_pin_content_class').live("mouseenter",function(){
+
+
+        var ua = navigator.userAgent, // Check device
+        event  = (ua.match(/iPad/i)) ? "touchstart" : "click";
+
+        jQuery('.tz-detail-hover').live("mouseenter",function(){  // hover detail
+            jQuery(".tz_detail_pl").css("display","block");
+        });
+        jQuery('.tz-detail-hover').live("mouseleave",function(){
+            jQuery(".tz_detail_pl").css("display","none");
+        }); //end hover
+
+        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseenter",function(){ // hover thumbnail
+            jQuery(this).find('.tz_button_pins').css("display","block");
+        });
+        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseleave",function(){
+            jQuery(this).find('.tz_button_pins').css("display","none");
+        }); // end hover
+
+
+        jQuery('.tz_pin_content_class').live("mouseenter",function(){ // hover add class
             jQuery(this).addClass("Tz_plaza");
             jQuery(this).find('.tz_unlike').addClass('tz_unlike_u');
             jQuery(this).find('.tz_like').addClass('tz_like_l');
@@ -65,18 +90,18 @@ defined("_JEXEC") or die;
             jQuery(this).removeClass("Tz_plaza");
             jQuery('.tz_like').removeClass('tz_like_l');
             jQuery('.tz_unlike').removeClass('tz_unlike_u');
-        });
+        }); // end hover add clas
 
-        jQuery('#tz_more_content').live("mouseenter",function(){
+        jQuery('#tz_more_content').live("mouseenter",function(){ // hover add class detail
             jQuery(this).find('.tz_unlike').addClass('tz_unlike_d');
             jQuery(this).find('.tz_like').addClass('tz_like_d');
         });
         jQuery('#tz_more_content').live("mouseleave",function(){
             jQuery('.tz_like').removeClass('tz_like_d');
             jQuery('.tz_unlike').removeClass('tz_unlike_d');
-        });// and add css
+        }); // end add css
 
-        jQuery(".tz_like_l").live("click",function(){
+        jQuery(".tz_like_l").live(event,function(){ // method like thumbnail
             jQuery(".tz_like_l").css("display","none");
             jQuery(".tz_unlike_u").css("display","block");
             jQuery(".Tz_plaza").addClass("Tz_l");
@@ -84,7 +109,8 @@ defined("_JEXEC") or die;
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
                 type: 'post',
                 data:{
-                    id_conten: jQuery(this).attr('data-option-id')
+                    id_conten: jQuery(this).attr('data-option-id'),
+                    "<?php echo JSession::getFormToken(); ?>" : 1
                 }
             }).success(function(data){
 
@@ -95,9 +121,9 @@ defined("_JEXEC") or die;
                             jQuery("div").removeClass("Tz_l");
                         }
                     });
-        });
+        }); //end method click like
 
-        jQuery(".tz_unlike_u").live("click",function(){
+        jQuery(".tz_unlike_u").live(event,function(){ // method unlike thumbnail
             jQuery(".tz_like_l").css("display","block");
             jQuery(".tz_unlike_u").css("display","none");
             jQuery(".Tz_plaza").addClass("Tz_l");
@@ -105,21 +131,21 @@ defined("_JEXEC") or die;
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.unlike',
                 type: 'post',
                 data:{
-                    id_conten: jQuery(this).attr('data-option-id')
+                    id_conten: jQuery(this).attr('data-option-id'),
+                    "<?php echo JSession::getFormToken(); ?>" : 1
                 }
             }).success(function(data){
+                if(data =='f'){
+                    window.location=urls;
+                }else{
+                    jQuery(".Tz_l .tz_pin_like").html(data+ "  <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKES');?>");
+                    jQuery("div").removeClass("Tz_l");
+                }
+            });
+        });// end method click unlike
 
-                        if(data =='f'){
-                            window.location=urls;
-                        }else{
-                            jQuery(".Tz_l .tz_pin_like").html(data+ "  <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKES');?>");
-                            jQuery("div").removeClass("Tz_l");
-                        }
 
-
-                    });
-        });
-        jQuery(".tz_like_d").live("click",function(){
+        jQuery(".tz_like_d").live("click",function(){ // method like detail
             jQuery(".tz_like_d").css("display","none");
             jQuery(".tz_unlike_d").css("display","block");
             jQuery('.Tz_plazas').find(".tz_like").css("display","none");
@@ -129,14 +155,16 @@ defined("_JEXEC") or die;
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
                 type: 'post',
                 data:{
-                    id_conten: jQuery(this).attr('data-option-id')
+                    id_conten: jQuery(this).attr('data-option-id'),
+                    "<?php echo JSession::getFormToken(); ?>" : 1
                 }
             }).success(function(data){
                         jQuery('.Tz_plazas').find('.tz_pin_like').html(data+ "  <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKES');?>");
 
                     });
-        });
-        jQuery(".tz_unlike_d").live("click",function(){
+        }); // end method like detail
+
+        jQuery(".tz_unlike_d").live("click",function(){ // method unlike detail
             jQuery(".tz_like_d").css("display","block");
             jQuery(".tz_unlike_d").css("display","none");
             jQuery('.Tz_plazas').find(".tz_unlike").css("display","none");
@@ -145,28 +173,23 @@ defined("_JEXEC") or die;
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.unlike',
                 type: 'post',
                 data:{
-                    id_conten: jQuery(this).attr('data-option-id')
+                    id_conten: jQuery(this).attr('data-option-id'),
+                    "<?php echo JSession::getFormToken(); ?>" : 1
                 }
             }).success(function(data){
                         jQuery('.Tz_plazas').find('.tz_pin_like').html(data+ "  <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKES');?>");
                     });
-        });
+        }); // end method unlike detail
         tz_init(<?php echo $this->width_columns ?>); // call function tz_init
-        jQuery('#tz_pinboard_wrap').append('<div id="top"></div>');
-        jQuery(window).scroll(function() {
-            if(jQuery(window).scrollTop() != 0) {
-                jQuery('#top').fadeIn();
-            } else {
-                jQuery('#top').fadeOut();
-            }
-        });
-        jQuery('#top').click(function() {
-            jQuery('html, body').animate({scrollTop:0},500);
-        });
 
+        jQuery('#tz_repin_img_delete, #tz_warp_hide').live("click",function(){
+            jQuery('#tz_repin_more_warp_form').fadeOut(50);
+            jQuery('#tz_repin_more_warp').fadeOut(400,function(){
+                jQuery("body").css("overflow-y","scroll");
+            });
 
-        // start repin
-        jQuery('.tz_repin').live("click",function(){
+        });
+        jQuery('.tz_repin').live(event,function(){ // method repin
             jQuery('#tz_more_content').fadeOut();
             jQuery.ajax({
             url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz_repin',
@@ -184,26 +207,16 @@ defined("_JEXEC") or die;
                         var height = jQuery("#tz_repin_more_warp_form").height();
                         jQuery('#tz_warp_hide').css("height",height);
                     });
-
-
-                    jQuery('#tz_repin_img_delete, #tz_warp_hide').click(function(){
-                        jQuery('#tz_repin_more_warp_form').fadeOut(50);
-                        jQuery('#tz_repin_more_warp').fadeOut(400,function(){
-                            jQuery("body").css("overflow-y","scroll");
-                        });
-
-                    });
                     jQuery('#tz_repin_title').focus(function(){
                         jQuery('#tz_repin_title').keyup(function(){
-                        var Max_Text_input = jQuery('#tz_repin_title').attr('maxlength');
-                        var Text_value_input = jQuery('#tz_repin_title').attr('value');
-                        var Den_text_input = Text_value_input.length;
-                        var p_title = document.getElementById('tz_repin_more_title');
-                        var HieuText = Max_Text_input - Den_text_input;
-                        if(HieuText >0){
-                            p_title.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_TITLE'); ?> "+HieuText;
+                        var Max_Text_input    = jQuery('#tz_repin_title').attr('maxlength');
+                        var Text_value_input  = jQuery('#tz_repin_title').attr('value');
+                        var p_title           = document.getElementById('tz_repin_more_title');
+                        var Text_t            = checkText(Text_value_input,Max_Text_input);
+                        if(Text_t >0){
+                            p_title.innerHTML = "<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_TITLE'); ?> "+Text_t;
                         }else{
-                            p_title.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_TITLE_0'); ?>";
+                            p_title.innerHTML = "<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_TITLE_0'); ?>";
                         }
                         });
                     });
@@ -213,15 +226,15 @@ defined("_JEXEC") or die;
                     });
                     jQuery('#tz_repin_introtext').focus(function(){
                         jQuery('#tz_repin_introtext').keyup(function(){
-                            var Max_Text_input = jQuery('#tz_repin_introtext').attr('maxlength');
-                            var Text_value_input = jQuery('#tz_repin_introtext').attr('value');
-                            var Den_text_input = Text_value_input.length;
-                            var p_title = document.getElementById('tz_repin_more_descript');
-                            var HieuText = Max_Text_input - Den_text_input;
-                            if(HieuText >0){
-                                p_title.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_DESCRIPTION'); ?> "+HieuText;
+                            var Max_Text_input      = jQuery('#tz_repin_introtext').attr('maxlength');
+                            var Text_value_input    = jQuery('#tz_repin_introtext').attr('value');
+                            var Den_text_input      = Text_value_input.length;
+                            var p_title             = document.getElementById('tz_repin_more_descript');
+                            var Text_i              = checkText(Text_value_input,Max_Text_input);
+                            if(Text_i >0){
+                                p_title.innerHTML   = "<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_DESCRIPTION'); ?> "+Text_i;
                             }else{
-                                p_title.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_DESCRIPTION_0'); ?>";
+                                p_title.innerHTML   = "<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_PIN_WEBSITE_DESCRIPTION_0'); ?>";
                             }
                         });
                     });
@@ -234,22 +247,14 @@ defined("_JEXEC") or die;
                     window.location=urls;
                 }
             });
-        });
+        }); // end tz_repin
 
-
-
-        jQuery("#tz_repin_button").live("click",function(){
-            var Texra = jQuery("#tz_repin_introtext").attr("value");
+        jQuery("#tz_repin_button").live("click",function(){ // method ajax insert repin
             var Title = jQuery("#tz_repin_title").attr("value");
             var board = jQuery("#tz_repin_select").attr("value");
             if(Title ==""){
                 alert("<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_LOCAL_TITLE'); ?>");
                 jQuery("#tz_repin_title").focus();
-                return false;
-            }
-            if(Texra ==""){
-                alert("<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_LOCAL_DESCRIPTION'); ?>");
-                jQuery("#tz_repin_introtext").focus();
                 return false;
             }
             if(board ==""){
@@ -270,19 +275,20 @@ defined("_JEXEC") or die;
                     introtex_content: jQuery("#tz_repin_introtext").val(),
                     tz_content_alias: jQuery("#tz_content_alias").val(),
                     tz_content_access: jQuery("#tz_content_access").val(),
-                    tz_tag: jQuery("#tz_content_tag").val()
+                    tz_tag: jQuery("#tz_content_tag").val(),
+                    "<?php echo JSession::getFormToken(); ?>" : 1
                 }
             }).success(function(data){
-                        jQuery("#tz_repin_more_warp_form").fadeOut(1000);
-                        jQuery("#tz_repin_more_notice").animate({bottom:"60%"},900);
-                        jQuery("#tz_repin_more_notice").animate({"opacity":"hide"},1800, function(){
-                            jQuery("#tz_repin_more_notice").css({
-                                "bottom":"-100%",
-                                "display":"block"
-                            });
-                            jQuery("#tz_repin_more_warp").fadeOut(400, function(){
-                                jQuery("body").css("overflow-y","scroll");
-                            });
+                jQuery("#tz_repin_more_warp_form").fadeOut(1000);
+                jQuery("#tz_repin_more_notice").animate({bottom:"60%"},900);
+                    jQuery("#tz_repin_more_notice").animate({"opacity":"hide"},1800, function(){
+                        jQuery("#tz_repin_more_notice").css({
+                            "bottom":"-100%",
+                            "display":"block"
+                        });
+                        jQuery("#tz_repin_more_warp").fadeOut(400, function(){
+                            jQuery("body").css("overflow-y","scroll");
+                        });
                     jQuery('#tz_pinboard').prepend( jQuery(data) ).masonry( 'reload' );
                     jQuery('.tz_pin_content_class img').load(function(){
                         tz_init(<?php echo $this->width_columns ?>);   // call function tz_init
@@ -334,13 +340,12 @@ defined("_JEXEC") or die;
             jQuery(".Tz_plaza .tz_bt_pin_add").css("display","block");
             var checkTex =  jQuery(".Tz_plaza textarea").val();
             jQuery('.Tz_plaza textarea').live("keyup",function(){
-            var Max_Text_input = jQuery('.Tz_plaza textarea').attr('maxlength');
-            var Text_value_input = jQuery('.Tz_plaza textarea').attr('value');
-            var Den_text_input = Text_value_input.length;
-            var p_title = jQuery('.Tz_plaza .tz_comment_erroc_p');
-            var HieuText = Max_Text_input - Den_text_input;
-            if(HieuText >0){
-                p_title.text("<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT'); ?> "+HieuText);
+            var Max_Text_input      = jQuery('.Tz_plaza textarea').attr('maxlength');
+            var Text_value_input    = jQuery('.Tz_plaza textarea').attr('value');
+            var p_title             = jQuery('.Tz_plaza .tz_comment_erroc_p');
+            var Text_m              = checkText(Text_value_input,Max_Text_input);
+            if(Text_m >0){
+                p_title.text("<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT'); ?> "+Text_m);
             }else{
                 p_title.text("<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT_0'); ?>");
             }
@@ -365,7 +370,8 @@ defined("_JEXEC") or die;
                     type: "post",
                     data:{
                     id_content: jQuery(".Tz_cm input").val(),
-                        content: jQuery(".Tz_cm textarea").val()
+                        content: jQuery(".Tz_cm textarea").val(),
+                        "<?php echo JSession::getFormToken(); ?>" : 1
                     }
                 }).success(function(data){
                     var getData = jQuery.parseJSON(data);
@@ -382,15 +388,6 @@ defined("_JEXEC") or die;
                 });
             }
         }); // and insert comment
-
-
-
-
-
-
-
-
-
 
         // page on
         jQuery(".Tz_plaza .tz_comment_page").live("click",function(){
@@ -430,7 +427,13 @@ defined("_JEXEC") or die;
         // ajax detail
         <?php if(isset($this->type_detail) && $this->type_detail ==1){ ?>
             // jquery ajax detail
+        jQuery('.tz_detail_pins, #tz_warp_hide').live("click",function(){ // click
+            jQuery('#tz_repin_more_warp').fadeOut(400,function(){
+                jQuery('#tz_more_content').fadeOut(50);
+                jQuery("body").css("overflow-y","scroll");
+            });
 
+        });
             //  show  detail pin
             jQuery('.tz_more_pin').live("click",function(){
                 jQuery(".Tz_plaza").addClass("Tz_plazas");
@@ -449,13 +452,7 @@ defined("_JEXEC") or die;
                                 var height = jQuery("#tz_more_content").height();
                                 jQuery('#tz_warp_hide').css("height",height);
                             });
-                            jQuery('.tz_detail_pins, #tz_warp_hide').click(function(){ // click
-                                jQuery('#tz_repin_more_warp').fadeOut(400,function(){
-                                    jQuery('#tz_more_content').fadeOut(50);
-                                    jQuery("body").css("overflow-y","scroll");
-                                });
 
-                            });
                             jQuery('.tz_erro_follow').click(function(){
                                 window.location=urls;
                             });
@@ -464,14 +461,13 @@ defined("_JEXEC") or die;
                                 jQuery(this).addClass('disabled_d');
                                 jQuery(this).html('<?php echo JText::_("COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW"); ?>');
                                 jQuery.ajax({
-                                    url: 'index.php?option=com_tz_pinboard&detail=pinboard&task=tz.pin.follow',
+                                    url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.pin.follow',
                                     type: 'post',
                                     data:{
-                                        id_user_guest: jQuery(this).attr('data-option-id')
+                                        id_user_guest: jQuery(this).attr('data-option-id'),
+                                        "<?php echo JSession::getFormToken(); ?>" : 1
                                     }
-                                }).success(function(){
-
-                                        });
+                                });
                             },function(){
                                 jQuery(this).removeClass('disabled_d');
                                 jQuery(this).html('<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW'); ?>');
@@ -479,11 +475,10 @@ defined("_JEXEC") or die;
                                     url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.pin.unfollow',
                                     type: 'post',
                                     data:{
-                                        id_user_guest: jQuery(this).attr('data-option-id')
+                                        id_user_guest: jQuery(this).attr('data-option-id'),
+                                        "<?php echo JSession::getFormToken(); ?>" : 1
                                     }
-                                }).success(function(){
-
-                                        });
+                                });
                             });
 
 
@@ -494,11 +489,10 @@ defined("_JEXEC") or die;
                                     url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.pin.unfollow',
                                     type: 'post',
                                     data:{
-                                        id_user_guest: jQuery(this).attr('data-option-id')
+                                        id_user_guest: jQuery(this).attr('data-option-id'),
+                                        "<?php echo JSession::getFormToken(); ?>" : 1
                                     }
-                                }).success(function(){
-
-                                        });
+                                });
                             },function(){
                                 jQuery(this).addClass('disabled_d');
                                 jQuery(this).html('<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW'); ?>');
@@ -506,11 +500,10 @@ defined("_JEXEC") or die;
                                     url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.pin.follow',
                                     type: 'post',
                                     data:{
-                                        id_user_guest: jQuery(this).attr('data-option-id')
+                                        id_user_guest: jQuery(this).attr('data-option-id'),
+                                        "<?php echo JSession::getFormToken(); ?>" : 1
                                     }
-                                }).success(function(){
-
-                                        });
+                                });
                             });
                         });
             });
@@ -527,11 +520,10 @@ defined("_JEXEC") or die;
                 jQuery('#tz_comment').keyup(function(){
                     var Max_Text_input = jQuery('#tz_comment').attr('maxlength');
                     var Text_value_input = jQuery('#tz_comment').attr('value');
-                    var Den_text_input = Text_value_input.length;
                     var p_title = document.getElementById('tz_comment_erroc_p');
-                    var HieuText = Max_Text_input - Den_text_input;
-                    if(HieuText >0){
-                        p_title.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT'); ?> "+HieuText;
+                    var Text_c = checkText(Text_value_input,Max_Text_input);
+                    if(Text_c >0){
+                        p_title.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT'); ?> "+Text_c;
                     }else{
                         p_title.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT_0'); ?>";
                     }
@@ -554,7 +546,8 @@ defined("_JEXEC") or die;
                         type: "post",
                         data: {
                         id_pins: jQuery("#tz_hd_id_pin").val(),
-                        content: jQuery("#tz_comment").val()
+                        content: jQuery("#tz_comment").val(),
+                        "<?php echo JSession::getFormToken(); ?>" : 1
                     }
                     }).success(function(data){
                         var getData = jQuery.parseJSON(data);
@@ -752,14 +745,14 @@ defined("_JEXEC") or die;
 
 </script>
 </div>
-<div id="tz_repin_more_warp">
+<div id="tz_repin_more_warp" class="row-fluid">
     <div id="tz_warp_hide">
 
     </div>
-    <div id="tz_repin_more_warp_form">
+    <div id="tz_repin_more_warp_form" class="span5">
 
     </div>
-    <div id="tz_more_content">
+    <div id="tz_more_content" class="span8">
 
     </div>
     <div id="tz_repin_more_notice">

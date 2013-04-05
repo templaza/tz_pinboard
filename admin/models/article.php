@@ -341,7 +341,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
 			// Get the new item ID
 			$newId = $table->get('id');
 
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             // Store new article to table tz_pinboard
             $query2  = 'SELECT * FROM #__tz_pinboard'
                        .' WHERE contentid='.$pk;
@@ -714,7 +714,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
 
                 $query  = 'SELECT * FROM #__tz_pinboard_xref_content'
                           .' WHERE contentid ='.$contentids;
-                $db     = & JFactory::getDbo();
+                $db     =  JFactory::getDbo();
                 $db -> setQuery($query);
 
                 if(!$db -> query()){
@@ -836,7 +836,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
                 .' WHERE contentid = '.$this -> contentid;
             //.' GROUP BY contentid';
 
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $db -> setQuery($query);
             if(!$db -> query()){
                 $this -> setError($db -> getErrorMsg());
@@ -922,7 +922,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
                   .' WHERE c.id = '.(int) JRequest::getCmd('id')
                   .$where;
 
-        $db     = & JFactory::getDbo();
+        $db     =  JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             $this -> setError($db -> getErrorMsg());
@@ -1126,7 +1126,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
     // Show tags
     public function getTags(){
         $artid  = JRequest::getInt('id',null);
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $tags   = null;
 
         if($artid){
@@ -1337,7 +1337,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
             $articleId  = implode(',',$articleId);
             $query  = 'DELETE FROM #__tz_pinboard_tags_xref'
                       .' WHERE contentid IN('.$articleId.')';
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $db -> setQuery($query);
             if(!$db -> query()){
                 var_dump($db -> getErrorMsg());
@@ -1352,7 +1352,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
         $sizes  = $this -> getState('size');
         $query  ='SELECT * FROM #__tz_pinboard_xref_content'
                  .' WHERE contentid IN('.implode(',',$artId).')';
-        $db     = &JFactory::getDbo();
+        $db     = JFactory::getDbo();
         $db -> setQuery($query);
         if(!$db -> query()){
             echo $db -> getErrorMsg();
@@ -1418,7 +1418,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
 
         if($pks){
 
-             $db     = &JFactory::getDbo();
+             $db     = JFactory::getDbo();
             $item_arr = implode(",",$pks);
             $sql = 'select tagsid from #__tz_pinboard_tags_xref where contentid IN('.$item_arr.')';
             $db->setQuery($sql);
@@ -2533,7 +2533,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
             }
             $query  = 'SELECT videothumb FROM #__tz_pinboard_xref_content'
                       .$where;
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $db -> setQuery($query);
             if(!$db -> query()){
                 echo $db -> getErrorMsg();
@@ -2559,7 +2559,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
 
 
 
-        $db =& JFactory::getDbo();
+        $db = JFactory::getDbo();
 
         if(JRequest::getCmd('task') =="article.save2copy"){
 
@@ -2845,7 +2845,7 @@ class TZ_PinboardModelArticle extends JModelAdmin
 			                    $m++;
 			                }
 
-			                $db     = &JFactory::getDbo();
+			                $db     = JFactory::getDbo();
 
 			                // Store fields group
 			                //// Get images

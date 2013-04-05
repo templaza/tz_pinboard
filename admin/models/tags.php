@@ -29,7 +29,7 @@ class TZ_PinboardModelTags extends JModelLegacy
     var $paNav  = null;
 
     function populateState(){
-        $app    = &JFactory::getApplication();
+        $app    = JFactory::getApplication();
 
         $state  = $app -> getUserStateFromRequest('com_tz_pinboard.tags.filter_state','filter_state',null,'string');
         $this -> setState('filter_state',$state);
@@ -55,7 +55,7 @@ class TZ_PinboardModelTags extends JModelLegacy
         $filter_order   = $this -> getState('filter_order');
         $order_Dir      = $this -> getState('filter_order_Dir');
 
-        $db             = &JFactory::getDbo();
+        $db             = JFactory::getDbo();
 
         $where          = array();
 
@@ -130,7 +130,7 @@ class TZ_PinboardModelTags extends JModelLegacy
             if($id){
                 $query  = 'SELECT * FROM #__tz_pinboard_tags'
                     .' WHERE id='.$id;
-                $db     = &JFactory::getDbo();
+                $db     = JFactory::getDbo();
                 $db -> setQuery($query);
 
                 if(!$rows = $db -> loadObject()){
@@ -148,7 +148,7 @@ class TZ_PinboardModelTags extends JModelLegacy
             $cids   = implode(',',$cids);
             $query  = 'UPDATE #__tz_pinboard_tags SET published='.$state
                 .' WHERE id IN('.$cids.')';
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $db -> setQuery($query);
             if(!$db -> query()){
                 $this -> setError($db -> getErrorMsg());
@@ -169,7 +169,7 @@ class TZ_PinboardModelTags extends JModelLegacy
 
             $query  = 'DELETE FROM #__tz_pinboard_tags_xref'
                 .' WHERE tagsid IN('.$cids.')';
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
 
             $db -> setQuery($query);
             if(!$db -> query()){
@@ -198,7 +198,7 @@ class TZ_PinboardModelTags extends JModelLegacy
             $name   = strtolower($name);
             $query  = 'SELECT COUNT(*) FROM #__tz_pinboard_tags'
                       .' WHERE name="'.$name.'"';
-            $db     = &JFactory::getDbo();
+            $db     = JFactory::getDbo();
             $db -> setQuery($query);
             if(!$db -> query()){
                 $this -> setError($db -> getErrorMsg());
@@ -219,7 +219,7 @@ class TZ_PinboardModelTags extends JModelLegacy
         $cid                    = JRequest::getVar('cid',array(),'','array');
         $post                   = JRequest::get('post');
         $post['description']    = JRequest::getVar( 'description', '', 'post', 'string', JREQUEST_ALLOWRAW );
-        $row                    = & JTable::getInstance('Tags','Table');
+        $row                    =  JTable::getInstance('Tags','Table');
 
         if($cid)
             $post['id'] = $cid[0];

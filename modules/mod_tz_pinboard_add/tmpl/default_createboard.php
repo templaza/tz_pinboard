@@ -45,7 +45,7 @@ defined("_JEXEC") or die;
                          </div>
                        <div class="create_board_warp_form_name_textrae">
                             <label><?php echo JText::_('MOD_TZ_PINBOARD_DESCRIPTION') ?></label>
-                            <textarea name="decsipt" id="create_board_textra" maxlength="<?php echo $text_board_ds; ?>"   style="width: 305px; height: 110px;" ></textarea>
+                            <textarea name="decsipt" id="create_board_textra" maxlength="<?php echo $text_board_ds; ?>"   style="width: 66%; height: 110px;" ></textarea>
                              <p id="p_create_decsipts"></p>
                        </div>
                        <div class="tz_create_board_names">

@@ -23,10 +23,10 @@ jimport('joomla.application.component.controlleradmin');
 
         function display(){
                  $task = JRequest::getCmd('task');
-                  $doc = &JFactory::getDocument();
+                  $doc = JFactory::getDocument();
                   $type = $doc->getType();
-                  $view= &$this -> getView('board',$type);
-                  $model=&$this->getModel('board');
+                  $view= $this -> getView('board',$type);
+                  $model=$this->getModel('board');
                   $view-> setModel($model,true);
 
             switch($task){

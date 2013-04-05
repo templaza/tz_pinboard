@@ -30,26 +30,26 @@ class TZ_PinboardModelSearch extends JModelList{
      */
     function populateState($ordering=null,$direction=null){
 
-        $app            = JFactory::getApplication();
-        $params         = $app -> getParams();
+        $app                =   JFactory::getApplication();
+        $params             =   $app -> getParams();
         $this -> setState('params',$params);
-        $catid          = $params->get('catid');
-        $limit_pin      = $params->get('tz_article_limit');
-        $limitstart     = JRequest::getCmd('limitstart',0);
-        $width_columns  = $params->get('width_columns');
-        $tz_layout      = $params->get('tz_pinboard_layout');
-        $type_detail    = $params->get('type_detail');
-        $limit_commnet  = $params->get('Limits_comment');
-        $state_comment  = $params->get('state_comment');
-        $change_comment = $params->get('changecomment');
-        $delete_text_cm = $params->get('remove_comment');
-        $page_commnet   = $params->get('page_commnet');
-        $type_show_pin  = $params->get('type_show_pin');
-        $image_thum     = $params->get('portfolio_image_size');
-        $arrangements_pins = $params->get('arrangements_pins');
-        $search = JRequest::getString('tz_search');
-        $tz_pin_approve = $params->get('tz_pin_approve');
-        $show_date_comment  = $params->get('show_date_comment');
+        $catid              =   $params->get('catid');
+        $limit_pin          =   $params->get('tz_article_limit');
+        $limitstart         =   JRequest::getCmd('limitstart',0);
+        $width_columns      =   $params->get('width_columns');
+        $tz_layout          =   $params->get('tz_pinboard_layout');
+        $type_detail        =   $params->get('type_detail');
+        $limit_commnet      =   $params->get('Limits_comment');
+        $state_comment      =   $params->get('state_comment');
+        $change_comment     =   $params->get('changecomment');
+        $delete_text_cm     =   $params->get('remove_comment');
+        $page_commnet       =   $params->get('page_commnet');
+        $type_show_pin      =   $params->get('type_show_pin');
+        $image_thum         =   $params->get('portfolio_image_size');
+        $arrangements_pins  =   $params->get('arrangements_pins');
+        $search             =   JRequest::getString('tz_search');
+        $tz_pin_approve     =   $params->get('tz_pin_approve');
+        $show_date_comment  =   $params->get('show_date_comment');
         $this->setState('show_date',$show_date_comment);
         $this->setState('image_thum',$image_thum);
         $this->setState('type_detail',$type_detail);
@@ -144,73 +144,73 @@ class TZ_PinboardModelSearch extends JModelList{
      * method show data
     */
     function getPins(){
-        $limit              = $this->getState('limit_pin');
-        $limitStart         = $this->getState('limitstar');
-        $type_show_pin      = $this->getState('type_show_pin');
-        $tz_layout          = $this->getState('tz_layout');
-        $arrangements       = $this->getState('arrangements_pins');
-        $tz_search          = $this->getState('tz_search');
-        $search             = JRequest::getString('tz_search_url');
-        $search             = json_decode(base64_decode($search));
+        $limit              =   $this->getState('limit_pin');
+        $limitStart         =   $this->getState('limitstar');
+        $type_show_pin      =   $this->getState('type_show_pin');
+        $tz_layout          =   $this->getState('tz_layout');
+        $arrangements       =   $this->getState('arrangements_pins');
+        $tz_search          =   $this->getState('tz_search');
+        $search             =   JRequest::getString('tz_search_url');
+        $search             =   json_decode(base64_decode($search));
         if(isset($search) && !empty($search)){
-            $tz_search = $search;
+            $tz_search      =   $search;
         }else{
-            $tz_search = $tz_search;
+            $tz_search      =   $tz_search;
         }
-        $tz_search = str_replace("'","\'",$tz_search);
+        $tz_search          =   str_replace("'","\'",$tz_search);
         if(isset($tz_search) && !empty($tz_search)){
-            $catids = "where c.title like '%".$tz_search."%' or u.name='".$tz_search."' and c.state=1 order by c.$type_show_pin $arrangements";
+            $catids         =   "where c.title like '%".$tz_search."%' or u.name='".$tz_search."' and c.state=1 order by c.$type_show_pin $arrangements";
         }else{
-            $catids="where c.state=1 order by c.$type_show_pin $arrangements";
+            $catids         =   "where c.state=1 order by c.$type_show_pin $arrangements";
         }
-        $db = JFactory::getDbo();
-        $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
-                        w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
-                        c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
-                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
-                FROM #__users AS u
-                    LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
-                    LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
-                    LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
-                    LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
-                    LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids";
+        $db                 =   JFactory::getDbo();
+        $sql                =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img,
+                                        w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
+                                        c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
+                                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
+                                FROM    #__users AS u
+                                        LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
+                                        LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
+                                        LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
+                                        LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
+                                        LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids";
     
-        $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,c.hits as content_hit, pz.images as poro_img,
-                        w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
-                        c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
-                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
-                FROM #__users AS u
-                    LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
-                    LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
-                    LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
-                    LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
-                    LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids  ";
-        $db->setQuery($sql);
-        $tinh = $db->query();
-        $total = $db->getNumRows($tinh);
-        $this -> pagNavPins         = new JPagination($total,$limitStart,$limit);
+        $sql2               =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,c.hits as content_hit, pz.images as poro_img,
+                                        w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
+                                        c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
+                                        us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
+                                FROM #__users AS u
+                                    LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
+                                    LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
+                                    LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
+                                    LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
+                                    LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids  ";
+        $db    ->  setQuery($sql);
+        $tinh  =  $db->query();
+        $total =  $db->getNumRows($tinh);
+        $this  -> pagNavPins = new JPagination($total,$limitStart,$limit);
         // Select the type of paging
         if($tz_layout =="default"){
             $db->setQuery($sql2,$this -> pagNavPins -> limitstart,$this -> pagNavPins -> limit);
         }else{
             $db->setQuery($sql2,$limitStart,$limit);
         }
-        $row = $db->loadObjectList();
+        $row  = $db->loadObjectList();
         foreach($row as $item){
-            $check_l = $this->chekcLikeUser($item->content_id);
-            $item->checl_l = $check_l;
-            $countL = $this->countLike($item->content_id);
-            $item->countL = $countL;
-            $countComment = $this->countComment($item->content_id);
+            $check_l            =       $this->chekcLikeUser($item->content_id);
+            $item->checl_l      =       $check_l;
+            $countL             =       $this->countLike($item->content_id);
+            $item->countL       =       $countL;
+            $countComment       =       $this->countComment($item->content_id);
             $item->countComment = $countComment;
-            $show_comment = $this->getShowComment($item->content_id);
-            $item->showcomment = $show_comment;
-            $tangs = $this->DetailTag($item->content_id);
-            $item->tags = $tangs;
+            $show_comment       = $this->getShowComment($item->content_id);
+            $item->showcomment  = $show_comment;
+            $tangs              = $this->DetailTag($item->content_id);
+            $item->tags         = $tangs;
         }
-    
         return $row;
     }
+
     function detailTag($id){
         $db = JFactory::getDbo();
         $sql ="select t.id as tagid, t.name as tagname
@@ -294,81 +294,6 @@ class TZ_PinboardModelSearch extends JModelList{
         $id_user    = $user->id;
         return $id_user;
     }
-
-    /*
-    * method check user like or not like and get id user like
-    */
-    function checklike(){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $id_content = $_POST['id_conten'];
-        $db         = JFactory::getDbo();
-        $SQL        = "SELECT id_user_p from #__tz_pinboard_like where id_user_p=$id_user AND id_content=$id_content";
-        $db -> setQuery($SQL);
-        $row        = $db->loadObject();
-        return $row;
-    }
-
-
-    /*
-    *  Method insert into table like
-    */
-    function inserLike(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer      = $_SERVER['HTTP_REFERER'];
-        $url_arr    = parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $id_content = $_POST['id_conten'];
-        $db         = JFactory::getDbo();
-        $checklik   = $this->checklike()->id_user_p;
-        if(isset($id_user) && !empty($id_user)){
-            if(isset($checklik) AND !empty($checklik)){
-                $sql = "update #__tz_pinboard_like set like_p ='1' where id_content=$id_content AND id_user_p=$id_user";
-            }else if(empty($checklik)){
-            $sql     = "INSERT INTO #__tz_pinboard_like  VALUES(NULL,'1','".$id_content."','".$id_user."') ";
-            }
-            $db->setQuery($sql);
-            $db->query();
-            $lik     =  $this->countLike($id_content)->count_l;
-            return $lik;
-        }else{
-            return "f";
-        }
-    }
-
-
-    /*
-    *  Method insert  unlike
-    */
-    function insertUnlike(){
-        if (!isset($_SERVER['HTTP_REFERER'])) return null;
-        $refer      =   $_SERVER['HTTP_REFERER'];
-        $url_arr    =   parse_url($refer);
-        if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $id_content = $_POST['id_conten'];
-        $db         = JFactory::getDbo();
-        $checklik   = $this->checklike()->id_user_p;
-        if(isset($id_user) && !empty($id_user)){
-            if(isset($checklik) AND !empty($checklik)){
-                $sql    = "update #__tz_pinboard_like set like_p ='0' where id_content=$id_content AND id_user_p=$id_user   ";
-            }else if(empty($checklik)){
-                $sql    =   "INSERT INTO #__tz_pinboard_like  VALUES(NULL,'0','".$id_content."','".$id_user."') ";
-            }
-            $db->setQuery($sql);
-            $db->query();
-            $lik        =  $this->countLike($id_content)->count_l;
-            return $lik;
-        }else{
-            return "f";
-        }
-    }
-
-
-
 
 
     /*

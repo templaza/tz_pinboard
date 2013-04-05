@@ -22,7 +22,7 @@ defined("_JEXEC") or die;
     $doc->addStyleSheet('components/com_tz_pinboard/css/manageruser.css');
 
     $doc->addStyleSheet('components/com_tz_pinboard/css/more_pin.css');
-    $doc->addStyleSheet('components/com_tz_pinboard/css/like.css');
+
 ?>
 
 <script type="text/javascript">
@@ -50,7 +50,7 @@ defined("_JEXEC") or die;
 
     jQuery(document).ready(function(){
         jQuery('.tz_following').toggle(function(){
-            jQuery(this).css("background","#c0c0c0");
+            jQuery(this).addClass('disabled');
             jQuery(this).html('<span><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW'); ?></span>');
             jQuery.ajax({
             url: 'index.php?option=com_tz_pinboard&view=manageruser&task=tz.pin.follow',
@@ -66,7 +66,7 @@ defined("_JEXEC") or die;
                 }
             });
         },function(){
-            jQuery(this).css("background","");
+            jQuery(this).removeClass('disabled');
             jQuery(this).html('<span><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW'); ?></span>');
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=manageruser&task=tz.pin.unfollow',
@@ -81,16 +81,7 @@ defined("_JEXEC") or die;
         });
 
         jQuery('.untz_following').toggle(function(){
-            jQuery(this).css({
-                "background": "rgb(238,238,238)",
-                "background": "-moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%)",
-                "background": " -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(238,238,238,1)))",
-                "background": " -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%)",
-                "background":"-o-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%)",
-                "background": " -ms-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%)",
-                "background": "linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%)"
-
-            });
+            jQuery(this).removeClass('disabled');
             jQuery(this).html('<span><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW') ?></span>');
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=manageruser&task=tz.pin.unfollow',
@@ -103,7 +94,7 @@ defined("_JEXEC") or die;
 
             });
         },function(){
-            jQuery(this).css("background","#c0c0c0");
+            jQuery(this).addClass('disabled');
             jQuery(this).html('<span><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW'); ?></span>');
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=manageruser&task=tz.pin.follow',
@@ -152,15 +143,17 @@ defined("_JEXEC") or die;
                                if($followes->followCheck['f'] =='0' ||$followes->followCheck['f']=='' ){
 
                                ?>
-                                   <button class="tz_pin_following_button tz_following" data-option-id="<?php echo $followes->uid ?>" >
+                                   <button class="tz_pin_following_button btn tz_following" data-option-id="<?php echo $followes->uid ?>" >
                                        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_FOLLOW'); ?>
                                    </button>
+
                              <?php
                                     }else if($followes->followCheck['f'] =='1'){
                                ?>
-                                   <button style="background: #c0c0c0" class="tz_pin_following_button untz_following" data-option-id="<?php echo $followes->uid ?>" >
+                                   <button  class="tz_pin_following_button untz_following btn disabled" data-option-id="<?php echo $followes->uid ?>" >
                                        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNFOLLOW'); ?>
                                     </button>
+
                               <?php
                                }
                             }

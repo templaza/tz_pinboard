@@ -21,13 +21,18 @@ defined("_JEXEC") or die;
 
 
  class TZ_PinboardViewTags extends JViewLegacy{
+
      function display($tpl=null){
-         $state  = $this -> get('State') -> get('params');
-         $tz_layout = $state->get('tz_pinboard_layout');
-         $width_columns = $state->get('width_columns');
-         $type_detail = $state->get('type_detail');
-         $limit_pin = $state->get('tz_article_limit');
-         $page_commnet   = $state->get('page_commnet');
+         $state              =   $this -> get('State') -> get('params');
+         $tz_layout          =   $state->get('tz_pinboard_layout');
+         $width_columns      =   $state->get('width_columns');
+         $type_detail        =   $state->get('type_detail');
+         $limit_pin          =   $state->get('tz_article_limit');
+         $page_commnet       =   $state->get('page_commnet');
+         $show_date_comment  =   $state->get('show_date_comment');
+         $param_pinboard     =   JComponentHelper::getParams('com_tz_pinboard');
+         $img_size           =   $param_pinboard->get('portfolio_image_size');
+         $text_commnet       =   $param_pinboard->get('Limits_comment');
          $this->assign('page_com',$page_commnet);
          $this->assign('limit_pin',$limit_pin);
          $this->assign('tags',$this -> get('State')->get('tag_id'));
@@ -36,20 +41,12 @@ defined("_JEXEC") or die;
          $this->assign('PaginationPins',$this->get('PaginationPins'));
          $this->assign('UserImgLogin',$this->get('UserImgLogin'));
          $this->assign('sosanhuser',$this->get('Sosanhuser'));
-         $show_date_comment  = $state->get('show_date_comment');
          $this->assign('show_date',$show_date_comment);
-
          $this->assign('NameTag',$this->get('NameTag'));
-         $param_pinboard = JComponentHelper::getParams('com_tz_pinboard');
-         $img_size = $param_pinboard->get('portfolio_image_size');
-
-         $text_commnet = $param_pinboard->get('Limits_comment');
          $this->assign('tz_layout',$tz_layout);
-            $this->assign('width_columns',$width_columns);
+         $this->assign('width_columns',$width_columns);
          $this->assign('Limit_comment',$text_commnet);
-
-             $this->assign('img_size',$img_size);
-
+         $this->assign('img_size',$img_size);
          parent::display();
      }
  }

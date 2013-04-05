@@ -212,17 +212,16 @@ class Tz_pinboardModelManageruser extends JModelList{
             $db->setQuery($sql2,$this -> pagNavBoardPin -> limitstart,$this -> pagNavBoardPin -> limit);
             $row            = $db->loadObjectList();
             foreach($row as $item){
-                        $check_l = $this->chekcLikeUser($item->content_id);
-            $item->checl_l = $check_l;
-             $number_like = $this->CountLike($item->content_id);
-
-            $item->number_like = $number_like;
-            $number_comment = $this->countComment($item->content_id);
-            $item->number_comment = $number_comment;
-            $tangs = $this->DetailTag($item->content_id);
-            $item->tags = $tangs;
-           $show_comment = $this->getShowComment($item->content_id);
-            $item->showcomment = $show_comment;
+                    $check_l                =   $this->chekcLikeUser($item->content_id);
+                    $item->checl_l          =   $check_l;
+                     $number_like           =   $this->CountLike($item->content_id);
+                    $item->number_like      =   $number_like;
+                    $number_comment         =   $this->countComment($item->content_id);
+                    $item->number_comment   =   $number_comment;
+                    $tangs                  =   $this->DetailTag($item->content_id);
+                    $item->tags             =   $tangs;
+                   $show_comment            =   $this->getShowComment($item->content_id);
+                    $item->showcomment      =   $show_comment;
             }
             return $row;
         }
@@ -239,21 +238,21 @@ class Tz_pinboardModelManageruser extends JModelList{
     }
 
     function  getShowcategoryBoarAndPin(){
-        $id_board = JRequest::getInt('id_board');
+        $id_board       = JRequest::getInt('id_board');
         if(isset($id_board)){
-        $user_guest = JRequest::getInt('id_guest');
-        $user = JFactory::getUser();
-        $id_user = $user->id;
-        if(isset($user_guest) && !empty($user_guest)){
-        $id_user = $user_guest;
-        }
-        $db = JFactory::getDbo();
-        $sql ="SELECT id, title from #__tz_pinboard_boards where id = $id_board AND created_user_id  =$id_user ";
+            $user_guest  = JRequest::getInt('id_guest');
+            $user        = JFactory::getUser();
+            $id_user     = $user->id;
+            if(isset($user_guest) && !empty($user_guest)){
+                $id_user = $user_guest;
+            }
+            $db          = JFactory::getDbo();
+            $sql         = "SELECT id, title from #__tz_pinboard_boards where id = $id_board AND created_user_id  =$id_user ";
 
-        $db->setQuery($sql);
-        $row = $db->loadObject();
+            $db->setQuery($sql);
+            $row = $db->loadObject();
 
-        return $row;
+            return $row;
         }
     }
 
@@ -301,17 +300,16 @@ class Tz_pinboardModelManageruser extends JModelList{
         $db->setQuery($sql2,$this -> pagNavPins -> limitstart,$this -> pagNavPins -> limit);
         $row    = $db->loadObjectList();
         foreach($row as $item){
-            $check_l = $this->chekcLikeUser($item->content_id);
-            $item->checl_l = $check_l;
-             $number_like = $this->CountLike($item->content_id);
-            
-            $item->number_like = $number_like;
-            $number_comment = $this->countComment($item->content_id);
-            $item->number_comment = $number_comment;
-            $tangs = $this->DetailTag($item->content_id);
-            $item->tags = $tangs;
-           $show_comment = $this->getShowComment($item->content_id);
-            $item->showcomment = $show_comment;
+            $check_l                =   $this->chekcLikeUser($item->content_id);
+            $item->checl_l          =   $check_l;
+            $number_like            =   $this->CountLike($item->content_id);
+            $item->number_like      =   $number_like;
+            $number_comment         =   $this->countComment($item->content_id);
+            $item->number_comment   =   $number_comment;
+            $tangs                  =   $this->DetailTag($item->content_id);
+            $item->tags             =   $tangs;
+            $show_comment           =   $this->getShowComment($item->content_id);
+            $item->showcomment      =   $show_comment;
 
         }
         return $row;
