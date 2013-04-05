@@ -11,6 +11,7 @@ Documentation can be found on the wiki project page: http://wiki.templaza.com/Ma
 Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
+
 04/05/13 - 3.0.3
 	Bootstrap integrate
 	[bug] Fix error check link url
