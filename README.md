@@ -13,12 +13,13 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 *** Changelog ***
 
 04/22/13  - 3.1.0
+
+
 	[feature] add price pin
 	[feature] pin video to youtube and vimeo
 	[feature] show or hide title, tag, comment, button repin ...
 	[feature] share tweet, g+, facebook
 	[feature] for manager approve the status of Pin out site
-	
 
 04/05/13 - 3.0.3
 
