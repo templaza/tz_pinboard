@@ -19,7 +19,7 @@
 defined('_JEXEC') or die;
 jimport('joomla.html.pagination');
     class TZ_PinboardModelComment extends JModelList{
-        function populateState(){
+        function populateState($ordering=null,$direction=null){
                        $app    = JFactory::getApplication();
 
                     // Adjust the context to support modal layouts.

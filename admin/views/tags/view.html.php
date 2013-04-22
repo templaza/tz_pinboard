@@ -35,7 +35,7 @@ class TZ_PinboardViewTags extends JViewLegacy
 			TZ_PinboardHelper::addSubmenu('tags');
 		}
         
-        $editor = &JFactory::getEditor();
+        $editor = JFactory::getEditor();
         $this -> assign('editor',$editor);
         $this -> assign('order',$this -> state -> filter_order);
         $this -> assign('order_Dir',$this -> state -> filter_order_Dir);
@@ -62,7 +62,7 @@ class TZ_PinboardViewTags extends JViewLegacy
                 JToolBarHelper::divider();
                 JToolBarHelper::deleteList(JText::_('COM_TZ_PINBOARD_QUESTION_DELETE'));
                 JToolBarHelper::preferences('com_tz_pinboard');
-                $doc    = &JFactory::getDocument();
+                $doc    = JFactory::getDocument();
                 $doc -> addStyleSheet(JURI::base(true).'/components/com_tz_pinboard/assets/style.css');
                 // Special HTML workaround to get send popup working
 

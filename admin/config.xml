@@ -1,42 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+
     <fieldset name="tz_pinboard"
               label="COM_TZ_PINBOARD"
-              description="COM_TZ_PINBOARD_CONFIG_SETTINGS_DESC"
+              description="COM_TZ_PINBOARD_CONFIG_SETTINGS_DESC" addfieldpath="/administrator/components/com_tz_pinboard/elements"
     >
         <field  type="spacer" class="spacer"
 
 			/>
+        <field name="tz_sendMail"
+               type="list"
+               default="1"
+               label="COM_TZ_PINBOARD_SEND_EMAIL"
+               class="btn-group"
+               description="COM_TZ_PINBOARD_SEND_EMAIL_DS">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field name="show_button"
+                type="list"
+                default="1"
+                label="COM_TZ_PINBOARD_SHOW_BUTTON_REPIN"
+                class="btn-group"
+                description="COM_TZ_PINBOARD_SHOW_BUTTON_REPIN_DS">
+                <option value="1">JSHOW</option>
+                <option value="0">JHIDE</option>
 
-
+        </field>
+        <field name="button_detail"
+               type="list"
+               default="1"
+               label="COM_TZ_PINBOARD_SHOW_BUTTON_REPIN_DETAIL"
+               class="btn-group"
+               description="COM_TZ_PINBOARD_SHOW_BUTTON_REPIN_DETAIL_DS">
+               <option value="1">JSHOW</option>
+               <option value="0">JHIDE</option>
+        </field>
         <field type="list" name="tz_pinboard_layout"
                 label="COM_TZ_PINBOARD_CONFIG_LAYOUT"
                 default="default"
                 description="COM_TZ_PINBOARD_CONFIG_LAYOUT_DESC">
-            <option value="default">COM_TZ_PINBOARD_CONFIG_DEFAULT</option>
-            <option value="ajaxButton">COM_TZ_PINBOARD_CONFIG_AJAX_BUTTON</option>
-            <option value="ajaxInfiScroll">COM_TZ_PINBOARD_CONFIG_AJAX_INFINITE_SCROLL</option>
+                <option value="default">COM_TZ_PINBOARD_CONFIG_DEFAULT</option>
+                <option value="ajaxButton">COM_TZ_PINBOARD_CONFIG_AJAX_BUTTON</option>
+                <option value="ajaxInfiScroll">COM_TZ_PINBOARD_CONFIG_AJAX_INFINITE_SCROLL</option>
 
         </field>
-           <field
-                      name="type_detail"
-                      type="list"
-                      class="btn-group"
-                      label="COM_TZ_PINBOARD_PINS_TYPE_DETAIL"
-                      default="1"
-                      description="COM_TZ_PINBOARD_PINS_TYPE_DETAIL_DS">
-                      <option value="1">COM_TZ_PINBOARD_PINS_TYPE_DETAIL_LIGHTBOX</option>
-                      <option value="0">COM_TZ_PINBOARD_PINS_TYPE_DETAIL_LINK</option>
-             </field>
+       <field
+                  name="type_detail"
+                  type="list"
+                  class="btn-group"
+                  label="COM_TZ_PINBOARD_PINS_TYPE_DETAIL"
+                  default="1"
+                  description="COM_TZ_PINBOARD_PINS_TYPE_DETAIL_DS">
+                  <option value="1">COM_TZ_PINBOARD_PINS_TYPE_DETAIL_LIGHTBOX</option>
+                  <option value="0">COM_TZ_PINBOARD_PINS_TYPE_DETAIL_LINK</option>
+         </field>
         <field
-                      name="type_show_pin"
-                      type="list"
-                      class="btn-group"
-                      label="COM_TZ_PINBOARD_PINS_TYPE_SHOW"
-                      default="created"
-                      description="COM_TZ_PINBOARD_PINS_TYPE_SHOW_DESCRIPTION">
-                      <option value="created">COM_TZ_PINBOARD_PINS_TYPE_SHOW_DATE</option>
-                      <option value="title">COM_TZ_PINBOARD_PINS_TYPE_SHOW_TITLE</option>
+                  name="type_show_pin"
+                  type="list"
+                  class="btn-group"
+                  label="COM_TZ_PINBOARD_PINS_TYPE_SHOW"
+                  default="created"
+                  description="COM_TZ_PINBOARD_PINS_TYPE_SHOW_DESCRIPTION">
+                  <option value="created">COM_TZ_PINBOARD_PINS_TYPE_SHOW_DATE</option>
+                  <option value="title">COM_TZ_PINBOARD_PINS_TYPE_SHOW_TITLE</option>
           </field>
         <field
                 name="show_tags_detail"
@@ -49,12 +76,102 @@
                 <option value="0">JHIDE</option>
         </field>
         <field
+                name="show_tags_thum"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_PINS_SHOW_TAG_THUM"
+                default="1"
+                description="COM_TZ_PINBOARD_PINS_TAG_THUM_DESCRIPTION">
+                <option value="1">JSHOW</option>
+                <option value="0">JHIDE</option>
+        </field>
+        <field
                 name="show_tags_title"
                 type="list"
                 class="btn-group"
                 label="COM_TZ_PINBOARD_PINS_SHOW_TITLE_DETAIL"
                 default="1"
                 description="COM_TZ_PINBOARD_PINS_TITLE_DETAIL_DESCRIPTION">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="show_title_thum"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_PINS_SHOW_TITLE_THUM"
+                default="1"
+                description="COM_TZ_PINBOARD_PINS_TITLE_THUM_DESCRIPTION">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="show_count_button"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_SHOW_COUNT_BUTTON"
+                default="1"
+                description="COM_TZ_PINBOARD_SHOW_COUNT_BUTTON_DS">
+                <option value="1">JSHOW</option>
+                <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="show_user"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_SHOW_INFO_USER"
+                default="1"
+                description="COM_TZ_PINBOARD_SHOW_INFO_USER_DS">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="ds_detail"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_DESCRIPTION_DETAIL"
+                default="1"
+                description="COM_TZ_PINBOARD_DESCRIPTION_DETAIL_DS">
+                <option value="1">JSHOW</option>
+                <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="name_board_d"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_NAME_BOARD_DETAIL"
+                default="1"
+                description="COM_TZ_PINBOARD_NAME_BOARD_DETAIL_DS">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="date_d"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_DATE_DETAIL"
+                default="1"
+                description="COM_TZ_PINBOARD_DATE_DETAIL_DS">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="web_d"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_LINK_WEB_DETAIL"
+                default="1"
+                description="COM_TZ_PINBOARD_LINK_WEB_DETAIL_DS">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
+        <field
+                name="imgUser_d"
+                type="list"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_IMG_USER_DETAIL"
+                default="1"
+                description="COM_TZ_PINBOARD_IMG_USER_DETAIL_DS">
             <option value="1">JSHOW</option>
             <option value="0">JHIDE</option>
         </field>
@@ -149,7 +266,7 @@
         <field
                name="mymenuitem"
                type="menuitem" default="110" label="Select a menu item" description="Select a menu item" />
-
+        <field name="modticket" type="usergroups" default="" label="Select Ticket Mod" description="Select Usergroup for Ticket Mod."/>
 
      </fieldset>
 
@@ -238,6 +355,7 @@
                        description="COM_TZ_PINBOARD_CONFIG_IMAGE_XLARGE_DESC"
                 >
                 </field>
+
     </fieldset>
     <fieldset name="tz_board"
                       label="COM_TZ_PINBOARD_BOARD_CONFIG"
@@ -384,6 +502,24 @@
                 label="COM_TZ_PINBOARD_COMMENT"
                 description="COM_TZ_PINBOARD_COMMENT_CONFIGURATION"
       >
+        <field name="comment_thumbnails"
+               type="radio"
+                class="btn-group"
+                label="COM_TZ_PINBOARD_SHOW_COMMENT_THUMBNAILS"
+                default="1"
+                description="COM_TZ_PINBOARD_SHOW_COMMENT_THUMBNAILS_DS">
+                <option value="1">JSHOW</option>
+                <option value="0">JHIDE</option>
+        </field>
+        <field name="comment_detail"
+               type="radio"
+               class="btn-group"
+               label="COM_TZ_PINBOARD_SHOW_COMMENT_DETAIL"
+               default="1"
+               description="COM_TZ_PINBOARD_SHOW_COMMENT_DETAIL">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
         <field
                   name="state_comment"
                   type="radio"
@@ -448,6 +584,7 @@
                   description="COM_TZ_PINBOARD_CONFIG_CHANGE_TEXT_COMMNET_DESCRIPTION">
 
             </field>
+
      </fieldset>
 
 

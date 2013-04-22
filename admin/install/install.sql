@@ -225,6 +225,15 @@ CREATE TABLE IF NOT EXISTS `#__tz_pinboard_xref_content` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `#__tz_pinboard_active` (
+`id` int( 11 ) NOT NULL AUTO_INCREMENT ,
+`active` varchar(255) NULL ,
+`target` int(255) NULL ,
+`id_user` int(11) NULL ,
+`type` varchar(255) NULL,
+PRIMARY KEY ( `id` )
+) ENGINE = MYISAM DEFAULT CHARSET = utf8;
+
 
 
 INSERT INTO `#__tz_pinboard_category` (`id`, `asset_id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `extension`, `title`, `alias`, `note`, `description`, `published`, `checked_out`, `checked_out_time`, `access`, `params`, `metadesc`, `metakey`, `metadata`, `created_user_id`, `created_time`, `modified_user_id`, `modified_time`, `hits`, `language`, `version`) VALUES

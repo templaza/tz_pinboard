@@ -29,6 +29,20 @@ defined("_JEXEC") or die;
                     $type_detail        =       $sate->get('type_detail');
                     $img_size           =       $sate->get('pinboard_image_size');
                     $text_webs          =       $sate->get('text_web');
+                    $comment_detail     =       $sate->get('comment_detail');
+                    $button_D           =       $sate->get('button_detail');
+                    $ds_detial          =       $sate->get('ds_detail');
+                    $name_board         =       $sate->get('name_board_d');
+                    $date_d             =       $sate->get('date_d');
+                    $web_d              =       $sate->get('web_d');
+                    $img_user           =       $sate->get('imgUser_d');
+                    $this -> assign('imgUser',$img_user);
+                    $this -> assign('web_d',$web_d);
+                    $this -> assign('date_d',$date_d);
+                    $this -> assign('name_b',$name_board);
+                    $this -> assign('ds_detail',$ds_detial);
+                    $this -> assign('button_d',$button_D);
+                    $this -> assign('s_detail',$comment_detail);
                     $this -> assign('text_website',$text_webs);
                     $this -> assign('type_details',$type_detail);
                     $this -> assign('show_date',$show_date_comment);
@@ -40,8 +54,8 @@ defined("_JEXEC") or die;
                     $this -> assign('sosanhuser',$this->get('Sosanhuser'));
                     $this -> assign('Demcommnet',$this->get('Demcommnet'));
                     $this -> assign('ShowCommnet',$this->get('ShowCommnet'));
-
-                    $this->assign('img_size',$img_size);
+                    $this -> assign('img_size',$img_size);
+                    $this -> assign('checkApp',$this->get('Authorize'));
                     parent::display();
                 }
         }

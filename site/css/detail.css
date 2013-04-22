@@ -111,7 +111,36 @@
     width: 45px;
 }
 
-
+.tz-detail-price{
+    background-color: #ffffff;
+    font-size: 11px;
+    left: -72px;
+    overflow: hidden;
+    padding: 10px 0;
+    position: absolute;
+    text-align: center;
+    top: 19px;
+    transform: rotate(-45deg);
+    width: 220px;
+    z-index: 1;
+    opacity:0.77;
+    color: #000000;
+}
+.tz-detail-price2{
+    background-color: #ffffff;
+    font-size: 13px;
+    left: -37px;
+    overflow: hidden;
+    padding: 7px 0;
+    position: absolute;
+    text-align: center;
+    top: 25px;
+    transform: rotate(-45deg);
+    width: 150px;
+    z-index: 1;
+    opacity: 0.8;
+    color: #000000;
+}
 
 .tz_datail_comment{
     width: 98%;
@@ -156,19 +185,32 @@
 .tz_detail_content{
     width: 100%;
     height: 100%;
+    position: relative;
+    overflow: hidden;
 }
 /*.tz-detail-hover:hover .tz_detail_pl{*/
     /*display: block;*/
 /*}*/
-
+.tz-detail-hover{
+    position: relative;
+}
+.tz_detail_video{
+    height: 20px;
+    margin: 20px;
+}
+.tz-detail-price-video{
+    height: auto;
+    margin: 29px 0 10px 27px;
+}
 .tz_detail_pl{
-    display: none;
+    display: block;
     height: 50px;
     left: 13px;
     position: absolute;
     top: 3px;
     width: auto;
     padding: 20px;
+    z-index: 10;
 }
 .tz_button_repin{
     width: 65px;
@@ -191,14 +233,20 @@
 .tz_detail_pl .tz_check_like{
     display: none;
 }
-.tz_detail_pl .tz_btn{
-    border: 1px solid #000000;
-    border-radius: 12px;
-    background: white;
-    margin-left: 6px;
-}
+/*.tz_detail_pl .tz_btn{*/
+    /*border: 1px solid #000000;*/
+    /*border-radius: 12px;*/
+    /*background: white;*/
+    /*margin-left: 6px;*/
+/*}*/
 .tz_detail_pl .disabled_d{
     background: #c5c5c5;
+}
+.tz_detail_video .disabled_d{
+    background: #c5c5c5;
+}
+.tz_detail_video .tz_check_like{
+    display: none;
 }
 .tz_detail_pins{
     background: url("../images/d_delete.png") no-repeat scroll center #FFFFFF;
@@ -209,6 +257,7 @@
     right: 14px;
     top: 12px;
     width: 42px;
+    z-index: 20;
 
 }
 
@@ -356,4 +405,25 @@
     margin-left: 5px;
     padding-left: 20px;
     padding-right: 20px;
+}
+.tz_pinboard_social{
+    width: auto;
+    height: 60px;
+    position: relative;
+}
+.FacebookButton{
+    float: left;
+    margin-left: 10px;
+}
+.FacebookButton a{
+    cursor: pointer;
+
+}
+.TwitterButton{
+    float: left;
+    margin-left: 10px;
+}
+.GooglePlusOneButton{
+    float: left;
+    margin-left: 5px;
 }

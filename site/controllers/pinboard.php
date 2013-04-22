@@ -55,7 +55,6 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 break;
 
             case'tz_repin_insert':
-
                 echo  $this->model->insertRepinAll();
                 die();
                 break;
@@ -68,7 +67,14 @@ class TZ_PinboardControllerPinboard extends JControllerAdmin{
                 echo $this->model->ajaxPTComment();
                 die();
                 break;
-
+            case'ActiviAjax':
+                echo $this->model->AjaxActive();
+                die();
+                break;
+            case'TzApprover':
+                echo $this->model->ApprovePin();
+                die();
+                break;
             default:
                 $view->setLayout('default');
                 break;

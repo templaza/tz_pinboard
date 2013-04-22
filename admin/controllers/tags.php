@@ -30,7 +30,7 @@ class TZ_PinboardControllerTags extends JControllerLegacy
         parent::__construct();
         $this -> cids   = JRequest::getVar('cid',array(),'','array');
     }
-    function display(){
+    function display($cachable=false,$urlparams=array()){
         $this->_link     = 'index.php?option=com_tz_pinboard&view=tags';
 
         $doc    = JFactory::getDocument();

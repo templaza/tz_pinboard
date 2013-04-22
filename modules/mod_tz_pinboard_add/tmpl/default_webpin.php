@@ -41,6 +41,7 @@ defined("_JEXEC") or die;
         </div>
         <div id="tz_pin_url_content_2">
                 <div id="tz_pin_url_content_2_left">
+                    <div class="tz_upload_price"></div>
                     <ul id="slider">
                     </ul>
                     <div class="cler"></div>
@@ -48,12 +49,15 @@ defined("_JEXEC") or die;
                 <div id="tz_pin_url_content_2_right">
                     <div class="tz_pin_url_input">
                         <input id="tz_pin_url_keygord" type="text" name="keywords_pin_local"  maxlength="<?php echo $text_key; ?>"  value="">
+                        <input type="hidden" name="tz_price" id="tz_url_price" value="">
                         <p id="tz_url_p_keyword">
                         </p>
                     </div>
                     <div class="tz_pin_url_input">
                         <input id="tz_pin_url_title" type="text" name="title_pin_local" title="Title" maxlength="<?php echo $text_title; ?>"  value="">
                         <input type="hidden" name="img_hidde" id="img_hidder" value="">
+                        <input type="hidden" name="video_hidden" id="video_hidden" value="">
+
                         <p id="tz_url_p_title">
                         </p>
                     </div>
@@ -61,21 +65,19 @@ defined("_JEXEC") or die;
                         <select name="board" id="tz_pin_url_select">
                         <?php
                         if(isset($bord) && !empty($bord)){
-                        foreach($bord as $row){
-                        ?>
-                        <option value="<?php echo $row->id ?>">
-                        <?php echo $row->title; ?>
-                        </option>
-                        <?php
-                        }
-                        }else{
-                        ?>
-                        <option value="">
-
-                        </option>
-                        <?php
-                        }
-                        ?>
+                            foreach($bord as $row){
+                            ?>
+                                <option value="<?php echo $row->id ?>">
+                                    <?php echo $row->title; ?>
+                                </option>
+                            <?php
+                            }
+                            }else{
+                            ?>
+                            <option value=""></option>
+                            <?php
+                            }
+                            ?>
                         </select>
 
                     </div>
@@ -86,6 +88,7 @@ defined("_JEXEC") or die;
                     <div class="tz_pin_url_input">
                         <input type="hidden" name="task" value="task_upload_pin">
                         <input  class="btn btn-large" id="url_a_pin" type="submit" name="uploadpin" value="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_WEB_PIN'); ?>">
+
                         <?php echo JHtml::_('form.token'); ?>
                     </div>
                 </div>

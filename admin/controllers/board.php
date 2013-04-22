@@ -21,7 +21,7 @@ jimport('joomla.application.component.controlleradmin');
     class TZ_PinboardControllerBoard extends JControllerForm{
 
 
-        function display(){
+        function display($cachable=false,$urlparams=array()){
                  $task = JRequest::getCmd('task');
                   $doc = JFactory::getDocument();
                   $type = $doc->getType();

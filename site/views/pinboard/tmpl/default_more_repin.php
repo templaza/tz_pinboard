@@ -51,6 +51,9 @@ defined("_JEXEC") or die;
         </select>
     </div>
         <div class="tz_repin_more_warp_form_div">
+            <?php
+            $price = new JRegistry($this->repin->c_attribs);
+            ?>
             <input type="text" maxlength="<?php echo $this->max_title; ?>" name="tz_repin_title" id="tz_repin_title" value="<?php  echo $this->repin->conten_title; ?>">
             <p id="tz_repin_more_title"></p>
             <input type="hidden" name="tz_repin_website" id="tz_repin_website" value="<?php echo $this->repin->website; ?>">
@@ -59,6 +62,8 @@ defined("_JEXEC") or die;
             <input type="hidden" name="tz_user_name" id="tz_user_name" value="<?php echo $this->repin->name_user; ?>">
             <input type="hidden" name="tz_content_alias" id="tz_content_alias" value="<?php echo $this->repin->content_alias; ?>">
             <input type="hidden" name="tz_content_access" id="tz_content_access" value="<?php echo $this->repin->content_access; ?>">
+            <input type="hidden" name="tz_repin_price" id="tz_repin_price" value="<?php echo $price->get('price'); ?>">
+            <input type="hidden" name="tz_repin_video" id="tz_repin_video" value="<?php echo $this->repin->poro_video; ?>">
             <input type="hidden" name="tz_content_tag" id="tz_content_tag" value="<?php if(isset($this->repin->tags)){
                                                foreach($this->repin->tags as $tag){
                                                    echo $tag->tagid.",";

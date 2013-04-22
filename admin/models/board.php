@@ -16,9 +16,10 @@
 # Technical Support:  Forum - http://templaza.com/Forum
 
 -------------------------------------------------------------------------*/
-jimport('joomla.html.pagination'); // phan trang
+defined("_JEXEC") or die;
+jimport('joomla.html.pagination');
     class TZ_PinboardModelBoard extends JModelList{
-        function populateState(){
+        function populateState($ordering=null,$direction=null){
               $app    = JFactory::getApplication();
                 if ($layout = $app->input->get('layout'))
                 {

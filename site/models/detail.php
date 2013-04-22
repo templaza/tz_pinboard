@@ -36,52 +36,92 @@ class TZ_PinboardModelDetail extends JModelList{
             $show_tags_title    =   $params->get('show_tags_title');
             $type_detail        =   $params->get('type_detail');
             $text_web           =   $params->get('text_web');
-            $this->setState('text_webs',$text_web);
-            $this->setState('type_details',$type_detail);
-            $this->setState('show_date',$show_date_comment);
-            $this->setState('pinboard_image_size',$detail_image_size);
-            $this->setState('show_tags_title',$show_tags_title);
-            $this->setState('show_tags_detail',$show_tags_detail);
-            $this->setState('remove_comment',$delete_text_cm);
-            $this->setState('change_comment',$change_comment);
-            $this->setState('state_comment',$state_comment);
-            $this->setState('Limits_comment', $limit_commnet);
-            $this->setState('page_cm',$page_commnet);
-            $this->setState('star_page_cm',0);
+            $comment_detail     =   $params->get('comment_detail');
+            $button_D           =   $params->get('button_detail');
+            $ds_detial          =   $params->get('ds_detail');
+            $name_board         =   $params->get('name_board_d');
+            $date_d             =   $params->get('date_d');
+            $web_d              =   $params->get('web_d');
+            $img_user           =   $params->get('imgUser_d');
+            $this -> setState('img_user',$img_user);
+            $this -> setState('web_d',$web_d);
+            $this -> setState('date_d',$date_d);
+            $this -> setState('name_b',$name_board);
+            $this -> setState('ds_detail',$ds_detial);
+            $this -> setState('button_d',$button_D);
+            $this -> setState('s_detail',$comment_detail);
+            $this -> setState('text_webs',$text_web);
+            $this -> setState('type_details',$type_detail);
+            $this -> setState('show_date',$show_date_comment);
+            $this -> setState('pinboard_image_size',$detail_image_size);
+            $this -> setState('show_tags_title',$show_tags_title);
+            $this -> setState('show_tags_detail',$show_tags_detail);
+            $this -> setState('remove_comment',$delete_text_cm);
+            $this -> setState('change_comment',$change_comment);
+            $this -> setState('state_comment',$state_comment);
+            $this -> setState('Limits_comment', $limit_commnet);
+            $this -> setState('page_cm',$page_commnet);
+            $this -> setState('star_page_cm',0);
+    }
+
+    /*
+    * method check user rights
+    */
+    function getAuthorize(){
+        $mainframe  =   JFactory::getApplication();
+        $option     =   'com_tz_pinboard';
+        $params     =   $mainframe->getParams($option);
+        $modticket  =   $params->get('modticket',array());
+        $user       =   JFactory::getUser();
+        $groups     =   JAccess::getGroupsByUser($user->id);
+        if (!count($modticket) || !count($groups)){
+            return false;
         }
 
-
-        // function display detail pin
-        function  getDetailPins(){
-            $id_content     =   JRequest::getInt('id_pins');
-            $this->updateHist();
-            if($id_content  =='f') return false;
-            if(isset($id_content) && !empty($id_content)){
-                $db             =   JFactory::getDbo();
-                    $sql        =   "SELECT u.id as id_user, u.name as name_user, tz_u.images as img_user,
-                                            ca.id as category_id,  ca.title as boar_title,
-                                            c.title as conten_title, c.introtext as content_introtext,
-                                            c.id as content_id, c.created as c_created, pz.images as poro_img, w.url as website
-                                      FROM #__users AS u  LEFT join  #__tz_pinboard_users as tz_u  on tz_u.usersid  = u.id
-                                              LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
-                                              LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
-                                              LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
-                                              LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
-                                      WHERE  c.id=$id_content";
-                $db->setQuery($sql);
-                $row             =  $db->loadObject();
-                $follows         =  $this->checkFollow($row->id_user);
-                $row->follow     =  $follows;
-                $tangs           =  $this->DetailTag($row->content_id);
-                $row->tags       =  $tangs;
-                $check_like      =  $this->chekcLikeUser($row->content_id);
-                $row->check_like =  $check_like;
-
-                return $row;
+        foreach ($modticket as $mod) {
+            foreach ($groups as $group) {
+                if (intval($mod)==intval($group)) {
+                    return true;
+                }
             }
-
         }
-        /*
+
+    }
+    /*
+     * function display detail pin
+    */
+    function  getDetailPins(){
+        $id_content     =   JRequest::getInt('id_pins');
+        $this->updateHist();
+        if($id_content  =='f') return false;
+        if(isset($id_content) && !empty($id_content)){
+            $db             =   JFactory::getDbo();
+                $sql        =   "SELECT u.id as id_user, u.name as name_user, tz_u.images as img_user,
+                                        ca.id as category_id,  ca.title as boar_title,
+                                        c.title as conten_title, c.introtext as content_introtext,  c.state as c_state,
+                                        c.id as content_id, c.created as c_created, c.attribs as c_attribs, pz.video as pz_video,
+                                       pz.images as poro_img, w.url as website
+                                  FROM #__users AS u  LEFT join  #__tz_pinboard_users as tz_u  on tz_u.usersid  = u.id
+                                          LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
+                                          LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
+                                          LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
+                                          LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
+                                  WHERE  c.id=$id_content";
+            $db->setQuery($sql);
+            $row             =  $db->loadObject();
+
+            $follows         =  $this->checkFollow($row->id_user);
+            $row->follow     =  $follows;
+            $tangs           =  $this->DetailTag($row->content_id);
+            $row->tags       =  $tangs;
+            $check_like      =  $this->chekcLikeUser($row->content_id);
+            $row->check_like =  $check_like;
+
+            return $row;
+        }
+
+    }
+    /*
      * Method check users like or not
      */
     function  chekcLikeUser($id_content){
@@ -305,6 +345,20 @@ class TZ_PinboardModelDetail extends JModelList{
         $showdate         =     $this->getState('show_date');
         $img_size         =     $this->getState('pinboard_image_size');
         $text_webs        =     $this->getState('text_webs');
+        $c_detail         =     $this->getState('s_detail');
+        $button_d         =     $this->setState('button_d');
+        $ds_detial        =     $this->setState('ds_detail');
+        $name_board       =     $this->setState('name_b');
+        $date_d           =     $this->setState('date_d');
+        $web_dt           =     $this->setState('web_d');
+        $img_user         =     $this->setState('img_user');
+        $view -> assign('imgUser',$img_user);
+        $view -> assign('web_d',$web_dt);
+        $view -> assign('date_d',$date_d);
+        $view -> assign('name_b',$name_board);
+        $view -> assign('ds_detail',$ds_detial);
+        $view -> assign('button_d',$button_d);
+        $view -> assign('s_detail',$c_detail);
         $view -> assign('text_website',$text_webs);
         $view -> assign('type_details',$type_Detail);
         $view -> assign('show_date',$showdate);
@@ -317,6 +371,7 @@ class TZ_PinboardModelDetail extends JModelList{
         $view -> assign('Demcommnet',$this->getDemcommnet());
         $view -> assign('ShowCommnet',$this->getShowCommnet());
         $view -> assign('img_size',$img_size);
+        $view -> assign('checkApp','false');
         return $view->loadTemplate('ajaxpins');
     }
 
@@ -336,6 +391,66 @@ class TZ_PinboardModelDetail extends JModelList{
     }
 
     /*
+  * method check user Follow Active or not Follow and get id user Follow
+  */
+    function checkFollowActive(){
+        $user       = JFactory::getUser();
+        $id_user    = $user->id;
+        $id_follow = $_POST['id_user_guest'];
+        $db         = JFactory::getDbo();
+        $SQL        = "SELECT id_user from #__tz_pinboard_active where id_user=$id_user AND target=$id_follow";
+        $db->setQuery($SQL);
+        $row        = $db->loadObject();
+        return $row;
+    }
+
+
+    /*
+     * Method insert into table Follow Active
+    */
+    function InsertFollowActive(){
+        $user       =  JFactory::getUser();
+        $id_user    =  $user->id;
+        $id_follow = $_POST['id_user_guest'];
+        $db         =  JFactory::getDbo();
+        if(isset($this->checkFollowActive()->id_user)){
+            $check = $this->checkFollowActive()->id_user;
+        }
+        if(isset($id_user) && !empty($id_user)){
+            if(isset($check) AND !empty($check)){
+                $sql = "UPDATE alls_tz_pinboard_active SET `active` = 'f' WHERE target =$id_follow AND id_user = $id_user";
+            }else if(empty($check)){
+                $sql = "INSERT INTO #__tz_pinboard_active  VALUES(NULL,'f','".$id_follow."','".$id_user."','follow') ";
+            }
+
+            $db->setQuery($sql);
+            $db->query();
+        }
+    }
+
+    /*
+    * Method insert into table UnFollow Active
+   */
+    function InsertUnFollowActive(){
+        $user       =  JFactory::getUser();
+        $id_user    =  $user->id;
+        $id_follow = $_POST['id_user_guest'];
+        $db         =  JFactory::getDbo();
+        if(isset($this->checkFollowActive()->id_user)){
+            $check = $this->checkFollowActive()->id_user;
+        }
+        if(isset($id_user) && !empty($id_user)){
+            if(isset($check) AND !empty($check)){
+                $sql = "UPDATE alls_tz_pinboard_active SET `active` = 'uf' WHERE target =$id_follow AND id_user = $id_user";
+            }else if(empty($check)){
+                $sql = "INSERT INTO #__tz_pinboard_active  VALUES(NULL,'uf','".$id_follow."','".$id_user."','follow') ";
+            }
+            $db->setQuery($sql);
+            $db->query();
+        }
+    }
+
+    /*
      * method insert follo
     */
     function inserFollow(){
@@ -351,13 +466,14 @@ class TZ_PinboardModelDetail extends JModelList{
 
         if(isset($id_user) && !empty($id_user)){
             $checklik  = $this->checkFoolow();
-        if(isset($checklik) AND !empty($checklik) ){
-            $sql       = "update #__tz_pinboard_follow set folowing ='1' where id_user =$id_user AND id_guest =$id_user_guest";
-        }else if($checklik == ""){
-            $sql       = "INSERT INTO #__tz_pinboard_follow  VALUES(NULL,'1','".$id_user."','".$id_user_guest."') ";
-        }
-        $db->setQuery($sql);
-        $db->query();
+            if(isset($checklik) AND !empty($checklik) ){
+                $sql       = "update #__tz_pinboard_follow set folowing ='1' where id_user =$id_user AND id_guest =$id_user_guest";
+            }else if($checklik == ""){
+                $sql       = "INSERT INTO #__tz_pinboard_follow  VALUES(NULL,'1','".$id_user."','".$id_user_guest."') ";
+            }
+            $this->InsertFollowActive();
+            $db->setQuery($sql);
+            $db->query();
         }else{
         return 'f';
         }
@@ -384,6 +500,7 @@ class TZ_PinboardModelDetail extends JModelList{
             }else if(empty($checklik)){
                 $sql        =  "INSERT INTO #__tz_pinboard_follow  VALUES(NULL,'0','".$id_user_guest."','".$id_user."') ";
             }
+            $this->InsertUnFollowActive();
             $db->setQuery($sql);
             $db->query();
         }

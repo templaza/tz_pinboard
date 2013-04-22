@@ -34,7 +34,7 @@ require_once(JPATH_COMPONENT. DIRECTORY_SEPARATOR.'helpers'. DIRECTORY_SEPARATOR
                 $this->assign('star',$status);
                 $this->assign('More',$this->get('More'));
                 $this->assign('board',$this->get('Board'));
-                $this -> assignRef('pagination',$this -> get('Pagination'));
+                $this -> assign('pagination',$this -> get('Pagination'));
                 $this->assign('authors',$this->get('Authors'));
                 $task = JRequest::getCmd('task');
 

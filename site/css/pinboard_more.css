@@ -223,14 +223,7 @@
     border-radius: 5px;
 
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
-       background: rgb(255,255,255); /* Old browsers */
-       background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
-       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
-       background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
-       background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
-       background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
-       background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
-       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
 }
 #tz_repin_more_notice p{
    
@@ -239,7 +232,44 @@
     padding-top: 20px;
 
 }
+#tz_repin_more_notice_erro{
+    width: 20%;
+    height: 10%;
+    z-index: 40000;
+    position:  fixed;
+    bottom: -100%;
+    left: 40%;
+    border-radius: 5px;
 
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+
+}
+#tz_repin_more_notice_erro p{
+
+    font-size: 16px;
+    text-align: center;
+    padding-top: 20px;
+
+}
+.tz_detail_notice_app{
+    width: 20%;
+    height: 10%;
+    z-index: 40000;
+    position:  fixed;
+    bottom: -100%;
+    left: 40%;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.6);
+    background: #ffffff;
+
+}
+.tz_detail_notice_app p{
+
+    font-size: 16px;
+    text-align: center;
+    padding-top: 20px;
+
+}
 
 #tz_more_content{
     background:  #F8F8F8;
@@ -637,4 +667,48 @@
 
 .tz_hover_img{
     position: relative;
+}
+.tz-pinboard-warning{
+    background-color: red;
+    font-size: 11px;
+    right: -80px;
+    overflow: hidden;
+    padding: 10px 0;
+    position: absolute;
+    text-align: center;
+    top: 16px;
+    transform: rotate(45deg);
+    width: 220px;
+    z-index: 1;
+    opacity: 0.8;
+    color: white;
+}
+.tz-pinboard-approver{
+    background: none repeat scroll 0 0 white;
+    border: 1px solid #000000;
+    border-radius: 12px 12px 12px 12px;
+    z-index: 30;
+    left: 33%;
+    padding: 7px;
+    position: absolute;
+    text-align: center;
+    top: 30%;
+    cursor: pointer;
+
+}
+.tz-pinboard-approver-success{
+    background: #c0c0c0;
+    border: 1px solid #000000;
+    border-radius: 12px 12px 12px 12px;
+    z-index: 30;
+    left: 33%;
+    padding: 7px;
+    position: absolute;
+    text-align: center;
+    top: 30%;
+    cursor: pointer;
+}
+.tz-detail-app{
+    background: red;
+    border: 1px solid red;
 }

@@ -19,9 +19,15 @@
 
 
 }
+.anythingWindow ul li img{
+    min-width: 100%;
+    height: auto !important;
+    min-height: 130px;
+    max-width: 1000px;
+}
 .anythingWindow{
     margin-bottom: 10px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 /******************
   SET STYLING HERE
@@ -31,7 +37,7 @@
  ==================================*/
 /* Overall Wrapper */
 .anythingSlider-default {
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 	/* 45px right & left padding for the arrows, 28px @ bottom for navigation */
 	padding: 0;
 }
