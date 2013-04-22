@@ -30,23 +30,36 @@ defined("_JEXEC") or die;
          $limit_pin          =   $state->get('tz_article_limit');
          $page_commnet       =   $state->get('page_commnet');
          $show_date_comment  =   $state->get('show_date_comment');
-         $param_pinboard     =   JComponentHelper::getParams('com_tz_pinboard');
-         $img_size           =   $param_pinboard->get('portfolio_image_size');
-         $text_commnet       =   $param_pinboard->get('Limits_comment');
-         $this->assign('page_com',$page_commnet);
-         $this->assign('limit_pin',$limit_pin);
-         $this->assign('tags',$this -> get('State')->get('tag_id'));
-         $this->assign('type_detail',$type_detail);
-         $this->assign('Pins',$this->get('Pins'));
-         $this->assign('PaginationPins',$this->get('PaginationPins'));
-         $this->assign('UserImgLogin',$this->get('UserImgLogin'));
-         $this->assign('sosanhuser',$this->get('Sosanhuser'));
-         $this->assign('show_date',$show_date_comment);
-         $this->assign('NameTag',$this->get('NameTag'));
-         $this->assign('tz_layout',$tz_layout);
-         $this->assign('width_columns',$width_columns);
-         $this->assign('Limit_comment',$text_commnet);
-         $this->assign('img_size',$img_size);
+         $img_size           =   $state->get('portfolio_image_size');
+         $text_commnet       =   $state->get('Limits_comment');
+         $comment_thumbnails =   $state->get('comment_thumbnails');     // show comment thumbnails
+         $show_button        =   $state->get('show_button');            // show button repin, edit, like, unlike, comment
+         $show_title_thum    =   $state->get('show_title_thum');        // show or hide title thumbnails
+         $show_tags_thum     =   $state->get('show_tags_thum');        // show or hide tags thumbnails
+         $count_button       =   $state->get('show_count_button');     // show or hide count comment, like, hist
+         $s_user             =   $state->get('show_user');             // show or hide info user
+         $comment_detail     =   $state->get('comment_detail');        // show or hide comment detail
+         $this -> assign('s_detail',$comment_detail);
+         $this -> assign('s_user',$s_user);
+         $this -> assign('count_button',$count_button);
+         $this -> assign('tag_thum',$show_tags_thum);
+         $this -> assign('title_thum',$show_title_thum);
+         $this -> assign('s_button',$show_button);
+         $this -> assign('s_thumb',$comment_thumbnails);
+         $this -> assign('page_com',$page_commnet);
+         $this -> assign('limit_pin',$limit_pin);
+         $this -> assign('tags',$this -> get('State')->get('tag_id'));
+         $this -> assign('type_detail',$type_detail);
+         $this -> assign('Pins',$this->get('Pins'));
+         $this -> assign('PaginationPins',$this->get('PaginationPins'));
+         $this -> assign('UserImgLogin',$this->get('UserImgLogin'));
+         $this -> assign('sosanhuser',$this->get('Sosanhuser'));
+         $this -> assign('show_date',$show_date_comment);
+         $this -> assign('NameTag',$this->get('NameTag'));
+         $this -> assign('tz_layout',$tz_layout);
+         $this -> assign('width_columns',$width_columns);
+         $this -> assign('Limit_comment',$text_commnet);
+         $this -> assign('img_size',$img_size);
          parent::display();
      }
  }

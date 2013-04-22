@@ -46,25 +46,37 @@ class TZ_PinboardModelTags extends JModelList{
         $page_commnet       =   $params->get('page_commnet');
         $image_thum         =   $params->get('portfolio_image_size');
         $show_date_comment  =   $params->get('show_date_comment');
-        $tag_id             = JRequest::getInt('id_tag');
-        $this->setState('show_date',$show_date_comment);
-        $this->setState('image_thum',$image_thum);
-        $this->setState('page_cm',$page_commnet);
-        $this->setState('arrangements_pins',$arrangements_pins);
-        $this->setState('type_detail',$type_detail);
-        $this->setState('check_status',$tz_pin_approve);
-        $this->setState('tag_id',$tag_id);
-        $this->setState('type_show_pin',$type_show_pin);
-        $this->setState('tz_layout',$tz_layout);
-        $this->setState('page_cm',$page_commnet);
-        $this->setState('star_page_cm',0);
-        $this->setState('limit_commnet', $limit_commnet);
-        $this->setState('remove_comment',$delete_text_cm);
-        $this->setState('change_comment',$change_comment);
-        $this->setState('state_comment',$state_comment);
-        $this->setState('width_columns',$width_columns);
-        $this->setState('limit_pin',$limit_pin);
-        $this->setState('limitstar',$limitstart);
+        $tag_id             =   JRequest::getInt('id_tag');
+        $comment_thum       =   $params->get('comment_thumbnails');      // show comment thumbnails
+        $show_button        =   $params->get('show_button');             // show button repin, like, unlike
+        $show_title_thum    =   $params->get('show_title_thum');         // show or hide title thumbnails
+        $show_tags_thum     =   $params->get('show_tags_thum');          // show or hide tags
+        $count_button       =   $params->get('show_count_button');     // show or hide count comment, like, hist
+        $s_user             =   $params->get('show_user');               // show or hide info user
+        $this -> setState('s_user',$s_user);
+        $this -> setState('count_button',$count_button);
+        $this -> setState('tag_thum',$show_tags_thum);
+        $this -> setState('title_thum',$show_title_thum);
+        $this -> setState('s_button',$show_button);
+        $this -> setState('s_thumb',$comment_thum);
+        $this -> setState('show_date',$show_date_comment);
+        $this -> setState('image_thum',$image_thum);
+        $this -> setState('page_cm',$page_commnet);
+        $this -> setState('arrangements_pins',$arrangements_pins);
+        $this -> setState('type_detail',$type_detail);
+        $this -> setState('check_status',$tz_pin_approve);
+        $this -> setState('tag_id',$tag_id);
+        $this -> setState('type_show_pin',$type_show_pin);
+        $this -> setState('tz_layout',$tz_layout);
+        $this -> setState('page_cm',$page_commnet);
+        $this -> setState('star_page_cm',0);
+        $this -> setState('limit_commnet', $limit_commnet);
+        $this -> setState('remove_comment',$delete_text_cm);
+        $this -> setState('change_comment',$change_comment);
+        $this -> setState('state_comment',$state_comment);
+        $this -> setState('width_columns',$width_columns);
+        $this -> setState('limit_pin',$limit_pin);
+        $this -> setState('limitstar',$limitstart);
     }
 
 
@@ -84,7 +96,10 @@ class TZ_PinboardModelTags extends JModelList{
 
 
 
-    // display Pins
+
+    /*
+     *  method display Pins
+     */
     function getPins(){
         $limit          =   $this->getState('limit_pin');
         $limitStart     =   $this->getState('limitstar');
@@ -96,12 +111,12 @@ class TZ_PinboardModelTags extends JModelList{
             $tag_id     =   $tag;
         }
         if(isset($tag_id) && !empty($tag_id)){
-            $tags       =   "where tx.tagsid = $tag_id  and c.state=1 order by c.$type_show_pin $arrangements";
+                $tags       =   "where tx.tagsid = $tag_id  and c.state=1 order by c.$type_show_pin $arrangements";
         }else{
             $tags       =   "";
         }
         $db             =   JFactory::getDbo();
-        $sql            =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
+        $sql            =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.state as c_state, c.attribs as c_attribs, pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
                                     us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
@@ -115,7 +130,7 @@ class TZ_PinboardModelTags extends JModelList{
                                 LEFT JOIN #__tz_pinboard_tags AS tg on tx.tagsid = tg.id
                                 $tags";
 
-        $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit, pz.images as poro_img,
+        $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit,  c.state as c_state, c.attribs as c_attribs, pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
                                     us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
@@ -140,7 +155,7 @@ class TZ_PinboardModelTags extends JModelList{
             $db->setQuery($sql2,$limitStart,$limit);
         }
 
-        $row        =   $db->loadObjectList();
+        $row         =      $db->loadObjectList();
         foreach($row as $item){
             $check_l            =       $this->chekcLikeUser($item->content_id);
             $item->checl_l      =       $check_l;
@@ -155,6 +170,10 @@ class TZ_PinboardModelTags extends JModelList{
         }
         return $row;
     }
+
+    /*
+     *  method show tag
+    */
     function detailTag($id){
         $db     =   JFactory::getDbo();
         $sql    =   "SELECT t.id as tagid, t.name as tagname
@@ -248,19 +267,31 @@ class TZ_PinboardModelTags extends JModelList{
         $url_arr    =   parse_url($refer);
         if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
         require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'tags'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
-        $view           = new TZ_PinboardViewTags();
-        $page           = JRequest::getInt('page');
-        $limit          = $this ->getState('limit_pin');
+        $view           =   new TZ_PinboardViewTags();
+        $page           =   JRequest::getInt('page');
+        $limit          =   $this ->getState('limit_pin');
         $limitstart1    =   $limit * ($page-1);
-        $offset         = (int) $limitstart1;
+        $offset         =   (int) $limitstart1;
         $this -> setState('limitstar',$offset);
-        $text_commnet   = $this->getState('limit_commnet');
-        $img_size       = $this->getState('image_thum');
-        $width_columns  = $this->getState('width_columns');
-        $tz_layout      = $this->getState('tz_layout');
-        $type_detail    = $this->getState('type_detail');
-        $page_cm        = $this->getState('page_cm');
-        $show_date      = $this->getState('show_date');
+        $text_commnet   =   $this->getState('limit_commnet');
+        $img_size       =   $this->getState('image_thum');
+        $width_columns  =   $this->getState('width_columns');
+        $tz_layout      =   $this->getState('tz_layout');
+        $type_detail    =   $this->getState('type_detail');
+        $page_cm        =   $this->getState('page_cm');
+        $show_date      =   $this->getState('show_date');
+        $s_user         =   $this->getState('s_user'); // show user
+        $s_thumb        =   $this->getState('s_thumb'); // show comment
+        $button         =   $this->getState('s_button'); // show button
+        $tag_thum       =   $this->getState('tag_thum'); // show tag
+        $title_thum     =   $this->getState('title_thum'); // show title
+        $count_button   =   $this->getState('count_button'); // show count like, comment, hist
+        $view -> assign('s_user',$s_user);
+        $view -> assign('count_button',$count_button);
+        $view->assign('title_thum',$title_thum);
+        $view->assign('tag_thum',$tag_thum);
+        $view->assign('s_button',$button);
+        $view->assign('s_thumb',$s_thumb);
         $view->assign('show_date',$show_date);
         $view->assign('page_com',$page_cm);
         $view->assign('type_detail',$type_detail);

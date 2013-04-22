@@ -43,12 +43,14 @@ class Tz_pinboardModelAddpinboards extends JModelList
         $limit_img       = $params->get('limit_img');
         $CurlApi         = $params->get('curl_api');
         $CurlKey         = $params->get('curl_key');
+        $senMail         = $params->get('tz_sendMail');
         $sizeImage       = array();
         $sizeImage['XS'] = $params->get('tz_image_xsmall', 100);
         $sizeImage['S']  = $params->get('tz_image_small', 200);
         $sizeImage['M']  = $params->get('tz_image_medium', 400);
         $sizeImage['L']  = $params->get('tz_image_large', 600);
         $sizeImage['XL'] = $params->get('tz_image_xlarge', 900);
+        $this->setState('sendMail',$senMail);
         $this->setState('curl_key',$CurlKey);
         $this->setState('curl_api',$CurlApi);
         $this->setState('limit_img',$limit_img);
@@ -92,6 +94,15 @@ class Tz_pinboardModelAddpinboards extends JModelList
         $table->state     = $status;
         $table->created   = $dtime;
         $table->created_by= $id_usert;
+        $_price           = trim(strip_tags(htmlspecialchars($_POST['tz_price'])));
+        if(isset($_price) && !empty($_price)){
+            $arr_price        = array();
+            $arr_price['price'] = $_price;
+            $price              = new JRegistry();
+            $price->loadArray($arr_price);
+            $priceR             = $price ->toString();
+            $table->attribs     = $priceR;
+        }
         if (empty($table->catid)) return false;
         $table->store();
         $db =  JFactory::getDbo();
@@ -204,8 +215,9 @@ class Tz_pinboardModelAddpinboards extends JModelList
     * method insert into table tag img
     */
     function insertImg($id_content,$path_img){
-        $db  =  JFactory::getDbo();
-        $sql = 'INSERT INTO #__tz_pinboard_xref_content VALUES(NULL, '.$id_content.',"","'. $path_img .'","", "", "", "image", "","", "", "", "", "", "")';
+        $video = strip_tags(htmlspecialchars(JRequest::getString('video_hidden')));
+        $db    =  JFactory::getDbo();
+        $sql   = 'INSERT INTO #__tz_pinboard_xref_content VALUES(NULL, '.$id_content.',"","'. $path_img .'","", "", "'.$video.'", "image", "","", "", "", "", "", "")';
         $db->setQuery($sql);
         $db->query();
     }
@@ -268,13 +280,13 @@ class Tz_pinboardModelAddpinboards extends JModelList
             $docUrl     = new Services_Yadis_PlainHTTPFetcher();
             if ($contentURL = $docUrl->get($data)) {
                 if(empty($content['title'])) {
-                    if (preg_match('/<title>(.*?)<\/title>/i', $contentURL->body, $match)) {
+                    if (preg_match('/<title>(.*?)<\/title>/i', $contentURL->body, $match)){ // get title
                         $title_url          =   str_replace($check_text, '', $match[1]);
                         $content['title']   =   $this->length_character($title_url,$this->getState('max_text_title'));
 
                     }
                 }
-                if(preg_match('/<meta.*?name="description".*?\/>/i', $contentURL->body, $match)) {
+                if(preg_match('/<meta.*?name="description".*?\/>/i', $contentURL->body, $match)){ // get description
                     if (preg_match_all('/content="(.*?)"/', $match[0], $_match))
                     $introtext              =   array_pop($_match[0]);
                     $key_woards             =   explode("=", $introtext);
@@ -283,7 +295,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
                 }
 
 
-                if (preg_match('/<meta.*?name="keywords".*?\/>/i', $contentURL->body, $_match)) {
+                if (preg_match('/<meta.*?name="keywords".*?\/>/i', $contentURL->body, $_match)){  // get keywords
                     if(preg_match_all('/content="(.*?)"/', $_match[0], $key)) {
                     $arr_s_key          =   array_pop($key[0]);
                     $key_woards         =   explode("=", $arr_s_key);
@@ -303,12 +315,12 @@ class Tz_pinboardModelAddpinboards extends JModelList
                 $content['url2'] = $link_url;
 
 
-                if(preg_match('/<meta\s*?property="og:image".*?content="(.*?)">/i', $contentURL->body, $match_img)){
+                if(preg_match('/<meta\s*?property="og:image".*?content="(.*?)">/i', $contentURL->body, $match_img)){ // get img meta
                     $aar_icon = array();
                     $aar_icon[] = $match_img[1];
                 }
 
-                if (preg_match_all('/<img.*?src="(.*?)".*?/i', $contentURL->body, $match)) {
+                if (preg_match_all('/<img.*?src="(.*?)".*?/i', $contentURL->body, $match)) {    // get img
                     $arr            = array();
                     $arr            = $match[1];
                 }
@@ -318,6 +330,11 @@ class Tz_pinboardModelAddpinboards extends JModelList
                     $content['img']  = $new_arr;
                 }else{
                      $content['img'] = $arr;
+                }
+                if(preg_match('/<meta\s*?property="og:video".*?content="(.*?)">/i', $contentURL->body, $match_v)){ // get img meta
+
+                    $content['video'] = $match_v[1];
+
                 }
 
                 return $content;
@@ -465,20 +482,36 @@ class Tz_pinboardModelAddpinboards extends JModelList
             return false;
         }
     }
+
+    /*
+    * method insert active comment
+   */
+    function InsertActivePins($id_content){
+        $user       =   JFactory::getUser();
+        $id_user    =   $user->id;
+        $db         =   JFactory::getDbo();
+        $sql = "INSERT INTO #__tz_pinboard_active  VALUES(NULL,'p','".$id_content."','".$id_user."','content') ";
+        $db->setQuery($sql);
+        $db->query();
+    }
+
     /*
      * method insert Pins to website
      */
     function InsertPinHost(){
-
         JRequest::checkToken() or jexit('Invalid Token');
-
-        $path_img       = $this->UploadImgUrl();
-        if($path_img    == false) return false;
-        $id_content     = $this->InsertContent()->id;
+        $SendMial       =    $this->getState('sendMail');
+        $path_img       =    $this->UploadImgUrl();
+        if($path_img    ==   false) return false;
+        $id_content     =    $this->InsertContent()->id;
         if(isset($id_content) && !empty($id_content)){
             $this->insertImg($id_content,$path_img);
             $this->InsertTagContent($id_content);
             $this->isertUrlwebsite($id_content);
+            $this->InsertActivePins($id_content);
+            if($SendMial ==1){
+                $this->TzSendEmail($id_content);
+            }
             return $id_content;
         }else{
             return false;
@@ -492,13 +525,13 @@ class Tz_pinboardModelAddpinboards extends JModelList
     */
     function _getImageType($filename)
     {
-        if ($filename) {
+        if($filename) {
             $type = JFile::getExt($filename);
-        if (strtolower($type) == 'png') {
+        if(strtolower($type) == 'png') {
             return IMAGETYPE_PNG;
-        } elseif (strtolower($type) == 'gif') {
+        }elseif (strtolower($type) == 'gif') {
             return IMAGETYPE_GIF;
-        } else {
+        }else{
             return IMAGETYPE_JPEG;
         }
         }
@@ -522,7 +555,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
         }
         $check_file_type = in_array(strtolower($img['type']), $arr);
         if ($check_file_type == false) {
-            $erro[]          =  "incorrect file type";
+            $erro[]           =  "incorrect file type";
         }
         if ($img['size'] > $maxSize) {
             $erro[]           =   "file too large";
@@ -559,12 +592,17 @@ class Tz_pinboardModelAddpinboards extends JModelList
     */
     function InsertLocal(){
         JRequest::checkToken() or jexit('Invalid Token');
+        $SendMial    = $this->getState('sendMail');
         $path_img    = $this->uploadLocal();
         if($path_img == false) return false;
         $id_content  = $this->InsertContent()->id;
         if(isset($id_content) && !empty($id_content)){
             $this->InsertTagContent($id_content);
             $this->insertImg($id_content,$path_img);
+            $this->InsertActivePins($id_content);
+            if($SendMial==1){
+                $this->TzSendEmail($id_content);
+            }
             return $id_content;
         }else{
             return false;
@@ -630,6 +668,25 @@ class Tz_pinboardModelAddpinboards extends JModelList
         return $id;
     }
 
+
+    /*
+     * send email
+    */
+
+    function TzSendEmail($id){
+        $title      =     "Add Pinboard";
+        $url_Detal  =     JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($id),true,-1);
+        $doc        =     JFactory::getConfig();
+        $arr        =     $doc->toArray();
+        $body       =     JText::sprintf("TZ_PINBOARD_SEND_EMAIL",$arr['fromname'],'<a href="'.$url_Detal.'">'.$url_Detal.'</a>');
+        $contact    =     $arr['mailfrom'];
+        $mail       =     JFactory::getMailer();
+        $mail->addRecipient($contact,'Admin');
+        $mail->setSubject($title);
+        $mail->setBody($body);
+        $mail->IsHTML(true);
+        $sent = $mail->Send();
+    }
 }
 
 ?>

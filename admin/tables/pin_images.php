@@ -16,6 +16,7 @@
 # Technical Support:  Forum - http://templaza.com/Forum
 
 -------------------------------------------------------------------------*/
+defined("_JEXEC") or die;
     class TableTz_Pins_img extends JTable{
 
         var  $id = null;

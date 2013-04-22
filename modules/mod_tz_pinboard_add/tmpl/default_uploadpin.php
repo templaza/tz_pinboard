@@ -34,13 +34,16 @@ defined("_JEXEC") or die;
         </div>
         <div id="tz_pin_upload_content_2">
             <div id="tz_pin_upload_left">
+
                 <div id="tz_pin_upload_left_img">
+                    <div class="tz_upload_price"></div>
                     <img id="tz_pin_upload_left_img_load" src="#" >
                 </div>
             </div>
             <div id="tz_pin_upload_right">
                 <div class="tz_pin_upload_input">
                     <input id="tz_pin_upload_keyword"  type="text" name="keywords_pin_local" maxlength="<?php echo $text_key; ?>" placeholder="<?php echo JText::_('MOD_TZ_PINBOARD_YOUR_KEYWORDS'); ?>" value="">
+                    <input   type="hidden" id="tz_pinPrice" name="tz_price"  value="">
                     <p id="tz_p_local_keyword">
                     </p>
                 </div>
@@ -80,6 +83,7 @@ defined("_JEXEC") or die;
                     <?php echo JHtml::_('form.token'); ?>
                 </div>
             </div>
+            <div class="cler"></div>
         </div>
     </form>
 </div>

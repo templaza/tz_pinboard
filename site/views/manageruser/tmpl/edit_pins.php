@@ -32,6 +32,24 @@ $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
             jQuery('#tz_delete_pins').fadeOut();
             jQuery('#tz_delete_pins_all').css('display','none');
         });
+        var reg = /(\s)?\$(\s)?[0-9\.]{1,100}/;     // check price
+        var key_cost = /(\s)?\$(\s)?[0-9].*?$/; // check price
+        jQuery('#tz_pins_edit_textra').focus(function(){
+            jQuery('#tz_pins_edit_textra').keyup(function(){
+                var text_key        =       jQuery('#tz_pins_edit_textra').val();
+
+                if(key_cost.test(text_key)== true){
+                    var Results  = text_key.match(reg);
+                    jQuery('.tz_price_edit').html(Results);
+                }else{
+                    jQuery('.tz_price_edit').html('');
+                }
+            });
+        });
+        jQuery('#tz_pins_upload').click(function(){
+            var srcc = jQuery('.tz_price_edit').html();
+            jQuery('#tz_edit_price').attr('value',srcc);
+        });
     });
 </script>
 <div id="tz_pins_warp_edit">
@@ -45,21 +63,22 @@ $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
         </button>
     </div>
     <div id="tz_pins_edit_content">
+        <div class="tz_price_edit">f2</div>
         <form action="index.php?option=com_tz_pinboard" method="post">
             <div class="tz_pins_edit_content_1">
                 <label><?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_KEY_PIN'); ?></label>
                 <input class="tz_pins_input"  type="text" name="editkeywords" value= "<?php
                 if(isset($this->editpin->tags)){
-                $i=0;
-                $j = count($this->editpin->tags);
-                foreach($this->editpin->tags as $row_tag){
-                if($i == $j-1){
-                echo $row_tag->tagname;
-                }else{
-                echo $row_tag->tagname.", ";
-                }
-                $i++;
-                }
+                    $i=0;
+                    $j = count($this->editpin->tags);
+                    foreach($this->editpin->tags as $row_tag){
+                        if($i == $j-1){
+                            echo $row_tag->tagname;
+                        }else{
+                            echo $row_tag->tagname.", ";
+                        }
+                        $i++;
+                    }
                 }
                 ?>" />
                 <input type="hidden" id="id_pin_content" name="id_pins" value="<?php echo $this->editpin->content_id; ?>">
@@ -88,24 +107,23 @@ $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
                 <select id="tz_pins_edit_select" name="select_catogory">
                     <?php
                     if(isset($this->ShowBoarname)){
-                    foreach($this->ShowBoarname as $cato){
-                    ?>
-                    <option
-                    value="<?php echo $cato->id; ?>"
-                    <?php
-                    if($cato->id==$this->editpin->content_catid)
-                    {
-                    ?>
-                    selected="true"
-                    <?php
-                    }
-
-                    ?>
-                    >
-                    <?php echo $cato->title?>
-                    </option>
-                    <?php
-                    }
+                        foreach($this->ShowBoarname as $cato){
+                        ?>
+                            <option
+                                value="<?php echo $cato->id; ?>"
+                                    <?php
+                                    if($cato->id==$this->editpin->content_catid)
+                                    {
+                                    ?>
+                                        selected="true"
+                                    <?php
+                                    }
+                                    ?>
+                                    >
+                                <?php echo $cato->title?>
+                            </option>
+                        <?php
+                        }
                     }
                     ?>
 
@@ -128,6 +146,7 @@ $doc->addStyleSheet('components/com_tz_pinboard/css/edit_pins.css');
                 <div class="cler"></div>
             </div>
             <div id="tz_pinbs_edit_submit">
+                <input type="hidden" name="tz_edit_price" id="tz_edit_price" value="">
                 <input type="hidden" name="task" value="tz.update.pins">
                 <input id="tz_pins_upload" type="submit" name="submit_edit" value="<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_SAVE_PIN'); ?>">
                 <?php echo JHtml::_('form.token'); ?>

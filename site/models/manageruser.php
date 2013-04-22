@@ -166,8 +166,9 @@ class Tz_pinboardModelManageruser extends JModelList{
         $db             = JFactory::getDbo();
         $sql            = "SELECT  count(c.id) as numberpin
                             FROM   #__tz_pinboard_pins AS c INNER JOIN #__tz_pinboard_boards AS ca ON c.catid = ca.id
-                            WHERE c.catid = $boardId  AND  created_by=$id_user ";
-        $db = JFactory::getDbo();
+                            WHERE c.catid = $boardId  AND c.state=1 and  created_by=$id_user ";
+
+
         $db -> setQuery($sql);
         $row =  $db->loadObject();
         return $row;
@@ -189,7 +190,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                 $id_user    = $user_guest;
             }
             $db             = JFactory::getDbo();
-            $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,
+            $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs,
                                       c.hits as content_hit, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
                                 FROM #__users AS u
                                 LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
@@ -197,7 +198,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                                 LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
                                 LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                                 WHERE c.created_by =$id_user AND c.catid=$id_board AND c.state = 1";
-            $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,
+            $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs,
                                  c.hits as content_hit, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
                                 FROM #__users AS u
                                 LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
@@ -256,10 +257,10 @@ class Tz_pinboardModelManageruser extends JModelList{
         }
     }
 
-// and board
+    // and board
 
 
-// start pin
+    // start pin
 
 
     /*
@@ -275,30 +276,33 @@ class Tz_pinboardModelManageruser extends JModelList{
             $id_user    = $user_guest;
         }
         $db             = JFactory::getDbo();
-        $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
+        $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.attribs as c_attribs,
+                                    pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc
                             FROM #__users AS u
-                            LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
-                            LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
-                            LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
-                            LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
+                                LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
+                                LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
+                                LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
+                                LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                             WHERE c.created_by =$id_user and c.state=1 order by c.created desc ";
-        $sql2           ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
+        $sql2           ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.attribs as c_attribs,
+                                pz.images as poro_img,
                                 w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                 c.catid as catidc
                         FROM #__users AS u
-                        LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
-                        LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
-                        LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
-                        LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
+                                LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
+                                LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
+                                LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
+                                LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                         WHERE c.created_by =$id_user and c.state=1 order by c.created desc ";
         $db->setQuery($sql);
-        $tinh   = $db->query();
-        $total  = $db->getNumRows($tinh);
+        $number   = $db->query();
+        $total  = $db->getNumRows($number);
         $this -> pagNavPins         = new JPagination($total,$limitStart,$limit);
         $db->setQuery($sql2,$this -> pagNavPins -> limitstart,$this -> pagNavPins -> limit);
         $row    = $db->loadObjectList();
+
         foreach($row as $item){
             $check_l                =   $this->chekcLikeUser($item->content_id);
             $item->checl_l          =   $check_l;
@@ -329,13 +333,13 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method show tag
     */
     function detailTag($id){
-        $db = JFactory::getDbo();
-        $sql ="select t.id as tagid, t.name as tagname
-                from #__tz_pinboard_tags AS t
-                    LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
-                WHERE tx.contentid =$id" ;
-        $db->setQuery($sql);
-        $row = $db->loadObjectList();
+        $db     =   JFactory::getDbo();
+        $sql    =   "SELECT t.id as tagid, t.name as tagname
+                     FROM #__tz_pinboard_tags AS t
+                          LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
+                     WHERE tx.contentid =$id" ;
+        $db -> setQuery($sql);
+        $row    =   $db->loadObjectList();
         return $row;
     }
 
@@ -343,12 +347,12 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method check user like or not like
     */
     function  chekcLikeUser($id_content){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $db         = JFactory::getDbo();
-        $sql        ="select like_p as p from #__tz_pinboard_like where id_content=$id_content AND id_user_p =$id_user";
+        $user       =   JFactory::getUser();
+        $id_user    =   $user->id;
+        $db         =   JFactory::getDbo();
+        $sql        =   "select like_p as p from #__tz_pinboard_like where id_content=$id_content AND id_user_p =$id_user";
         $db->setQuery($sql);
-        $row        = $db->loadAssoc();
+        $row        =   $db->loadAssoc();
         return $row;
     }
 
@@ -360,11 +364,11 @@ class Tz_pinboardModelManageruser extends JModelList{
     */
     function DetailsTag($id){
         if(isset($id) && !empty($id)){
-            $db     = JFactory::getDbo();
-            $sql    ="select t.id as tagid, t.name as tagname
-                    from #__tz_pinboard_tags AS t
-                    LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
-                    WHERE tx.contentid =$id" ;
+            $db     =   JFactory::getDbo();
+            $sql    =   "SELECT t.id as tagid, t.name as tagname
+                         FROM #__tz_pinboard_tags AS t
+                              LEFT JOIN #__tz_pinboard_tags_xref AS tx on t.id = tx.tagsid
+                         WHERE tx.contentid =$id" ;
             $db->setQuery($sql);
             $row    = $db->loadObjectList();
             return $row;
@@ -376,12 +380,12 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method check user follow or not follow
      */
     function checkFollow($id_guest){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $db         = JFactory::getDbo();
-        $sql        = "select folowing as f from #__tz_pinboard_follow where id_user=$id_user AND id_guest=$id_guest ";
+        $user       =   JFactory::getUser();
+        $id_user    =   $user->id;
+        $db         =   JFactory::getDbo();
+        $sql        =   "select folowing as f from #__tz_pinboard_follow where id_user=$id_user AND id_guest=$id_guest ";
         $db->setQuery($sql);
-        $row        =$db->loadAssoc();
+        $row        =   $db->loadAssoc();
         return $row;
 
     }
@@ -390,12 +394,12 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method display board when the edit
     */
     function  getShowBoarname(){
-        $user       = JFactory::getUser();
-        $id_user    = $user->id;
-        $db         = JFactory::getDbo();
-        $sql        = "select id, title from #__tz_pinboard_boards where  created_user_id=$id_user ";
+        $user       =   JFactory::getUser();
+        $id_user    =   $user->id;
+        $db         =   JFactory::getDbo();
+        $sql        =   "select id, title from #__tz_pinboard_boards where  created_user_id=$id_user ";
         $db->setQuery($sql);
-        $row        = $db->loadObjectList();
+        $row        =   $db->loadObjectList();
         return $row;
     }
 
@@ -403,12 +407,12 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method display a pin when the edit
      */
     function getShoweditpins(){
-        $user           = JFactory::getUser();
-        $id_user        = $user->id;
-        $id_content     = JRequest::getInt('id_pins');
+        $user           =   JFactory::getUser();
+        $id_user        =   $user->id;
+        $id_content     =   JRequest::getInt('id_pins');
         if(isset($id_content)){
-            $db         = JFactory::getDbo();
-            $sql        = "SELECT im.images as img_im, c.id as content_id, c.title as content_title,
+            $db         =   JFactory::getDbo();
+            $sql        =   "SELECT im.images as img_im, c.id as content_id, c.title as content_title,
                                     c.introtext as content_introtext, c.catid as content_catid, c.alias as alias_content,
                                     w.url as url, tg.name as tag
                             FROM  #__tz_pinboard_pins AS c  LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
@@ -431,13 +435,13 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method check alias pin
     */
     function checkAlias_pins(){
-        $name           = strip_tags(htmlspecialchars(JRequest::getString('edittitle')));
-        $alias          = strip_tags(htmlspecialchars( JRequest::getString('aliaspins')));
-        $db             = JFactory::getDbo();
-        $sql            = 'select title, alias from #__tz_pinboard_pins where title="'.$name.'" || alias="'.$alias.'"';
+        $name           =       strip_tags(htmlspecialchars(JRequest::getString('edittitle')));
+        $alias          =       strip_tags(htmlspecialchars( JRequest::getString('aliaspins')));
+        $db             =       JFactory::getDbo();
+        $sql            =       'select title, alias from #__tz_pinboard_pins where title="'.$name.'" || alias="'.$alias.'"';
         $db->setQuery($sql);
-        $num_row        = $db->query();
-        $row            = $db->getAffectedRows($num_row);
+        $num_row        =       $db->query();
+        $row            =       $db->getAffectedRows($num_row);
         return $row;
     }
 
@@ -446,27 +450,43 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method update content pin
     */
     function  updateContentpin(){
-        $id_c           = strip_tags(htmlspecialchars( $_POST['id_pins']));
-        $title          = strip_tags(htmlspecialchars($_POST['edittitle']));
-        $introtext      = strip_tags(htmlspecialchars($_POST['textreaname']));
-        $catid          = strip_tags(htmlspecialchars($_POST['select_catogory']));
-        $alias          = strip_tags(htmlspecialchars( $_POST['aliaspins']));
+        $id_c           =       strip_tags(htmlspecialchars( $_POST['id_pins']));
+        $title          =       strip_tags(htmlspecialchars($_POST['edittitle']));
+        $introtext      =       strip_tags(htmlspecialchars($_POST['textreaname']));
+        $catid          =       strip_tags(htmlspecialchars($_POST['select_catogory']));
+        $alias          =       strip_tags(htmlspecialchars( $_POST['aliaspins']));
+        $_price         =       trim(strip_tags(htmlspecialchars( $_POST['tz_edit_price'])));
         if($alias){
-            $alias      = $alias;
+            $alias      =       $alias;
         }else{
-            $alias      = $title;
+            $alias      =       $title;
         }
-        $alias          = JApplication::stringURLSafe($alias); // create alias
-        $title          = str_replace("'","\'",$title);
-        $introtext      = str_replace("'","\'",$introtext);
-        $user           = JFactory::getUser();
-        $id_user        = $user->id;
-        $dt             = JFactory::getDate();
-        $modified       =  $dt->toSql();
-        $db             = JFactory::getDbo();
-        $sql            = "UPDATE #__tz_pinboard_pins SET title='".$title."', introtext='".$introtext."', catid='".$catid."',
-                                    modified='".$modified."', alias='".$alias."'
-                            WHERE id=$id_c AND created_by =$id_user ";
+        $alias          =       JApplication::stringURLSafe($alias); // create alias
+        $title          =       str_replace("'","\'",$title);
+        $introtext      =       str_replace("'","\'",$introtext);
+        $user           =       JFactory::getUser();
+        $id_user        =       $user->id;
+        $dt             =       JFactory::getDate();
+        $modified       =       $dt->toSql();
+        $db             =       JFactory::getDbo();
+        if($_price !='f2'){
+            if(!empty($_price)){
+                $arr_price          = array();
+                $arr_price['price'] = $_price;
+                $price              = new JRegistry();
+                $price->loadArray($arr_price);
+                $priceR             = $price ->toString();
+            }else{
+                $priceR             = "";
+            }
+            $sql                    =       "UPDATE #__tz_pinboard_pins SET title='".$title."', introtext='".$introtext."', catid='".$catid."',
+                                             modified='".$modified."', alias='".$alias."',attribs='".$priceR."'
+                                             WHERE id=$id_c AND created_by =$id_user ";
+        }else{
+            $sql                    =       "UPDATE #__tz_pinboard_pins SET title='".$title."', introtext='".$introtext."', catid='".$catid."',
+                                             modified='".$modified."', alias='".$alias."'
+                                            WHERE id=$id_c AND created_by =$id_user ";
+        }
         $db->setQuery($sql);
         $db->query();
     }
@@ -476,9 +496,9 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method delete tags edit
     */
     function deleteEditTang(){
-        $id_conten      = strip_tags(htmlspecialchars( $_POST['id_pins']));
-        $db             = JFactory::getDbo();
-        $sql            = "delete from #__tz_pinboard_tags_xref where contentid=$id_conten";
+        $id_conten      =       strip_tags(htmlspecialchars( $_POST['id_pins']));
+        $db             =       JFactory::getDbo();
+        $sql            =       "delete from #__tz_pinboard_tags_xref where contentid=$id_conten";
         $db->setQuery($sql);
         $db->query();
     }
@@ -488,35 +508,35 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method check tags
      */
     function  getChecktag(){
-        $keywords       = strip_tags(htmlspecialchars($_POST['editkeywords']));
+        $keywords       =       strip_tags(htmlspecialchars($_POST['editkeywords']));
         if(empty($keywords)) return $keywords =array();
-        $keywords       = trim($keywords);
-        $keywords       = mb_strtolower($keywords);
-        $arr_key        = array(',','\'','"','.','?' ,'/','\\','<','>','(',')','*','&','^','%','$','#','@','!','-','+','|','`','~');
-        $keywords       = str_replace($arr_key,',',$keywords);
-        $keywords       = explode(",",$keywords);
-        $keywords       = array_unique($keywords);
-        $arr            = array();
+        $keywords       =       trim($keywords);
+        $keywords       =       mb_strtolower($keywords);
+        $arr_key        =       array(',','\'','"','.','?' ,'/','\\','<','>','(',')','*','&','^','%','$','#','@','!','-','+','|','`','~');
+        $keywords       =       str_replace($arr_key,',',$keywords);
+        $keywords       =       explode(",",$keywords);
+        $keywords       =       array_unique($keywords);
+        $arr            =       array();
         for($i=0; $i < count($keywords); $i++){
             $keywords[$i] = trim($keywords[$i]);
             if(!empty($keywords[$i])){
-                $arr[]  = $keywords[$i];
+                $arr[]    = $keywords[$i];
             }
         }
-        $db             = JFactory::getDbo();
-        $newkey         = array();
+        $db             =       JFactory::getDbo();
+        $newkey         =       array();
         for($i = 0; $i< count($arr); $i++){
-            $sql        = " select id from #__tz_pinboard_tags where name='".trim($arr[$i])."'";
+            $sql        =       " select id from #__tz_pinboard_tags where name='".trim($arr[$i])."'";
             $db->setQuery($sql);
-            $row        = $db->loadResult();
+            $row        =       $db->loadResult();
             if(empty($row)){
-                $key[]  = $arr[$i];
+                $key[]  =       $arr[$i];
             }else{
-                $row_id[]   = $row;
+                $row_id[]   =   $row;
             }
         }
-        $newkey['new'] = $key;
-        $newkey['id'] = $row_id;
+        $newkey['new']  =    $key;
+        $newkey['id']   =    $row_id;
         return $newkey;
     }
 
@@ -526,13 +546,13 @@ class Tz_pinboardModelManageruser extends JModelList{
      * method insert Tags
      */
     function  insertUrltag(){
-        $db         = JFactory::getDbo();
-        $new        = $this->getChecktag();
-        $keywords   = $new['new'];
-        $row_k      = $new['id'];
+        $db         =   JFactory::getDbo();
+        $new        =   $this->getChecktag();
+        $keywords   =   $new['new'];
+        $row_k      =   $new['id'];
         if(is_array($keywords)){
-            $check_key  = count($keywords);
-            $row_is     = null;
+            $check_key  =   count($keywords);
+            $row_is     =   null;
             if($check_key !=0 && !empty($check_key)){
                 for($i =0; $i < $check_key; $i++){
                 $sql_tag    = "INSERT INTO #__tz_pinboard_tags VALUES(NULL,'".trim($keywords[$i])."','1','')";
@@ -613,6 +633,18 @@ class Tz_pinboardModelManageruser extends JModelList{
         }
     }
 
+    /*
+     * method delete active
+    */
+    function deleteActive(){
+        $id_content = JRequest::getInt('id_pins');
+        if(isset($id_content)){
+            $db = JFactory::getDbo();
+            $sql= "delete from #__tz_pinboard_active where target=$id_content";
+            $db->setQuery($sql);
+            $db->query();
+        }
+    }
 
     /*
      * method delete website pin
@@ -671,6 +703,7 @@ class Tz_pinboardModelManageruser extends JModelList{
             $this->deletewebPins();
             $this->deleteTagPins();
             $this->deleteComments();
+            $this->deleteActive();
         }
         return $id_board;
     }
@@ -696,26 +729,28 @@ class Tz_pinboardModelManageruser extends JModelList{
         }
 
         $db                 = JFactory::getDbo();
-        $sql                = "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, c.hits as content_hit,pz.images as poro_img,
+        $sql                = "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id,  c.attribs as c_attribs,
+                                    c.hits as content_hit,pz.images as poro_img,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     l.like_p as likes
                                 FROM #__users AS u
+                                    LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
+                                    LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
+                                    LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
+                                    LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
+                                    LEFT JOIN #__tz_pinboard_like AS l ON c.id = l.id_content
+                                WHERE l.id_user_p =$id_user AND l.like_p=1 AND c.state =1  order by c.created desc";
+        $sql2 =             "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs,
+                                    c.hits as content_hit, pz.images as poro_img,
+                                    w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
+                                    l.like_p as likes
+                            FROM #__users AS u
                                 LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
                                 LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
                                 LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
                                 LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                                 LEFT JOIN #__tz_pinboard_like AS l ON c.id = l.id_content
-                                WHERE l.id_user_p =$id_user AND l.like_p=1 AND c.state =1 ";
-        $sql2 =             "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, c.hits as content_hit, pz.images as poro_img,
-                                    w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
-                                    l.like_p as likes
-                            FROM #__users AS u
-                            LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
-                            LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
-                            LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
-                            LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
-                            LEFT JOIN #__tz_pinboard_like AS l ON c.id = l.id_content
-                            WHERE l.id_user_p =$id_user AND l.like_p=1 AND c.state =1";
+                            WHERE l.id_user_p =$id_user AND l.like_p=1 AND c.state =1 order by c.created desc";
         $db->setQuery($sql);
         $tinh   = $db->query();
         $total  = $db->getNumRows($tinh);
@@ -1210,9 +1245,10 @@ class Tz_pinboardModelManageruser extends JModelList{
                         LEFT JOIN #__tz_pinboard_pins AS c ON ca.id = c.catid
                         LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
                         LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
-                        WHERE c.created_by =$id_user ";
+                        WHERE c.created_by =$id_user  and c.state =1";
         $db->setQuery($sql);
         $row            = $db->loadObject();
+
         return $row;
     }
     function getNumberLike(){

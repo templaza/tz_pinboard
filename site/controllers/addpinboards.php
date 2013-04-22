@@ -60,28 +60,52 @@ class Tz_pinboardControllerAddpinboards extends JControllerForm{
         }
         $this->view->display();
     }
+    function TzParam(){
+        $param  = JComponentHelper::getParams('com_tz_pinboard');
+        return $param;
+    }
 
     /*
      * method get Pin to web
     */
     function PinWeb(){
-        $id_pins  = $this->model->InsertPinHost();
-        $url      =   JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($id_pins));
-        $red      = JFactory::getApplication();
-        $red->redirect($url);
+        $app         =  $this->TzParam();
+        $app         =  $app->get('tz_pin_approve');
+        if($app==1){
+            $message_a =   JText::_('COM_TZ_PINBOARD_ERRO_DETAIL');
+        }else{
+            $message_a =  JText::_('COM_TZ_PINBOARD_ERRO_DETAIL_APP');
+        }
+        $id_pins   =   $this->model->InsertPinHost();
+        $url       =   JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($id_pins));
+        $red       =   JFactory::getApplication();
+        $red->redirect($url,$message_a);
     }
 
     /*
      * method get Pin to local
      */
     function Pinlocal(){
-        $id_pins    =  $this->model->InsertLocal();
-        if($id_pins == false || empty($id_pins)){
+
+        $id_pins     =  $this->model->InsertLocal();
+        if($id_pins  ==  false || empty($id_pins)){
             $id_pins =   "f";
         }
-        $url        =   JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($id_pins));
-        $red        = JFactory::getApplication();
-        $red->redirect($url);
+        $url         =   JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($id_pins));
+        $red         =   JFactory::getApplication();
+        $message     =   JText::_('COM_TZ_PINBOARD_ERRO_DETAIL2');
+        $app         =  $this->TzParam();
+        $app         =  $app->get('tz_pin_approve');
+        if($app==1){
+          $message_a =   JText::_('COM_TZ_PINBOARD_ERRO_DETAIL');
+        }else{
+          $message_a =  JText::_('COM_TZ_PINBOARD_ERRO_DETAIL_APP');
+        }
+        if($id_pins=='f'){
+            $red->redirect($url,$message,'error');
+        }else{
+            $red->redirect($url,$message_a);
+        }
     }
 
     /*

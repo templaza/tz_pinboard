@@ -16,6 +16,7 @@
 # Technical Support:  Forum - http://templaza.com/Forum
 
 -------------------------------------------------------------------------*/
+defined("_JEXEC") or die;
 
 class AutoCutText{
 	/**
