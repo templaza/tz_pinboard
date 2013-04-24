@@ -495,6 +495,7 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
             }); // and add css
 
             jQuery('.tz_detail_pins, #tz_warp_hide').live("click",function(){ // event click hide box detail
+				jQuery(".tz_iframe").attr("src","");
                 jQuery("div").removeClass("Tz_plazas");
                 jQuery('#tz_repin_more_warp').fadeOut(400,function(){
                     jQuery('#tz_more_content').fadeOut(50);

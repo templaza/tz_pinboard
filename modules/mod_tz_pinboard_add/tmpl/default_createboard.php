@@ -65,7 +65,6 @@ defined("_JEXEC") or die;
                                <input type="hidden" name="task" value="tz.insert.board">
                                <input type="hidden" name="option" value="com_tz_pinboard" />
                                <input type="hidden" name="view" value="addpinboards" />
-
                                <input type="submit" id="submitcreate" name="create" value="<?php echo JText::_('MOD_TZ_PINBOARD_CREATE_A_BOARD'); ?>">
                                <?php echo JHtml::_('form.token'); ?>
                        </div>

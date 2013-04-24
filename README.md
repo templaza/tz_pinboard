@@ -12,6 +12,11 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
 
+04/24/13  - 3.1.1
+
+	[bug] fix play video
+	[bug] fix error of board creation in google chrome
+
 04/22/13  - 3.1.0
 
 

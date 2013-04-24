@@ -88,7 +88,7 @@ defined("_JEXEC") or die;
                     <div class="tz_pin_url_input">
                         <input type="hidden" name="task" value="task_upload_pin">
                         <input  class="btn btn-large" id="url_a_pin" type="submit" name="uploadpin" value="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_WEB_PIN'); ?>">
-
+                        <p class="tz_click_button"> </p>
                         <?php echo JHtml::_('form.token'); ?>
                     </div>
                 </div>
