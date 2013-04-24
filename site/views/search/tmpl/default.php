@@ -451,6 +451,7 @@ defined("_JEXEC") or die;
         <?php if(isset($this->type_detail) && $this->type_detail ==1){ ?>
             // jquery ajax detail
         jQuery('.tz_detail_pins, #tz_warp_hide').live("click",function(){ // click
+			jQuery(".tz_iframe").attr("src","");
             jQuery('#tz_repin_more_warp').fadeOut(400,function(){
                 jQuery('#tz_more_content').fadeOut(50);
                 jQuery("body").css("overflow-y","scroll");
