@@ -33,6 +33,7 @@ function checkText(text, maxtext){
 
 jQuery(document).ready(function(){
     jQuery('#add_button_pin_board').click(function(){
+
         jQuery('#tz_pinboard_add_warp').fadeIn();
         jQuery('#tz_pinboard_add').css("display","block");
         jQuery('#tz_pinboard_add').animate({top:'25%'},500);
@@ -44,7 +45,7 @@ jQuery(document).ready(function(){
     });
     jQuery("#add_button_pin_err").click(function(){
         alert("<?php echo JText::_('MOD_TZ_PINBOARD_LOGIN'); ?>");
-    window.location="<?php echo JURI::root() . "index.php?option=com_users&view=login"; ?>";
+        window.location="<?php echo JURI::root() . "index.php?option=com_users&view=login"; ?>";
     });
     jQuery('#tz_pinboard_add_pin_wed').hover(function(){ // css  hover
         jQuery('.tz_pinboard_add_pin_webiste_wed').animate({bottom:'0%'},150);
@@ -226,31 +227,28 @@ jQuery(document).ready(function(){
                 });
 
                 jQuery('#url_a_pin').click(function(){
-
                     if(jQuery('li').hasClass('activePage')==false){
-                        var srcc    = jQuery('li.panel > img').attr("src");
+                        var srcc    =   jQuery('li.panel > img').attr("src");
                         jQuery('#img_hidder').attr('value',srcc);
                     }else{
-                        var srcc = jQuery('li.activePage > img').attr("src");
+                        var srcc    =   jQuery('li.activePage > img').attr("src");
                         jQuery('#img_hidder').attr('value',srcc);
                     }
-                    var srcc = jQuery('.tz_upload_price').html();
+                    var srcc  = jQuery('.tz_upload_price').html();
                     jQuery('#tz_url_price').attr('value',srcc);
-                    var Title = jQuery('#tz_pin_url_title').attr('value');
+                    var Title  = jQuery('#tz_pin_url_title').attr('value');
                     var boards = jQuery("#tz_pin_upload_select").val();
                     if(Title ==""){
                         alert("<?php echo JText::_('MOD_TZ_PINBOARD_CHECK_TITLE'); ?>");
                         jQuery('#tz_pin_url_title').focus();
                         return false;
                     }
-
                     if(boards==""){
                         alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_SELECT'); ?>");
                         jQuery("#tz_pin_upload_select").focus();
                         return false;
                     }
-
-                    document.getElementById("url_a_pin").disabled=true;
+                    jQuery(".tz_click_button").css("z-index","99");
                 });
             } else{
                 alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_URL'); ?>");
@@ -337,25 +335,25 @@ jQuery(document).ready(function(){
     });
 ///// submit
     jQuery('#submitcreate').click(function(){
-        var inpName =jQuery('#boardnames').attr('value');
-        var pp = document.getElementById("p_create_name");
-        var selec = jQuery('#category_boards').attr('value');
-        var p_sele = document.getElementById("p_create_select");
-        if(inpName ==""){
+        var inpName =   jQuery('#boardnames').attr('value');
+        var pp      =   document.getElementById("p_create_name");
+        var selec   =   jQuery('#category_boards').attr('value');
+        var p_sele  =   document.getElementById("p_create_select");
+        if(inpName  == ""){
             pp.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_CHECK_TITLE'); ?>";
             jQuery('#boardnames').focus();
             return false;
         }
         if(selec==''){
-        p_sele.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_NOTICE_CATEGORY'); ?>";
+            p_sele.innerHTML="<?php echo JText::_('MOD_TZ_PINBOARD_NOTICE_CATEGORY'); ?>";
             jQuery('#category_boards').focus();
             return false;
         }else{
             p_sele.innerHTML="";
         }
-        document.getElementById("submitcreate").disabled=true;
+
     });
-// upload pin local //////////////////////////////////////////////////////
+//upload pin local //////////////////////////////////////////////////////
     jQuery('#tz_pin_upload_keyword').focus(function(){
             jQuery('#tz_pin_upload_keyword').keyup(function(){
                 var max_text_ky = jQuery('#tz_pin_upload_keyword').attr('maxlength');
@@ -418,6 +416,7 @@ jQuery(document).ready(function(){
     });
 
     //  button Pin
+
     jQuery('#upload_a_pin').click(function(){
         var srcc = jQuery('.tz_upload_price').html();
         jQuery('#tz_pinPrice').attr('value',srcc);
@@ -436,7 +435,7 @@ jQuery(document).ready(function(){
         }else{
             title_p.innerHTML="";
         }
-        document.getElementById("url_a_pin").disabled=true;
+        jQuery(".tz_click_button").css("z-index","99");
 
     });
 });
