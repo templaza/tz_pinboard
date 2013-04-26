@@ -24,8 +24,6 @@ require_once __DIR__ . '/helper.php';
         $doc -> addScript('modules/mod_tz_pinboard_active/js/jquery.mCustomScrollbar.concat.min.js');
         $id = modTZ_Pinboard_active::getDataActive();
         $limit = $params->get('tz_page');
-        if(isset($id) && !empty($id)){
-            $data = modTZ_Pinboard_active::getActive($id,$limit);
-        }
+        $data = modTZ_Pinboard_active::getActive($id,$limit);
 require JModuleHelper::getLayoutPath('mod_tz_pinboard_active', $params->get('layout', 'default'));
 ?>
