@@ -176,7 +176,7 @@ class TZ_PinboardModelSearch extends JModelList{
             $catids         =   "where c.state=1 order by c.$type_show_pin $arrangements";
         }
         $db                 =   JFactory::getDbo();
-        $sql                =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img, c.attribs as c_attribs,
+        $sql                =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, pz.images as poro_img, c.attribs as c_attribs, pz.video as pz_video,
                                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                         c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
                                         us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
@@ -187,7 +187,7 @@ class TZ_PinboardModelSearch extends JModelList{
                                         LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                                         LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids";
     
-        $sql2               =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,c.hits as content_hit, c.attribs as c_attribs, pz.images as poro_img,
+        $sql2               =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,c.hits as content_hit, c.attribs as c_attribs, pz.images as poro_img, pz.video as pz_video,
                                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                         c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
                                         us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription

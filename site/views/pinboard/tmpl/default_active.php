@@ -24,7 +24,7 @@ if(isset($this->data) && !empty($this->data)){
     $count = count($this->data);
     for($i=$count-1; $i >=0; $i--){
         ?>
-        <li id="<?php echo $this->data[$i]->aid."tz_activi"; ?>">
+        <li id="<?php echo $this->data[$i]->aid."tz_activi"; ?>" class="tz_view_active">
 
         <?php if(isset($this->data[$i]->us_img) && !empty($this->data[$i]->us_img)){  ?>
             <img class="TzACtiviImg"     src="<?php echo JUri::root().'/'.$this->data[$i]->us_img; ?>">

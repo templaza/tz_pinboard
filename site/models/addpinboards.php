@@ -216,13 +216,27 @@ class Tz_pinboardModelAddpinboards extends JModelList
     */
     function insertImg($id_content,$path_img){
         $video = strip_tags(htmlspecialchars(JRequest::getString('video_hidden')));
+        if(!empty($video)){
+            $referer         =    parse_url($video);
+            $url_return      =    $referer['scheme'].'://' . $referer['host'];
+            if($url_return=="http://vimeo.com"){
+                $url  = explode("=",$referer['query']);
+                $url="http://player.vimeo.com/video/".$url[1]."?autoplay=true";
+            }else if($url_return=="http://www.youtube.com"){
+                $url          =   str_replace("/v/","/embed/",$video);
+                $url          =   $url."&wmode=transparent&autoplay=1";
+
+            }
+        }
         $db    =  JFactory::getDbo();
-        $sql   = 'INSERT INTO #__tz_pinboard_xref_content VALUES(NULL, '.$id_content.',"","'. $path_img .'","", "", "'.$video.'", "image", "","", "", "", "", "", "")';
+        $sql   = 'INSERT INTO #__tz_pinboard_xref_content VALUES(NULL, '.$id_content.',"","'. $path_img .'","", "", "'.$url.'", "image", "","", "", "", "", "", "")';
         $db->setQuery($sql);
         $db->query();
     }
 
-// start pin to website
+
+
+    // start pin to website
 
     /**
     * Method check for length of text.
@@ -271,8 +285,8 @@ class Tz_pinboardModelAddpinboards extends JModelList
     {
         require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'HTTPFetcher.php');
         require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'readfile.php');
-        $link_url   =   strip_tags(htmlspecialchars($_POST['link']));
-        $link_url   =   trim($link_url);
+        $link_url       =   strip_tags(htmlspecialchars($_POST['link']));
+        $link_url       =   trim($link_url);
         if (isset($link_url) && !empty($link_url)) {
             $data       = $link_url;
             $content    = array();
@@ -332,11 +346,8 @@ class Tz_pinboardModelAddpinboards extends JModelList
                      $content['img'] = $arr;
                 }
                 if(preg_match('/<meta\s*?property="og:video".*?content="(.*?)">/i', $contentURL->body, $match_v)){ // get img meta
-
                     $content['video'] = $match_v[1];
-
                 }
-
                 return $content;
             }
         }

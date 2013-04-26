@@ -7,7 +7,7 @@
 	<license>GNU/GPL v2 or later http://www.gnu.org/licenses/gpl-2.0.html</license>
 	<authorEmail>tunn@templaza.com</authorEmail>
 	<authorUrl>www.templaza.com/</authorUrl>
-	<version>3.1.1</version>
+	<version>3.1.2</version>
 	<description>TZ Pinboard native for Joomla! 3.0.x</description>
     <installfile>install.tz_pinboard.php</installfile>
     <uninstallfile>uninstall.tz_pinboard.php</uninstallfile>
@@ -79,6 +79,7 @@
             <field name="tz_sendMail" default="1"/>
 			<field name="tz_pinboard_layout" default="default" />
 			<field name="type_show_pin" default="created" />
+            <field name="tz_show_social" default="1" />
             <field name="type_detail" default="1" />
             <field name="show_tags_detail" default="1" />
             <field name="show_tags_thum" default="1" />
@@ -142,6 +143,7 @@
     <modules>
         <module module="mod_tz_pinboard_search" client="site" />
         <module module="mod_tz_pinboard_add" client="site" />
+        <module module="mod_tz_pinboard_active" client="site" />
     </modules>
     <plugins>
         <plugin plugin="tz_pinboard" group="system" />

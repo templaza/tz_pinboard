@@ -1,0 +1,53 @@
+.cler{
+    clear: both;
+}
+.content{
+    width:160px;
+    max-height:250px;
+    overflow:auto;
+    background: #c0c0c0;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    padding: 10px;
+
+
+}
+
+.content ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.content ul li{
+    border-bottom: 1px solid #000000;
+    padding-top: 5px;
+}
+.content ul li:last-of-type{
+    border-bottom: none;
+}
+.content ul li span{
+    color: #000000;
+}
+.TzACtiviImg{
+    float: left;
+    width: 30px;
+    max-height: 30px;
+}
+.TzActiviContent{
+    padding-left: 39px;
+    font-size: 11px;
+}
+.TzActiviName{
+    font-weight: bold;
+    color: #333333;
+}
+.tz_mod_active_load{
+    padding: 7px;
+    color: #000000;
+    font-size: 12px;
+    cursor: pointer;
+}
+.tz_view_active{
+    display: none;
+}

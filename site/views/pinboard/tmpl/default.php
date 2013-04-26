@@ -63,9 +63,7 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         resizeTimer  =  setTimeout("tz_init("+"<?php echo $this->width_columns; ?>)", 100);
     });
     var url          = "<?php echo JRoute::_("index.php?option=com_users&view=login") ; ?>";
-
     jQuery(document).ready(function(){  // document ready
-       // ajaxTime();
         jQuery('#tz_pinboard_wrap').append('<div id="top"><?php echo JText::_('COM_TZ_PINBOARD_SEARCH_BACK_TO_TOP'); ?></div>');
         jQuery(window).scroll(function() {
             if(jQuery(window).scrollTop() != 0) {
@@ -82,27 +80,10 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
         var ua = navigator.userAgent, // Check device
         event  = (ua.match(/iPad/i)) ? "touchstart" : "click";
-
-        jQuery('.tz-detail-hover').live("mouseenter",function(){  // hover detail
-           jQuery(".tz_detail_pl").css("display","block");
-        });
-        jQuery('.tz-detail-hover').live("mouseleave",function(){
-            jQuery(".tz_detail_pl").css("display","none");
-        }); //end hover
-
-        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseenter",function(){ // hover thumbnail
-            jQuery(this).find('.tz_button_pins').css("display","block");
-        });
-        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseleave",function(){
-            jQuery(this).find('.tz_button_pins').css("display","none");
-        }); // end hover
-
         jQuery('.tz_pin_content_class').live("mouseenter",function(){ // hover add class
             jQuery(this).addClass("Tz_plaza");
             jQuery(this).find('.tz_unlike').addClass('tz_unlike_u');
             jQuery(this).find('.tz_like').addClass('tz_like_l');
-
-
         });
         jQuery('.tz_pin_content_class').live("mouseleave",function(){
             jQuery(this).removeClass("Tz_plaza");
@@ -134,14 +115,13 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                         if(data==1){
                             jQuery('.approver .tz-pinboard-warning').animate({"right":"-200px"});
                             jQuery("div").removeClass("approver");
-
                         }
                     });
         });
         <?php if(isset($this->s_button) && $this->s_button==1){ ?>
             jQuery(".tz_like_l").live(event,function(){ // method like thumbnail
                 jQuery(".tz_like_l").css("display","none");
-                jQuery(".tz_unlike_u").css("display","block");
+                jQuery(".tz_unlike_u").css("display","inline-block");
                 jQuery(".Tz_plaza").addClass("Tz_l");
                 jQuery.ajax({
                     url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
@@ -159,9 +139,8 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                     }
                 });
             }); //end method click like
-
             jQuery(".tz_unlike_u").live(event,function(){  // method unlike thumbnail
-                jQuery(".tz_like_l").css("display","block");
+                jQuery(".tz_like_l").css("display","inline-block");
                 jQuery(".tz_unlike_u").css("display","none");
                 jQuery(".Tz_plaza").addClass("Tz_l");
                 jQuery.ajax({
@@ -183,9 +162,9 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         <?php } ?>
         jQuery(".tz_like_d").live("click",function(){ // method like detail
             jQuery(".tz_like_d").css("display","none");
-            jQuery(".tz_unlike_d").css("display","block");
+            jQuery(".tz_unlike_d").css("display","inline-block");
             jQuery('.Tz_plazas').find(".tz_like").css("display","none");
-            jQuery('.Tz_plazas').find(".tz_unlike").css("display","block");
+            jQuery('.Tz_plazas').find(".tz_unlike").css("display","inline-block");
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
                 type: 'post',
@@ -199,10 +178,10 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         }); // end method like detail
 
         jQuery(".tz_unlike_d").live("click",function(){ // method unlike detail
-            jQuery(".tz_like_d").css("display","block");
+            jQuery(".tz_like_d").css("display","inline-block");
             jQuery(".tz_unlike_d").css("display","none");
             jQuery('.Tz_plazas').find(".tz_unlike").css("display","none");
-            jQuery('.Tz_plazas').find(".tz_like").css("display","block");
+            jQuery('.Tz_plazas').find(".tz_like").css("display","inline-block");
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.unlike',
                 type: 'post',
@@ -223,9 +202,8 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                 jQuery("body").css("overflow-y","scroll");
             });
         }); // end event
-
-
         jQuery('.tz_repin').live(event,function(){ // method repin
+            jQuery(".tz_iframe").attr("src","");
             jQuery('#tz_more_content').fadeOut();
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz_repin',
@@ -274,19 +252,15 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                             }
                         });
                     });
-
                     jQuery('#tz_repin_introtext').blur(function(){
                         var p_title = document.getElementById('tz_repin_more_descript');
                         p_title.innerHTML=" ";
                     });
-
                 }else{
                     window.location=url;
                 }
             });
         }); // end tz_repin
-
-
         jQuery("#tz_repin_button").live("click",function(){ // method ajax insert repin
             var Title = jQuery("#tz_repin_title").attr("value");
             var board = jQuery("#tz_repin_select").attr("value");
@@ -389,8 +363,6 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         jQuery('#tz_post_cm_erro').live("click",function(){
             window.location=url;
         }); // end method
-
-
         jQuery(".Tz_plaza textarea").live("focus",function(){   // check text comment
             jQuery(".Tz_plaza .tz_bt_pin_add").css("display","block");
             jQuery('.Tz_plaza textarea').live("keyup",function(){
@@ -405,13 +377,10 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                 }
             });
         });
-
         jQuery(".Tz_plaza textarea").live("blur",function(){
             jQuery('.Tz_plaza .tz_comment_erroc_p').text("");
         }); // and check text comment
-
         <?php if(isset($this->s_button) && $this->s_button==1){ ?>
-
             jQuery(".tz_bt_pin_add").live("click",function(){ // ajax comment
                 jQuery(this).attr('disabled', true);
                 jQuery(".Tz_plaza").addClass("Tz_cm");
@@ -443,7 +412,6 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                                     itemSelector: '.tz_pin_all_content'
                                 });
                                 jQuery(".tz_bt_pin_add").removeAttr('disabled');
-
                             });
                 }
             }); // and ajax comment
@@ -485,7 +453,6 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         <?php } ?>
         // ajax detail
         <?php if(isset($this->type_detail) && $this->type_detail == 1){ ?>
-
             // add css
             jQuery('.tz_content_cm ul li').live("mouseenter",function(){
                 jQuery(this).addClass("Tz_delete");
@@ -493,30 +460,25 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
             jQuery('.tz_content_cm ul li').live("mouseleave",function(){
                 jQuery(this).removeClass("Tz_delete");
             }); // and add css
-
             jQuery('.tz_detail_pins, #tz_warp_hide').live("click",function(){ // event click hide box detail
-				jQuery(".tz_iframe").attr("src","");
+                jQuery(".tz_iframe").attr("src","");
                 jQuery("div").removeClass("Tz_plazas");
                 jQuery('#tz_repin_more_warp').fadeOut(400,function(){
                     jQuery('#tz_more_content').fadeOut(50);
                     jQuery("body").css("overflow-y","scroll");
                 });
             }); // end event
-
-            jQuery('.tz_more_pin').live("click",function(){ // show detail  light box
-
+            jQuery('.tz_more_pin, .TzIconVideo').live("click",function(){ // show detail  light box
                 jQuery(".Tz_plaza").addClass("Tz_plazas");
                 jQuery.ajax({
                     url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.detail.pins',
                     type: 'post',
                     data:{
-                        id_pins: jQuery(this).attr("data-option-id-img")
+                        id_pins: jQuery('.tz_more_pin').attr("data-option-id-img")
                     }
                 }).success(function(data){
                     jQuery("body").css("overflow-y","hidden");
-
                     jQuery('#tz_more_content').html(data);
-
                     jQuery('#tz_repin_more_warp').fadeIn();
                     jQuery('#tz_more_content').fadeIn(50);
                     jQuery("#tz_more_content img").load(function(){
@@ -549,7 +511,6 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                             }
                         });
                     }); // and foolow
-
                     // unfollow
                     jQuery('.tz_unfollow').toggle(function(){
                         jQuery(this).removeClass('disabled_d');
@@ -584,18 +545,17 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
             jQuery('#tz_comment').live("focus",function(){
                 var textra = jQuery('#tz_comment').val();
                 jQuery('#tz_comment').keyup(function(){
-                    var Max_Text_input      = jQuery('#tz_comment').attr('maxlength');
-                    var Text_value_input    = jQuery('#tz_comment').attr('value');
-                    var p_title             = document.getElementById('tz_comment_erroc_p');
-                    var text_c2             = checkText(Text_value_input,Max_Text_input);
+                    var Max_Text_input      =   jQuery('#tz_comment').attr('maxlength');
+                    var Text_value_input    =   jQuery('#tz_comment').attr('value');
+                    var p_title             =   document.getElementById('tz_comment_erroc_p');
+                    var text_c2             =   checkText(Text_value_input,Max_Text_input);
                     if(text_c2 >0){
-                        p_title.innerHTML   = "<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT'); ?> "+text_c2;
+                        p_title.innerHTML   =   "<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT'); ?> "+text_c2;
                     }else{
-                        p_title.innerHTML   = "<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT_0'); ?>";
+                        p_title.innerHTML   =   "<?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT_LIMIT_0'); ?>";
                     }
                 });
             }); // end check
-
             jQuery("#tz_post_cm").live("click",function(){ // ajax comment detail
                 jQuery(this).attr('disabled', true);
                 var checkTexs = jQuery("#tz_comment").val();
@@ -622,10 +582,8 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                         jQuery("#tz_comment_pt_a").attr("data-optio-id",pages);
                         jQuery("#tz_post_cm").removeAttr('disabled');
                     });
-
                 }
             }); // end
-
             jQuery(".Tz_delete .tz_comment_delete").live("click",function(){ // method delete comment
                 jQuery(".Tz_delete").addClass("tz_d");
                 jQuery(".tz_notice_detail").fadeIn();
@@ -658,7 +616,6 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                             jQuery("#tz_comment_pt_a").attr("data-optio-id",pages);
                         });
             }); // end delete
-
             jQuery("#tz_comment_pt_a").live("click",function(){ // method paging comment detail
                 jQuery("#tz_page_stop").css("display","block");
                 jQuery('#id_loadding').html("<img src='<?php echo JUri::root().'/components/com_tz_pinboard/images/ajax-comment.gif'?>' />").fadeIn('fast');
@@ -684,13 +641,11 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                         jQuery("#tz_page_stop").css("display","none");
                     }
                 });
-            }); // end
-
+            });// end
         <?php
                 }
             }
         ?>
-
     });
 </script>
 
@@ -710,14 +665,11 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         </span>
     </div>
     <div id="tz_pinboard" class="transitions-enabled clearfix">
-            <?php
-                    echo $this->loadTemplate('pinboard');
-            ?>
+            <?php echo $this->loadTemplate('pinboard'); ?>
         <div class="cler"></div>
     </div>
-
     <?php
-        if(isset($this->Pins) && !empty($this->Pins) && count($this->Pins) >= (int)$this->limit_pin) {
+    if(isset($this->Pins) && !empty($this->Pins) && count($this->Pins) >= (int)$this->limit_pin){
         if($this->tz_layout=="default"){
     ?>
         <div class="pagination pagination-toolbar ">
@@ -754,15 +706,13 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                 nextSelector : '#tz_load a:first',  // selector for the NEXT link (to page 2)
                 itemSelector : '.tz_pin_all_content',     // selector for all items you'll retrieve
                 errorCallback: function(){
-
                     <?php if($this->tz_layout =="ajaxButton"):?>
                         jQuery('#tz_append a').hide();
                         jQuery('#tz_append p').show(1200);
                     <?php endif;?>
                     <?php if($this->tz_layout =="ajaxInfiScroll"):?>
-                             jQuery('#tz_append').removeAttr('style').html('<a  id="tz_not_item"><?php echo JText::_('COM_TZ_PINBOARD_NOT_ITEM');?></a>');
+                        jQuery('#tz_append').removeAttr('style').html('<a  id="tz_not_item"><?php echo JText::_('COM_TZ_PINBOARD_NOT_ITEM');?></a>');
                     <?php endif;?>
-
                 },
                 loading: {
                     msgText: "<em><?php echo JText::_("COM_TZ_PINBOARD_LOAD_MORE"); ?></em>",
@@ -773,7 +723,9 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
             },
             function(newElements){ // return data var newElemnts
                 if(newElements.length){
+                    var $newElems = jQuery( newElements ).css({ opacity: 0 });
                     jQuery(newElements).imagesLoaded(function(){
+                        $newElems.animate({ opacity: 1 });
                         jQuery('#tz_pinboard').append( jQuery(newElements) ).masonry( 'appended',jQuery(newElements),true );
                         jQuery('div#tz_append').find('a:first').show();
                         jQuery('.tz_pin_conmments').toggle(function(){
@@ -791,19 +743,17 @@ $app    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
                     tz_init(<?php echo $this->width_columns ?>);
                 }
-
             });
             <?php if($this->tz_layout =="ajaxButton"){?> //select ajxac buttom
-                jQuery(window).unbind('.infscr');
-                jQuery('#tz_append >a').click(function(){
-
+                    jQuery(window).unbind('.infscr');
+                    jQuery('#tz_append >a').click(function(){
                     jQuery(this).stop();
                     jQuery('div#tz_append').find('a:first').hide(); //click hide
                     $container.infinitescroll('retrieve');
                 });
             <?php
             }
-            }
+    }
         }
         ?>
      </script>

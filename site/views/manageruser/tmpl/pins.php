@@ -70,19 +70,8 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
         var ua = navigator.userAgent, // Check device
         event  = (ua.match(/iPad/i)) ? "touchstart" : "click";
-        jQuery('.tz-detail-hover').live("mouseenter",function(){  // hover detail
-            jQuery(".tz_detail_pl").css("display","block");
-        });
-        jQuery('.tz-detail-hover').live("mouseleave",function(){
-            jQuery(".tz_detail_pl").css("display","none");
-        }); //end hover
 
-        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseenter",function(){ // hover thumbnail
-            jQuery(this).find('.tz_button_pins').css("display","block");
-        });
-        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseleave",function(){
-            jQuery(this).find('.tz_button_pins').css("display","none");
-        }); // end hover
+
         // add css
         jQuery('.tz_pin_content_class').live("mouseenter",function(){
             jQuery(this).addClass("Tz_plaza");
@@ -107,7 +96,7 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         <?php if(isset($this->s_button) && $this->s_button==1){ ?>
             jQuery(".tz_like_l").live(event,function(){
                 jQuery(".tz_like_l").css("display","none");
-                jQuery(".tz_unlike_u").css("display","block");
+                jQuery(".tz_unlike_u").css("display","inline-block");
                 jQuery(".Tz_plaza").addClass("Tz_l");
                 jQuery.ajax({
                     url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
@@ -128,7 +117,7 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
             });
 
             jQuery(".tz_unlike_u").live(event,function(){
-                jQuery(".tz_like_l").css("display","block");
+                jQuery(".tz_like_l").css("display","inline-block");
                 jQuery(".tz_unlike_u").css("display","none");
                 jQuery(".Tz_plaza").addClass("Tz_l");
                 jQuery.ajax({
@@ -153,9 +142,9 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
         <?php } ?>
         jQuery(".tz_like_d").live("click",function(){
             jQuery(".tz_like_d").css("display","none");
-            jQuery(".tz_unlike_d").css("display","block");
+            jQuery(".tz_unlike_d").css("display","inline-block");
             jQuery('.Tz_plazas').find(".tz_like").css("display","none");
-            jQuery('.Tz_plazas').find(".tz_unlike").css("display","block");
+            jQuery('.Tz_plazas').find(".tz_unlike").css("display","inline-block");
 
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
@@ -170,10 +159,10 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                     });
         });
         jQuery(".tz_unlike_d").live("click",function(){
-            jQuery(".tz_like_d").css("display","block");
+            jQuery(".tz_like_d").css("display","inline-block");
             jQuery(".tz_unlike_d").css("display","none");
             jQuery('.Tz_plazas').find(".tz_unlike").css("display","none");
-            jQuery('.Tz_plazas').find(".tz_like").css("display","block");
+            jQuery('.Tz_plazas').find(".tz_like").css("display","inline-block");
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.unlike',
                 type: 'post',
@@ -194,6 +183,7 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
         });
         jQuery('.tz_repin').live(event,function(){ // show light box repin
+            jQuery(".tz_iframe").attr("src","");
             jQuery('#tz_more_content').fadeOut();
             jQuery.ajax({
             url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz_repin',
@@ -320,20 +310,20 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
 
     <?php if(isset($this->type_detail) && $this->type_detail ==1){ ?>
         jQuery('.tz_detail_pins, #tz_warp_hide').live("click",function(){ // click
-		 jQuery(".tz_iframe").attr("src","");
+            jQuery(".tz_iframe").attr("src","");
             jQuery('#tz_repin_more_warp').fadeOut(400,function(){
                 jQuery('#tz_more_content').fadeOut(50);
                 jQuery("body").css("overflow-y","scroll");
             });
 
         });
-        jQuery('.tz_more_pin').live("click",function(){ // show detail
+        jQuery('.tz_more_pin, .TzIconVideo').live("click",function(){ // show detail
             jQuery(".Tz_plaza").addClass("Tz_plazas");
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.detail.pins',
                 type: 'post',
                 data:{
-                    id_pins: jQuery(this).attr("data-option-id-img")
+                    id_pins: jQuery('.tz_more_pin').attr("data-option-id-img")
                 }
             }).success(function(data){
                 jQuery("body").css("overflow-y","hidden");
@@ -666,6 +656,9 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                                 <a class="tz_a_center" <?php if($this->type_detail =='0'){ ?> href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($Pins->content_id)); ?>" <?php }  ?>  rel="nofollow">
                                     <img  data-option-id-img="<?php echo $Pins->content_id; ?>" <?php if($this->type_detail =='1'){ ?> class="tz_more_pin" <?php } ?> src="<?php echo JUri::root().'/'.$img_type_replaca ?>">
                                 </a>
+                                <?php if(isset($Pins->pz_video) && !empty($Pins->pz_video)){ ?>
+                                    <span class="TzIconVideo"></span>
+                                <?php } ?>
                                 <?php if(isset($this->title_thum) && $this->title_thum==1){ ?>
                                     <a <?php if($this->type_detail =='0'){ ?> href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($Pins->content_id)); ?>" <?php }  ?>  rel="nofollow">
                                         <h6 <?php if($this->type_detail =='1'){ ?> class="tz_more_pin" <?php } ?> data-option-id-img="<?php echo $Pins->content_id; ?>">
@@ -673,46 +666,7 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                                         </h6>
                                     </a>
                                 <?php } ?>
-                                <?php if(isset($this->s_button) && $this->s_button == 1){ ?>
-                                    <div class="tz_button_pins">
-                                        <a class="tz_button_repin  tz_repin"  data-option-id="<?php echo $Pins->content_id; ?>" >
-                                            <span>
-                                                <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_REPIN'); ?>
-                                            </span>
-                                        </a>
-                                        <?php
-                                        if($Pins->id_user == $this->sosanhuser ){
-                                            ?>
-                                            <a class="tz_button_repin"  href="<?php echo JRoute::_('index.php?option=com_tz_pinboard&task=tz.edit.pins&view=manageruser&id_pins='.$Pins->content_id) ?>"  rel="nofollow">
-                                                    <span>
-                                                        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_EDITS'); ?>
-                                                    </span>
-                                            </a>
-                                            <?php
-                                        }else{
-                                            ?>
-                                            <a class="tz_button_repin  <?php if($Pins->checl_l['p']  =='1' ){  echo "tz_check_like"; }  ?> <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_like_ero"; }else{ echo"tz_like"; }  ?>" data-text-like="tz_like" data-option-id="<?php echo $Pins->content_id; ?>">
-                                                <span>
-                                                    <?php  echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKE'); ?>
-                                                </span>
-                                            </a>
 
-                                            <a  class="tz_button_repin   tz_unlike disabled_d <?php  if($Pins->checl_l['p'] =='0'  || $Pins->checl_l['p']  ==""){ echo "tz_check_like"; } ?> "  data-option-id="<?php echo $Pins->content_id; ?>">
-                                                <span>
-                                                    <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNLIKE'); ?>
-                                                </span>
-                                            </a>
-
-                                            <?php
-                                        }
-                                        ?>
-                                        <a data-option-id-img="<?php echo $Pins->content_id; ?>"   class="tz_button_repin  <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_pin_conmments_ero"; }else{ echo"tz_pin_conmments"; }  ?>">
-                                       <span>
-                                          <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT'); ?>
-                                       </span>
-                                        </a>
-                                    </div>
-                                <?php } ?>
                             </div>
                             <?php if(isset($this->count_button) && $this->count_button==1){ ?>
                                     <p>
@@ -734,6 +688,47 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                                     }
                                     ?>
                                 </p>
+                            <?php } ?>
+                            <?php if(isset($this->s_button) && $this->s_button == 1){ ?>
+                            <div class="tz_button_pins">
+                                <a class="tz_button_repin  tz_repin"  data-option-id="<?php echo $Pins->content_id; ?>" >
+                                    <span>
+                                        <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_REPIN'); ?>
+                                    </span>
+                                </a>
+                                <span class="tz_pinboard_sp">/</span>
+                                <?php
+                                if($Pins->id_user == $this->sosanhuser ){
+                                    ?>
+                                    <a class="tz_button_repin"  href="<?php echo JRoute::_('index.php?option=com_tz_pinboard&task=tz.edit.pins&view=manageruser&id_pins='.$Pins->content_id) ?>"  rel="nofollow">
+                                        <span>
+                                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_EDITS'); ?>
+                                        </span>
+                                    </a>
+                                    <span class="tz_pinboard_sp">/</span>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <a class="tz_button_repin  <?php if($Pins->checl_l['p']  =='1' ){  echo "tz_check_like"; }  ?> <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_like_ero"; }else{ echo"tz_like"; }  ?>" data-text-like="tz_like" data-option-id="<?php echo $Pins->content_id; ?>">
+                                        <span>
+                                            <?php  echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKE'); ?>
+                                        </span>
+                                    </a>
+                                    <a class="tz_button_repin   tz_unlike disabled_d <?php  if($Pins->checl_l['p'] =='0'  || $Pins->checl_l['p']  ==""){ echo "tz_check_like"; } ?> "  data-option-id="<?php echo $Pins->content_id; ?>">
+                                        <span>
+                                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNLIKE'); ?>
+                                        </span>
+                                    </a>
+                                    <span class="tz_pinboard_sp">/</span>
+                                    <?php
+                                }
+                                ?>
+                                <a data-option-id-img="<?php echo $Pins->content_id; ?>"   class="tz_button_repin  <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_pin_conmments_ero"; }else{ echo"tz_pin_conmments"; }  ?>">
+                                   <span>
+                                      <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT'); ?>
+                                   </span>
+                                </a>
+                            </div>
                             <?php } ?>
                             <?php
                             if(isset($this->s_user) && $this->s_user==1){
