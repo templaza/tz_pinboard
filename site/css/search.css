@@ -116,19 +116,7 @@
 
 
 
-.tz_button_repin:hover{
-    box-shadow: 1px 3px 5px rgba(34, 25, 25, 0.4);
 
-
-}
-.tz_button_repin span{
-    text-align: center;
-    padding-top: 5px;
-    display: block;
-    color: #666666;
-    font-size: 12px;
-
-}
 
 a:focus{
     outline: none !important;

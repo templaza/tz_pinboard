@@ -116,7 +116,7 @@ class TZ_PinboardModelTags extends JModelList{
             $tags       =   "";
         }
         $db             =   JFactory::getDbo();
-        $sql            =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.state as c_state, c.attribs as c_attribs, pz.images as poro_img,
+        $sql            =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.state as c_state, c.attribs as c_attribs, pz.images as poro_img, pz.video as pz_video,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
                                     us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
@@ -130,7 +130,7 @@ class TZ_PinboardModelTags extends JModelList{
                                 LEFT JOIN #__tz_pinboard_tags AS tg on tx.tagsid = tg.id
                                 $tags";
 
-        $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit,  c.state as c_state, c.attribs as c_attribs, pz.images as poro_img,
+        $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id,  c.hits as content_hit,  c.state as c_state, c.attribs as c_attribs, pz.images as poro_img, pz.video as pz_video,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
                                     us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription

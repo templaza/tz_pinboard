@@ -190,7 +190,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                 $id_user    = $user_guest;
             }
             $db             = JFactory::getDbo();
-            $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs,
+            $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs,  pz.video as pz_video,
                                       c.hits as content_hit, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
                                 FROM #__users AS u
                                 LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
@@ -198,7 +198,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                                 LEFT JOIN #__tz_pinboard_xref_content AS pz ON c.id = pz.contentid
                                 LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                                 WHERE c.created_by =$id_user AND c.catid=$id_board AND c.state = 1";
-            $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs,
+            $sql2           =   "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs, pz.video as pz_video,
                                  c.hits as content_hit, pz.images as poro_img, w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user
                                 FROM #__users AS u
                                 LEFT JOIN #__tz_pinboard_boards AS ca ON u.id = ca.created_user_id
@@ -277,7 +277,7 @@ class Tz_pinboardModelManageruser extends JModelList{
         }
         $db             = JFactory::getDbo();
         $sql            = "SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.attribs as c_attribs,
-                                    pz.images as poro_img,
+                                    pz.images as poro_img,  pz.video as pz_video,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     c.catid as catidc
                             FROM #__users AS u
@@ -287,7 +287,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                                 LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                             WHERE c.created_by =$id_user and c.state=1 order by c.created desc ";
         $sql2           ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.attribs as c_attribs,
-                                pz.images as poro_img,
+                                pz.images as poro_img,  pz.video as pz_video,
                                 w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                 c.catid as catidc
                         FROM #__users AS u
@@ -730,7 +730,7 @@ class Tz_pinboardModelManageruser extends JModelList{
 
         $db                 = JFactory::getDbo();
         $sql                = "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id,  c.attribs as c_attribs,
-                                    c.hits as content_hit,pz.images as poro_img,
+                                    c.hits as content_hit, pz.images as poro_img, pz.video as pz_video,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     l.like_p as likes
                                 FROM #__users AS u
@@ -741,7 +741,7 @@ class Tz_pinboardModelManageruser extends JModelList{
                                     LEFT JOIN #__tz_pinboard_like AS l ON c.id = l.id_content
                                 WHERE l.id_user_p =$id_user AND l.like_p=1 AND c.state =1  order by c.created desc";
         $sql2 =             "SELECT u.id as id_user, u.name as user_name, c.title as conten_title,  c.id as content_id, c.attribs as c_attribs,
-                                    c.hits as content_hit, pz.images as poro_img,
+                                    c.hits as content_hit, pz.images as poro_img, pz.video as pz_video,
                                     w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                                     l.like_p as likes
                             FROM #__users AS u

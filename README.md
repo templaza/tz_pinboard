@@ -12,6 +12,10 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
 
+04/26/13  - 3.1.2
+
+	[feature] Add new module tz pinboard active
+
 04/24/13  - 3.1.1
 
 	[bug] fix play video

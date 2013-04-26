@@ -36,6 +36,8 @@ defined("_JEXEC") or die;
                     $date_d             =       $sate->get('date_d');
                     $web_d              =       $sate->get('web_d');
                     $img_user           =       $sate->get('imgUser_d');
+                    $social             =       $sate->get('tz_show_social');
+                    $this -> assign('social',$social);
                     $this -> assign('imgUser',$img_user);
                     $this -> assign('web_d',$web_d);
                     $this -> assign('date_d',$date_d);

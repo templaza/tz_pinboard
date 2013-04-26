@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="module" method="upgrade" client="site" version="3.0">
+    <name>mod_tz_pinboard_active</name>
+    <author>TuNguyenTemPlaza</author>
+    <creationDate>april 11th 2013</creationDate>
+    <copyright>Copyright (C) 2013 TemPlaza. All rights reserved.</copyright>
+    <license>GNU/GPL v2 or later http://www.gnu.org/licenses/gpl-2.0.html</license>
+    <authorEmail>tunn@templaza.com</authorEmail>
+    <authorUrl>templaza.com</authorUrl>
+    <version>3.0.0</version>
+    <description>MOD_TZ_PINBOARD_ACTIVE_XML_DESCRIPTION</description>
+    <files>
+        <filename module="mod_tz_pinboard_active">mod_tz_pinboard_active.php</filename>
+        <filename>mod_tz_pinboard_active.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <folder>css</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+        <folder>tmpl</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">en-GB.mod_tz_pinboard_active.ini</language>
+        <language tag="en-GB">en-GB.mod_tz_pinboard_active.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="tz_page" type="text" label="MOD_TZ_PINBOARD_ACTIVE_PAGE" description="MOD_TZ_PINBOARD_ACTIVE_PAGE_DS" default="10" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

@@ -170,7 +170,7 @@ class TZ_PinboardModelPinboard extends JModelList{
             }
         }
         $db = JFactory::getDbo();
-        $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit , c.attribs as c_attribs, c.state as c_state, pz.images as poro_img,
+        $sql ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit , c.attribs as c_attribs, c.state as c_state, pz.images as poro_img, pz.video as pz_video,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                         c.catid as catidc, u.name as user_name,  us.images as user_img , us.url as usurl, us.gender as usgender,
                         us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
@@ -181,7 +181,7 @@ class TZ_PinboardModelPinboard extends JModelList{
                     LEFT JOIN #__tz_pinboard_website AS w ON c.id = w.contentid
                     LEFT JOIN #__tz_pinboard_users as us ON u.id = us.usersid  $catids";
 
-        $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.attribs as c_attribs, c.state as c_state, pz.images as poro_img,
+        $sql2 ="SELECT u.id as id_user, c.title as conten_title,  c.id as content_id, c.hits as content_hit, c.attribs as c_attribs, c.state as c_state, pz.images as poro_img, pz.video as pz_video,
                         w.url as website , w.id_user_repin as id_user_repin, w.name_user_repin as name_user_repin,
                         c.catid as catidc, u.name as user_name,  us.images as user_img, us.url as usurl, us.gender as usgender,
                         us.twitter as ustwitter, us.facebook as usfacebook, us.google_one as usgoogle_one, us.description as usdescription
@@ -1006,32 +1006,38 @@ class TZ_PinboardModelPinboard extends JModelList{
      * Method get data Activi
     */
     function getActive(){
-        $id_active = $_POST['id'];
-        if(is_numeric($id_active)==true){
-        $id         = $this->getDataActive();
-        if(isset($id) && !empty($id)){
-            $limit      = count($id);
-            $id         = implode(',',$id);
-            $db         =     JFactory::getDbo();
-            $sql        =     "SELECT a.active as a_active, a.id as aid, a.type as a_type, a.target as a_target,
-                                          u.name as u_user, us.images as us_img, p.title as p_title
-                                     From   #__tz_pinboard_active as a
-                                            LEFT JOIN #__tz_pinboard_pins as p on a.target 	= p.id
-                                            LEFT JOIN #__users as u on a.id_user = u.id
-                                            LEFT JOIN #__tz_pinboard_users as us on u.id = us.usersid
-                                     where  id_user in ($id) and a.id > $id_active order by a.id ASC limit 0,$limit";
-
-            $db         ->      setQuery($sql);
-            $row        =       $db -> loadObjectList();
-            foreach($row as $item){
-                if($item->a_type=='follow'){
-                    $follow = $this->getFollowActive($item->a_target);
-                    $item->follow = $follow;
+            $user       =     JFactory::getUser();
+            $id_user    =     $user->id;
+            $id_active      = $_POST['id'];
+            $id             = $this->getDataActive();
+            if(isset($id) && !empty($id)){
+                $limit      = count($id);
+                $id         = implode(',',$id);
+                $db         =     JFactory::getDbo();
+                if(is_numeric($id_active)==true){
+                    $where  =   "where  id_user in ($id,$id_user) and a.id > $id_active order by a.id ASC limit 0,1";
+                }else{
+                    $where  =   "where  id_user in ($id,$id_user)  order by a.id ASC limit 0,1";
                 }
-            }
+                $sql        =     "SELECT a.active as a_active, a.id as aid, a.type as a_type, a.target as a_target,
+                                              u.name as u_user, us.images as us_img, p.title as p_title
+                                         From   #__tz_pinboard_active as a
+                                                LEFT JOIN #__tz_pinboard_pins as p on a.target 	= p.id
+                                                LEFT JOIN #__users as u on a.id_user = u.id
+                                                LEFT JOIN #__tz_pinboard_users as us on u.id = us.usersid
+                                         $where";
 
-            return $row;
-        }
+                $db         ->      setQuery($sql);
+                $row        =       $db -> loadObjectList();
+                foreach($row as $item){
+                    if($item->a_type=='follow'){
+                        $follow = $this->getFollowActive($item->a_target);
+                        $item->follow = $follow;
+                    }
+                }
+
+                return $row;
+
         }
     }
     function getFollowActive($id){
@@ -1051,6 +1057,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         $view->assign('data',$this->getActive());
         return $view->loadTemplate('active');
     }
+
 
 }
 ?>
