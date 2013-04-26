@@ -43,6 +43,8 @@ class TZ_PinboardModelDetail extends JModelList{
             $date_d             =   $params->get('date_d');
             $web_d              =   $params->get('web_d');
             $img_user           =   $params->get('imgUser_d');
+            $show_social        =   $params->get('tz_show_social');
+            $this -> setState('social',$show_social);
             $this -> setState('img_user',$img_user);
             $this -> setState('web_d',$web_d);
             $this -> setState('date_d',$date_d);
@@ -173,7 +175,23 @@ class TZ_PinboardModelDetail extends JModelList{
         $id_user = $user->id;
         return $id_user;
     }
-    // function count the number of comment
+
+    /*
+     * method insert active comment
+    */
+    function InsertActiveComment(){
+        $id_content =   strip_tags(htmlspecialchars($_POST['id_pins']));
+        $user       =   JFactory::getUser();
+        $id_user    =   $user->id;
+        $db         =   JFactory::getDbo();
+        $sql = "INSERT INTO #__tz_pinboard_active  VALUES(NULL,'c','".$id_content."','".$id_user."','content') ";
+        $db->setQuery($sql);
+        $db->query();
+    }
+
+    /*
+     * function count the number of comment
+    */
     function getDemcommnet(){
         $id_conten  = JRequest::getInt('id_pins');
         $db         = JFactory::getDbo();
@@ -274,7 +292,8 @@ class TZ_PinboardModelDetail extends JModelList{
         $refer      =   $_SERVER['HTTP_REFERER'];
         $url_arr    =   parse_url($refer);
         if ($_SERVER['HTTP_HOST'] != $url_arr['host']) return null;
-        $this->Insert_comment_Content();
+        $this -> Insert_comment_Content();
+        $this -> InsertActiveComment();
         require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'detail'.DIRECTORY_SEPARATOR.'view.html.php'); // chen file view.html.php vao
         $view       = new TZ_PinboardViewDetail();
         $showdate   = $this->getState('show_date');
@@ -346,12 +365,14 @@ class TZ_PinboardModelDetail extends JModelList{
         $img_size         =     $this->getState('pinboard_image_size');
         $text_webs        =     $this->getState('text_webs');
         $c_detail         =     $this->getState('s_detail');
-        $button_d         =     $this->setState('button_d');
-        $ds_detial        =     $this->setState('ds_detail');
-        $name_board       =     $this->setState('name_b');
-        $date_d           =     $this->setState('date_d');
-        $web_dt           =     $this->setState('web_d');
-        $img_user         =     $this->setState('img_user');
+        $button_d         =     $this->getState('button_d');
+        $ds_detial        =     $this->getState('ds_detail');
+        $name_board       =     $this->getState('name_b');
+        $date_d           =     $this->getState('date_d');
+        $web_dt           =     $this->getState('web_d');
+        $img_user         =     $this->getState('img_user');
+        $social           =     $this->getState('social');
+        $view -> assign('social',$social);
         $view -> assign('imgUser',$img_user);
         $view -> assign('web_d',$web_dt);
         $view -> assign('date_d',$date_d);

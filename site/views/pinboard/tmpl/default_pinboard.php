@@ -49,10 +49,13 @@ if(isset($this->Pins)){
                     $img_type = JFile::getExt($Pins->poro_img);
                     $img_type_replaca = str_replace(".$img_type","_$img_size.$img_type",$Pins->poro_img);
                 ?>
-                <div class="<?php if(isset($Pins->c_state) && $Pins->c_state==0){ echo"tz_hover_warning"; }else{ echo"tz_hover_img"; } ?>">
+                <div class="tz_hover_img"">
                     <a class="tz_a_center" <?php if($this->type_detail =='0'){ ?> href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($Pins->content_id)); ?>" <?php }  ?> rel="nofollow">
                         <img  data-option-id-img="<?php echo $Pins->content_id; ?>" <?php if($this->type_detail =='1'){ ?> class="tz_more_pin" <?php } ?> src="<?php echo JUri::root().'/'.$img_type_replaca ?>">
                     </a>
+                    <?php if(isset($Pins->pz_video) && !empty($Pins->pz_video)){ ?>
+                        <span class="TzIconVideo" data-option-id-img="<?php echo $Pins->content_id; ?>"></span>
+                    <?php } ?>
                     <?php if(isset($this->title_thum) && $this->title_thum==1){ ?>
                         <a <?php if($this->type_detail =='0'){ ?> href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($Pins->content_id)); ?>" <?php }  ?> rel="nofollow">
                             <h6 <?php if($this->type_detail =='1'){ ?> class="tz_more_pin" <?php } ?> data-option-id-img="<?php echo $Pins->content_id; ?>">
@@ -60,50 +63,6 @@ if(isset($this->Pins)){
                             </h6>
                         </a>
                     <?php } ?>
-                    <?php if(isset($this->s_button) && $this->s_button == 1){ ?>
-                        <div class="tz_button_pins">
-                            <a class="tz_button_repin   tz_repin"  data-option-id="<?php echo $Pins->content_id; ?>" >
-                                <span>
-                                    <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_REPIN'); ?>
-                                </span>
-                            </a>
-
-                            <?php
-                            if($Pins->id_user == $this->sosanhuser ){
-                                ?>
-                                <a href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardManageruserRoute('',$Pins->content_id)) ?>" class="tz_button_repin" rel="nofollow">
-                                <span>
-                                    <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_EDITS'); ?>
-                                </span>
-                                </a>
-                                <?php
-                            }else{
-                                ?>
-                                <a   class=" tz_button_repin  <?php if($Pins->checl_l['p']  =='1' ){  echo "tz_check_like"; }  ?> <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_like_ero"; }else{ echo"tz_like"; }  ?>"  data-option-id="<?php echo $Pins->content_id; ?>">
-                            <span>
-                            <?php  echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKE'); ?>
-                            </span>
-                                </a>
-
-                                <a  class="tz_button_repin   tz_unlike disabled_d <?php  if($Pins->checl_l['p'] =='0'  || $Pins->checl_l['p']  ==""){ echo "tz_check_like"; } ?> "   data-option-id="<?php echo $Pins->content_id; ?>">
-                            <span>
-                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNLIKE'); ?>
-                            </span>
-                                </a>
-
-                                <?php
-                            }
-                            ?>
-                            <a data-option-id-img="<?php echo $Pins->content_id; ?>"   class="tz_button_repin    <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_pin_conmments_ero"; }else{ echo"tz_pin_conmments"; }  ?>">
-                        <span>
-                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT'); ?>
-                        </span>
-                            </a>
-                        </div>
-                    <?php } ?>
-                    <div class="cler"></div>
-
-
                 </div>
                 <?php if(isset($this->count_button) && $this->count_button==1){ ?>
                     <p>
@@ -127,8 +86,52 @@ if(isset($this->Pins)){
                         ?>
                     </p>
                 <?php } ?>
+                <?php if(isset($this->s_button) && $this->s_button == 1){ ?>
+                <div class="<?php if(isset($Pins->c_state) && $Pins->c_state==0){ echo"tz_button_pins_warning"; }else{ echo"tz_button_pins"; } ?>">
+                    <a class="tz_button_repin tz_repin"  data-option-id="<?php echo $Pins->content_id; ?>" >
+                        <span>
+                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_REPIN'); ?>
+                        </span>
+                    </a>
+                    <span class="tz_pinboard_sp">/</span>
+                    <?php
+                    if($Pins->id_user == $this->sosanhuser ){
+                        ?>
+                        <a class="tz_button_repin" href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardManageruserRoute('',$Pins->content_id)) ?>"rel="nofollow">
+                                <span>
+                                    <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_EDITS'); ?>
+                                </span>
+                        </a>
+                        <span class="tz_pinboard_sp">/</span>
+                        <?php
+                    }else{
+                        ?>
+                        <a class="tz_button_repin <?php if($Pins->checl_l['p']  =='1' ){  echo "tz_check_like"; }  ?> <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_like_ero"; }else{ echo"tz_like"; }  ?>"  data-option-id="<?php echo $Pins->content_id; ?>">
+                            <span>
+                            <?php  echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_LIKE'); ?>
+                            </span>
+                        </a>
+
+                        <a  class="tz_button_repin tz_unlike disabled_d <?php  if($Pins->checl_l['p'] =='0'  || $Pins->checl_l['p']  ==""){ echo "tz_check_like"; } ?> "   data-option-id="<?php echo $Pins->content_id; ?>">
+                            <span>
+                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_UNLIKE'); ?>
+                            </span>
+                        </a>
+                        <span class="tz_pinboard_sp">/</span>
+                        <?php
+                    }
+                    ?>
+
+                    <a data-option-id-img="<?php echo $Pins->content_id; ?>"   class="tz_button_repin <?php if(empty($this->sosanhuser) || $this->sosanhuser=="0"){ echo"tz_pin_conmments_ero"; }else{ echo"tz_pin_conmments"; }  ?>">
+                        <span>
+                            <?php echo JText::_('COM_TZ_PINBOARD_MANAGERUSER_COMMENT'); ?>
+                        </span>
+                    </a>
+                </div>
+                <?php } ?>
+                <div class="cler"></div>
                 <?php if(isset($this->s_user) && $this->s_user==1){ ?>
-                    <p>
+                    <div class="tzAuthor">
                         <?php if(isset($Pins->user_img) && !empty($Pins->user_img)){  ?>
                                 <img class="tz_pin_img_user"  src="<?php echo JUri::root().'/'.$Pins->user_img;  ?>">
                         <?php }else{ ?>
@@ -147,7 +150,7 @@ if(isset($this->Pins)){
                         ?>
                         </a>
                         <div class="cler"></div>
-                    </p>
+                    </div>
                 <?php } ?>
 
 

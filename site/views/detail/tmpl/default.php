@@ -35,13 +35,6 @@ $add    ->  addStyleSheet('components/com_tz_pinboard/css/pinboard_more.css');
     }
     jQuery(document).ready(function(){
         jQuery(".tz_detail_pins").remove();
-        jQuery('.tz-detail-hover').live("mouseenter",function(){  // hover detail
-            jQuery(".tz_detail_pl").css("display","block");
-        });
-        jQuery('.tz-detail-hover').live("mouseleave",function(){
-            jQuery(".tz_detail_pl").css("display","none");
-        }); //end hover
-
         jQuery('#tz_repin_img_delete, #tz_warp_hide').live("click",function(){
             jQuery(".tz_iframe").fadeIn();
             jQuery('#tz_repin_more_warp_form').fadeOut(50);
@@ -131,7 +124,6 @@ $add    ->  addStyleSheet('components/com_tz_pinboard/css/pinboard_more.css');
         });
 
         jQuery("#tz_repin_button").live("click",function(){ // start repin
-
             var Title = jQuery("#tz_repin_title").attr("value");
             var board = jQuery("#tz_repin_select").attr("value");
             if(Title ==""){
@@ -359,7 +351,7 @@ $add    ->  addStyleSheet('components/com_tz_pinboard/css/pinboard_more.css');
         });
         jQuery(".tz_like").live("click",function(){
             jQuery(".tz_like").css("display","none");
-            jQuery(".tz_unlike").css("display","block");
+            jQuery(".tz_unlike").css("display","inline-block");
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
                 type: 'post',
@@ -371,7 +363,7 @@ $add    ->  addStyleSheet('components/com_tz_pinboard/css/pinboard_more.css');
         });
 
         jQuery(".tz_unlike").live("click",function(){
-            jQuery(".tz_like").css("display","block");
+            jQuery(".tz_like").css("display","inline-block");
             jQuery(".tz_unlike").css("display","none");
             jQuery.ajax({
             url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.unlike',

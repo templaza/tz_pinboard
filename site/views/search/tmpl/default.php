@@ -66,19 +66,19 @@ defined("_JEXEC") or die;
         var ua = navigator.userAgent, // Check device
         event  = (ua.match(/iPad/i)) ? "touchstart" : "click";
 
-        jQuery('.tz-detail-hover').live("mouseenter",function(){  // hover detail
-            jQuery(".tz_detail_pl").css("display","block");
-        });
-        jQuery('.tz-detail-hover').live("mouseleave",function(){
-            jQuery(".tz_detail_pl").css("display","none");
-        }); //end hover
+//        jQuery('.tz-detail-hover').live("mouseenter",function(){  // hover detail
+//            jQuery(".tz_detail_pl").css("display","block");
+//        });
+//        jQuery('.tz-detail-hover').live("mouseleave",function(){
+//            jQuery(".tz_detail_pl").css("display","none");
+//        }); //end hover
 
-        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseenter",function(){ // hover thumbnail
-            jQuery(this).find('.tz_button_pins').css("display","block");
-        });
-        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseleave",function(){
-            jQuery(this).find('.tz_button_pins').css("display","none");
-        }); // end hover
+//        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseenter",function(){ // hover thumbnail
+//            jQuery(this).find('.tz_button_pins').css("display","block");
+//        });
+//        jQuery('.tz_pin_content_class .tz_hover_img').live("mouseleave",function(){
+//            jQuery(this).find('.tz_button_pins').css("display","none");
+//        }); // end hover
 
 
         jQuery('.tz_pin_content_class').live("mouseenter",function(){ // hover add class
@@ -106,7 +106,7 @@ defined("_JEXEC") or die;
         <?php if(isset($this->s_button) && $this->s_button==1){ ?>
             jQuery(".tz_like_l").live(event,function(){ // method like thumbnail
                 jQuery(".tz_like_l").css("display","none");
-                jQuery(".tz_unlike_u").css("display","block");
+                jQuery(".tz_unlike_u").css("display","inline-block");
                 jQuery(".Tz_plaza").addClass("Tz_l");
                 jQuery.ajax({
                     url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
@@ -127,7 +127,7 @@ defined("_JEXEC") or die;
             }); //end method click like
 
             jQuery(".tz_unlike_u").live(event,function(){ // method unlike thumbnail
-                jQuery(".tz_like_l").css("display","block");
+                jQuery(".tz_like_l").css("display","inline-block");
                 jQuery(".tz_unlike_u").css("display","none");
                 jQuery(".Tz_plaza").addClass("Tz_l");
                 jQuery.ajax({
@@ -150,9 +150,9 @@ defined("_JEXEC") or die;
 
         jQuery(".tz_like_d").live("click",function(){ // method like detail
             jQuery(".tz_like_d").css("display","none");
-            jQuery(".tz_unlike_d").css("display","block");
+            jQuery(".tz_unlike_d").css("display","inline-block");
             jQuery('.Tz_plazas').find(".tz_like").css("display","none");
-            jQuery('.Tz_plazas').find(".tz_unlike").css("display","block");
+            jQuery('.Tz_plazas').find(".tz_unlike").css("display","inline-block");
 
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.like',
@@ -168,10 +168,10 @@ defined("_JEXEC") or die;
         }); // end method like detail
 
         jQuery(".tz_unlike_d").live("click",function(){ // method unlike detail
-            jQuery(".tz_like_d").css("display","block");
+            jQuery(".tz_like_d").css("display","inline-block");
             jQuery(".tz_unlike_d").css("display","none");
             jQuery('.Tz_plazas').find(".tz_unlike").css("display","none");
-            jQuery('.Tz_plazas').find(".tz_like").css("display","block");
+            jQuery('.Tz_plazas').find(".tz_like").css("display","inline-block");
             jQuery.ajax({
                 url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz.pin.unlike',
                 type: 'post',
@@ -193,6 +193,7 @@ defined("_JEXEC") or die;
 
         });
         jQuery('.tz_repin').live(event,function(){ // method repin
+            jQuery(".tz_iframe").attr("src","");
             jQuery('#tz_more_content').fadeOut();
             jQuery.ajax({
             url: 'index.php?option=com_tz_pinboard&view=pinboard&task=tz_repin',
@@ -451,7 +452,7 @@ defined("_JEXEC") or die;
         <?php if(isset($this->type_detail) && $this->type_detail ==1){ ?>
             // jquery ajax detail
         jQuery('.tz_detail_pins, #tz_warp_hide').live("click",function(){ // click
-			jQuery(".tz_iframe").attr("src","");
+            jQuery(".tz_iframe").attr("src","");
             jQuery('#tz_repin_more_warp').fadeOut(400,function(){
                 jQuery('#tz_more_content').fadeOut(50);
                 jQuery("body").css("overflow-y","scroll");
@@ -459,13 +460,13 @@ defined("_JEXEC") or die;
 
         });
             //  show  detail pin
-            jQuery('.tz_more_pin').live("click",function(){
+            jQuery('.tz_more_pin, .TzIconVideo').live("click",function(){
                 jQuery(".Tz_plaza").addClass("Tz_plazas");
                 jQuery.ajax({
                     url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.detail.pins',
                     type: 'post',
                     data:{
-                        id_pins: jQuery(this).attr("data-option-id-img")
+                        id_pins: jQuery('.tz_more_pin').attr("data-option-id-img")
                     }
                 }).success(function(data){
                             jQuery("body").css("overflow-y","hidden");

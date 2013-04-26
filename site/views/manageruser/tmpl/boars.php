@@ -136,7 +136,7 @@ defined("_JEXEC") or die;
             var erro_name   =  document.getElementById("p_boardname");
             var inpCategory = jQuery('#category_board').val();
             var inpCate     = document.getElementById('p_create_decsipt');
-            if(inpName ==""){
+            if(inpName == ""){
                 erro_name.innerHTML="<?php echo JText::_('COM_TZ_PINBOARD_ADDPINBOARD_CHECK_TITLE'); ?>";
                 jQuery('#board_name').focus();
                 return false;

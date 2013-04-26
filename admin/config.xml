@@ -36,6 +36,15 @@
                <option value="1">JSHOW</option>
                <option value="0">JHIDE</option>
         </field>
+        <field name="tz_show_social"
+               type="list"
+               default="1"
+               label="COM_TZ_PINBOARD_CONFIG_SOCIAL"
+               class="btn-group"
+               description="COM_TZ_PINBOARD_CONFIG_SOCIAL_DS">
+            <option value="1">JSHOW</option>
+            <option value="0">JHIDE</option>
+        </field>
         <field type="list" name="tz_pinboard_layout"
                 label="COM_TZ_PINBOARD_CONFIG_LAYOUT"
                 default="default"

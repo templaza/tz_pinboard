@@ -98,26 +98,13 @@
     font-size: 11px;
 }
 
-
-.tz_button_repin span{
-    text-align: center;
-    padding-top: 5px;
-    display: block;
-    color: #666666;
-    font-size: 12px;
-   
-}
-
-/*.tz_pin_content_class:hover .tz_button_pins{*/
-    /*display: block;*/
-    /*cursor: pointer;*/
-/*}*/
 a:focus{
     outline: none !important;
       outline-offset: 0 !important;
 }
 .active{
     background: white;
+
 }
 
 
@@ -195,7 +182,9 @@ a:focus{
      border-left: none;
      border-radius: 0;
 }
-
+.tz_view_active{
+    display: none;
+}
 
 /**** Transitions ****/
 
