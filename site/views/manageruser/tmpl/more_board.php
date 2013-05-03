@@ -316,7 +316,7 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                     url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.detail.pins',
                     type: 'post',
                     data:{
-                        id_pins: jQuery('.tz_more_pin').attr("data-option-id-img")
+                        id_pins: jQuery(this).attr("data-option-id-img")
                     }
                 }).success(function(data){
                     jQuery("body").css("overflow-y","hidden");
@@ -665,7 +665,7 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                                 <img  data-option-id-img="<?php echo $Pins->content_id; ?>" <?php if($this->type_detail =='1'){ ?> class="tz_more_pin" <?php } ?> src="<?php echo JUri::root().'/'.$img_type_replaca ?>">
                             </a>
                             <?php if(isset($Pins->pz_video) && !empty($Pins->pz_video)){ ?>
-                                <span class="TzIconVideo"></span>
+                                <span class="TzIconVideo" data-option-id-img="<?php echo $Pins->content_id; ?>"></span>
                             <?php } ?>
                             <?php if(isset($this->title_thum) && $this->title_thum==1){ ?>
                                 <a <?php if($this->type_detail =='0'){ ?> href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($Pins->content_id)); ?>" <?php }  ?>  rel="nofollow">
