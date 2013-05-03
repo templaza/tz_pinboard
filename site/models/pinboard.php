@@ -1006,39 +1006,47 @@ class TZ_PinboardModelPinboard extends JModelList{
      * Method get data Activi
     */
     function getActive(){
-            $user       =     JFactory::getUser();
-            $id_user    =     $user->id;
-            $id_active      = $_POST['id'];
-            $id             = $this->getDataActive();
-            if(isset($id) && !empty($id)){
-                $limit      = count($id);
-                $id         = implode(',',$id);
-                $db         =     JFactory::getDbo();
-                if(is_numeric($id_active)==true){
-                    $where  =   "where  id_user in ($id,$id_user) and a.id > $id_active order by a.id ASC limit 0,1";
-                }else{
-                    $where  =   "where  id_user in ($id,$id_user)  order by a.id ASC limit 0,1";
-                }
-                $sql        =     "SELECT a.active as a_active, a.id as aid, a.type as a_type, a.target as a_target,
-                                              u.name as u_user, us.images as us_img, p.title as p_title
-                                         From   #__tz_pinboard_active as a
-                                                LEFT JOIN #__tz_pinboard_pins as p on a.target 	= p.id
-                                                LEFT JOIN #__users as u on a.id_user = u.id
-                                                LEFT JOIN #__tz_pinboard_users as us on u.id = us.usersid
-                                         $where";
-
-                $db         ->      setQuery($sql);
-                $row        =       $db -> loadObjectList();
-                foreach($row as $item){
-                    if($item->a_type=='follow'){
-                        $follow = $this->getFollowActive($item->a_target);
-                        $item->follow = $follow;
+            $user           =     JFactory::getUser();
+            $id_user        =     $user->id;
+            $id_active      =     $_POST['id'];
+            $id             =     $this->getDataActive();
+            if(isset($id_user)){
+                if(isset($id) && !empty($id)){
+                    $id         = implode(',',$id);
+                    if(is_numeric($id_active)==true){
+                        $where  =   "where  id_user in ($id,$id_user) and a.id > $id_active order by a.id ASC limit 0,1";
+                    }else{
+                        $where  =   "where  id_user in ($id,$id_user)  order by a.id ASC limit 0,1";
                     }
+                }else{
+                    if(is_numeric($id_active)==true){
+                        $where  =   "where  id_user = $id_user  and a.id > $id_active order by a.id ASC limit 0,1";
+                    }else{
+                        $where  =   "where  id_user = $id_user  order by a.id ASC limit 0,1";
+                    }
+
                 }
+                    $db         =     JFactory::getDbo();
 
-                return $row;
+                    $sql        =     "SELECT a.active as a_active, a.id as aid, a.type as a_type, a.target as a_target,
+                                                  u.name as u_user, us.images as us_img, p.title as p_title
+                                             From   #__tz_pinboard_active as a
+                                                    LEFT JOIN #__tz_pinboard_pins as p on a.target 	= p.id
+                                                    LEFT JOIN #__users as u on a.id_user = u.id
+                                                    LEFT JOIN #__tz_pinboard_users as us on u.id = us.usersid
+                                             $where";
 
-        }
+                    $db         ->      setQuery($sql);
+                    $row        =       $db -> loadObjectList();
+                    foreach($row as $item){
+                        if($item->a_type=='follow'){
+                            $follow = $this->getFollowActive($item->a_target);
+                            $item->follow = $follow;
+                        }
+                    }
+
+                    return $row;
+            }
     }
     function getFollowActive($id){
         $db         =     JFactory::getDbo();

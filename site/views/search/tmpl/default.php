@@ -466,7 +466,7 @@ defined("_JEXEC") or die;
                     url: 'index.php?option=com_tz_pinboard&view=detail&task=tz.detail.pins',
                     type: 'post',
                     data:{
-                        id_pins: jQuery('.tz_more_pin').attr("data-option-id-img")
+                        id_pins: jQuery(this).attr("data-option-id-img")
                     }
                 }).success(function(data){
                             jQuery("body").css("overflow-y","hidden");

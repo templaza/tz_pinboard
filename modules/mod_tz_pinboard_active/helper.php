@@ -44,29 +44,35 @@ defined('_JEXEC') or die;
         public static     function getActive($id,$limit){
             $user       =     JFactory::getUser();
             $id_user    =     $user->id;
-            if(isset($id) && !empty($id)){
-                $id         =     implode(',',$id);
-                $db         =     JFactory::getDbo();
-                $sql        =     "SELECT a.active as a_active, a.id as aid, a.type as a_type, a.target as a_target,
-                                          u.name as u_user, us.images as us_img, p.title as p_title
-                                     From   #__tz_pinboard_active as a
-                                            LEFT JOIN #__tz_pinboard_pins as p on a.target 	= p.id
-                                            LEFT JOIN #__users as u on a.id_user = u.id
-                                            LEFT JOIN #__tz_pinboard_users as us on u.id = us.usersid
-                                     where  id_user in ($id,$id_user)  order by a.id desc limit 0,$limit";
-                $db         ->      setQuery($sql);
-                $row        =       $db -> loadObjectList();
-                foreach($row as $item){
-                    if($item->a_type=='follow'){
-                            $sql = "select u.name as u_name
-                                    from #__tz_pinboard_pins as p left join #__users as u on p.created_by = u.id
-                                    where p.created_by = $item->a_target";
-                            $db         ->      setQuery($sql);
-                            $rows        =       $db -> loadObject();
-                            $item->follow = $rows->u_name;
-                    }
+            if(isset($id_user)){
+                if(isset($id) && !empty($id)){
+                 $id         =     implode(',',$id);
+                 $id_activi  =  "where  id_user in ($id,$id_user)  order by a.id desc limit 0,$limit";
+                }else{
+                    $id_activi  = "where  id_user = $id_user  order by a.id desc limit 0,$limit";
                 }
-                return $row;
+
+                    $db         =     JFactory::getDbo();
+                    $sql        =     "SELECT a.active as a_active, a.id as aid, a.type as a_type, a.target as a_target,
+                                              u.name as u_user, us.images as us_img, p.title as p_title
+                                         From   #__tz_pinboard_active as a
+                                                LEFT JOIN #__tz_pinboard_pins as p on a.target 	= p.id
+                                                LEFT JOIN #__users as u on a.id_user = u.id
+                                                LEFT JOIN #__tz_pinboard_users as us on u.id = us.usersid $id_activi ";
+
+                    $db         ->      setQuery($sql);
+                    $row        =       $db -> loadObjectList();
+                    foreach($row as $item){
+                        if($item->a_type=='follow'){
+                                $sql = "select u.name as u_name
+                                        from #__tz_pinboard_pins as p left join #__users as u on p.created_by = u.id
+                                        where p.created_by = $item->a_target";
+                                $db         ->      setQuery($sql);
+                                $rows        =       $db -> loadObject();
+                                $item->follow = $rows->u_name;
+                        }
+                    }
+                    return $row;
             }
         }
 
