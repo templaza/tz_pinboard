@@ -223,6 +223,17 @@ class com_tz_pinboardInstallerScript{
     }
 
     function UpdateSql(){
+			$db = JFactory::getDbo();
+			$query  = 'CREATE TABLE IF NOT EXISTS `#__tz_pinboard_active` (
+					`id` int( 11 ) NOT NULL AUTO_INCREMENT ,
+					`active` varchar(255) NULL ,
+					`target` int(255) NULL ,
+					`id_user` int(11) NULL ,
+					`type` varchar(255) NULL,
+					PRIMARY KEY ( `id` )
+					) ENGINE = MYISAM DEFAULT CHARSET = utf8;';
+			$db -> setQuery($query);
+			$db -> execute();
 //        $db     = &JFactory::getDbo();
 //        $arr    = null;
 //        $fields = $db -> getTableColumns('#__tz_pinboard_xref_content');
