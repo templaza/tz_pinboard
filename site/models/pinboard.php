@@ -331,7 +331,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         }
         if(isset($id_user) && !empty($id_user)){
             if(isset($check) AND !empty($check)){
-                $sql = "UPDATE alls_tz_pinboard_active SET `active` = 'l' WHERE target =$id_content AND id_user = $id_user";
+                $sql = "UPDATE #__tz_pinboard_active SET `active` = 'l' WHERE target =$id_content AND id_user = $id_user";
             }else if(empty($check)){
                 $sql = "INSERT INTO #__tz_pinboard_active  VALUES(NULL,'l','".$id_content."','".$id_user."','content') ";
             }
@@ -354,7 +354,7 @@ class TZ_PinboardModelPinboard extends JModelList{
         }
         if(isset($id_user) && !empty($id_user)){
             if(isset($check) AND !empty($check)){
-                $sql = "UPDATE alls_tz_pinboard_active SET `active` = 'ul' WHERE target =$id_content AND id_user = $id_user";
+                $sql = "UPDATE #__tz_pinboard_active SET `active` = 'ul' WHERE target =$id_content AND id_user = $id_user";
             }else if(empty($check)){
                 $sql = "INSERT INTO #__tz_pinboard_active  VALUES(NULL,'ul','".$id_content."','".$id_user."','content') ";
             }
