@@ -42,6 +42,8 @@ require_once JPATH_COMPONENT.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'
             else
                 echo JError::raiseError(500,'Invailid Class controller!');
 
+        jimport('joomla.filesystem.file');
+
         $controller->execute(JRequest::getCmd('task')); // chay task
         $controller->redirect(); // chen file controler vao
 ?>
