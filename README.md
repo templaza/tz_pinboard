@@ -12,6 +12,10 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
 
+07/31/2013  - 3.1.3
+
+	[bug] Fix with joomla 3.1.4
+	
 04/26/13  - 3.1.2
 
 	[feature] Add new module tz pinboard active
