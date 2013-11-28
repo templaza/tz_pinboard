@@ -22,6 +22,7 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modeladmin');
 jimport('joomla.filesystem.folder');
+jimport('joomla.filesystem.file');
 
 /**
  * User model.
