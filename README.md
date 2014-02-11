@@ -12,6 +12,10 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
 
+02/11/2013  - 3.1.4
+
+	[bug] Fix in admin with joomla 3.2.x
+
 07/31/2013  - 3.1.3
 
 	[bug] Fix with joomla 3.1.4
