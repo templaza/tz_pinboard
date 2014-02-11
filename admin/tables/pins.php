@@ -150,7 +150,7 @@ class TableTz_Pins extends JTable
     		// Bind the object with the row and return.
     		return $this->bind($row);
     	}
-    protected function _getAssetName()
+        protected function _getAssetName()
     	{
     		$k = $this->_tbl_key;
     		return 'com_tz_pinboard.article.' . (int) $this->$k;
@@ -482,8 +482,8 @@ class TableTz_Pins extends JTable
 
     		return true;
     	}
-    public function getKeyName()
-   	{
-   		return $this->_tbl_key;
-   	}
+//    public function getKeyName()
+//    {
+//        return $this->_tbl_key;
+//    }
 }
