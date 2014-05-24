@@ -23,15 +23,11 @@ defined('_JEXEC') or die;
 if (JFactory::getApplication()->isSite()) {
 	JRequest::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
 }
-
-//require_once JPATH_ROOT . '/components/com_tz_pinboard/helpers/route.php';
-
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('formbehavior.chosen', 'select');
 
 $function	= JRequest::getCmd('function', 'jSelectTag');
-//var_dump($function); die();
 $listOrder	= $this->order;
 $listDirn	= $this->order_Dir;
 ?>

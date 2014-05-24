@@ -90,30 +90,6 @@ class com_tz_pinboardInstallerScript{
         $cache      = 'cache';
         $src        = 'src';
 
-        if(!JFolder::exists($mediaFolderPath)){
-            JFolder::create($mediaFolderPath);
-        }
-        if(!JFile::exists($mediaFolderPath.'/index.html')){
-            JFile::write($mediaFolderPath.'/index.html',htmlspecialchars_decode('<!DOCTYPE html><title></title>'));
-        }
-        if(!JFolder::exists($mediaFolderPath.'/'.$article)){
-            JFolder::create($mediaFolderPath.'/'.$article);
-        }
-        if(!JFile::exists($mediaFolderPath.'/'.$article.'/'.'index.html')){
-            JFile::write($mediaFolderPath.'/'.$article.'/'.'index.html',htmlspecialchars_decode('<!DOCTYPE html><title></title>'));
-        }
-        if(!JFolder::exists($mediaFolderPath.'/'.$article.'/'.$cache)){
-            JFolder::create($mediaFolderPath.'/'.$article.'/'.$cache);
-        }
-        if(!JFile::exists($mediaFolderPath.'/'.$article.'/'.$cache.'/'.'index.html')){
-            JFile::write($mediaFolderPath.'/'.$article.'/'.$cache.'/'.'index.html',htmlspecialchars_decode('<!DOCTYPE html><title></title>'));
-        }
-        if(!JFolder::exists($mediaFolderPath.'/'.$article.'/'.$src)){
-            JFolder::create($mediaFolderPath.'/'.$article.'/'.$src);
-        }
-        if(!JFile::exists($mediaFolderPath.'/'.$article.'/'.$src.'/'.'index.html')){
-            JFile::write($mediaFolderPath.'/'.$article.'/'.$src.'/'.'index.html',htmlspecialchars_decode('<!DOCTYPE html><title></title>'));
-        }
         //Install plugins
         $status = new stdClass;
         $status->modules = array();
@@ -234,61 +210,7 @@ class com_tz_pinboardInstallerScript{
 					) ENGINE = MYISAM DEFAULT CHARSET = utf8;';
 			$db -> setQuery($query);
 			$db -> execute();
-//        $db     = &JFactory::getDbo();
-//        $arr    = null;
-//        $fields = $db -> getTableColumns('#__tz_pinboard_xref_content');
-//        if(!array_key_exists('gallery',$fields)){
-//            $arr[]  = 'ADD `gallery` TEXT NOT NULL';
-//        }
-//        if(!array_key_exists('gallerytitle',$fields)){
-//            $arr[]  = 'ADD `gallerytitle` TEXT NOT NULL';
-//        }
-//        if(!array_key_exists('video',$fields)){
-//            $arr[]  = 'ADD `video` TEXT NOT NULL';
-//        }
-//        if(!array_key_exists('videotitle',$fields)){
-//            $arr[]  = 'ADD `videotitle` TEXT NOT NULL';
-//        }
-//        if(!array_key_exists('type',$fields)){
-//            $arr[]  = 'ADD `type` VARCHAR(25)';
-//        }
-//        if(!array_key_exists('videothumb',$fields)){
-//            $arr[]  = 'ADD `videothumb` TEXT';
-//        }
-//        if(!array_key_exists('images_hover',$fields)){
-//            $arr[]  = 'ADD `images_hover` TEXT';
-//        }
-//        if($arr && count($arr)>0){
-//            $arr    = implode(',',$arr);
-//            if($arr){
-//                $query  = 'ALTER TABLE `#__tz_pinboard_xref_content` '.$arr;
-//                $db -> setQuery($query);
-//                $db -> query();
-//            }
-//        }
-//
-//        //TZ Categories
-//        $fields = $db -> getTableColumns('#__tz_pinboard_categories');
-//        if(!array_key_exists('images',$fields)){
-//            $query  = 'ALTER TABLE `#__tz_pinboard_categories` ADD `images` TEXT NOT NULL';
-//            $db -> setQuery($query);
-//            $db -> query();
-//        }
-//
-//        // extra fields
-//        $arr    = null;
-//        $fields = $db -> getTableColumns('#__tz_pinboard_fields');
-//        if(!array_key_exists('default_value',$fields)){
-//            $arr[]  = 'ADD `default_value` TEXT NOT NULL';
-//        }
-//        if($arr && count($arr)>0){
-//            $arr    = implode(',',$arr);
-//            if($arr){
-//                $query  = 'ALTER TABLE `#__tz_pinboard_fields` '.$arr;
-//                $db -> setQuery($query);
-//                $db -> query();
-//            }
-//        }
+
     }
 
     public function installationResult($status){

@@ -20,22 +20,22 @@
 //no direct access
 defined('_JEXEC') or die('Restricted access');
 JHtml::_('formbehavior.chosen', 'select');
-$published  = $this -> listEdit -> published ==1?'P':'U';
+$published = $this->listEdit->published == 1 ? 'P' : 'U';
 ?>
 <script type="text/javascript ">
-    Joomla.submitbutton = function(pressbutton) {
+    Joomla.submitbutton = function (pressbutton) {
         var form = document.adminForm;
         if (pressbutton == 'cancel') {
-            submitform( pressbutton );
+            submitform(pressbutton);
             return;
         }
 
         // do field validation
-        if ( form.name.value == "" ) {
-            alert( "<?php echo JText::_( 'COM_TZ_PINBOARD_INPUT_TAGS_NAME', true ); ?>" );
+        if (form.name.value == "") {
+            alert("<?php echo JText::_( 'COM_TZ_PINBOARD_INPUT_TAGS_NAME', true ); ?>");
             form.name.focus();
         } else {
-            submitform( pressbutton);
+            submitform(pressbutton);
         }
     }
 </script>
@@ -44,48 +44,49 @@ $published  = $this -> listEdit -> published ==1?'P':'U';
     <!-- Begin Content -->
     <div class="span12 form-horizontal">
         <fieldset class="adminForm">
-            <legend><?php echo JText::_('COM_TZ_PINBOARD_FIELDSET_DETAILS');?></legend>
+            <legend><?php echo JText::_('COM_TZ_PINBOARD_FIELDSET_DETAILS'); ?></legend>
             <div class="control-group">
                 <div class="control-label">
                     <label width="100" for="name">
-                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_NAME')?><span class="star"> *</span>
+                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_NAME') ?><span class="star"> *</span>
                     </label>
                 </div>
                 <div class="controls">
-                    <input type="text" title="" maxlength="50" size="50" value="<?php echo $this -> listEdit -> name;?>"
+                    <input type="text" title="" maxlength="50" size="50" value="<?php echo $this->listEdit->name; ?>"
                            id="name" name="name"/>
                 </div>
             </div>
             <div class="control-group">
                 <div class="control-label">
                     <label width="100" for="published">
-                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_PUBLISHED')?>
+                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_PUBLISHED') ?>
                     </label>
                 </div>
                 <div class="controls">
                     <?php
-                        $state = array('' => JText::_('JOPTION_SELECT_PUBLISHED'), 'P' => JText::_('JPUBLISHED'), 'U' => JText::_('JUNPUBLISHED'));
-                        echo JHtml::_('select.genericlist',$state,'published','','value','text',$published);
+                    $state = array('' => JText::_('JOPTION_SELECT_PUBLISHED'), 'P' => JText::_('JPUBLISHED'), 'U' => JText::_('JUNPUBLISHED'));
+                    echo JHtml::_('select.genericlist', $state, 'published', '', 'value', 'text', $published);
                     ?>
                 </div>
             </div>
             <div class="control-group">
                 <div class="control-label">
                     <label width="100" for="description">
-                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_DESCRIPTION');?>
+                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_DESCRIPTION'); ?>
                     </label>
                 </div>
                 <div class="controls">
-                    <?php echo $this -> editor -> display('description',htmlspecialchars_decode($this -> listEdit -> description),'100%', '300', '60', '20', array('pagebreak', 'readmore'));?>
+                    <?php echo $this->editor->display('description', htmlspecialchars_decode($this->listEdit->description), '100%', '300', '60', '20', array('pagebreak', 'readmore')); ?>
                 </div>
             </div>
 
         </fieldset>
         <?php ?>
         <input type="hidden" value="com_tz_pinboard" name="option">
-        <input type="hidden" value="<?php $cid=JRequest::getInt('id'); echo $cid;?>" name="id">
+        <input type="hidden" value="<?php $cid = JRequest::getInt('id');
+        echo $cid; ?>" name="id">
         <input type="hidden" value="" name="task">
-        <?php echo JHTML::_('form.token');?>
+        <?php echo JHTML::_('form.token'); ?>
     </div>
     <!-- End Content -->
 </form>

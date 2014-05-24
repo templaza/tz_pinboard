@@ -63,21 +63,16 @@ defined("_JEXEC") or die;
                     </div>
                     <div class="tz_pin_url_input">
                         <select name="board" id="tz_pin_url_select">
-                        <?php
-                        if(isset($bord) && !empty($bord)){
+						<option value=""><?php echo JText::_('MOD_TZ_PINBOARD_SELECT_CATEGORY') ?></option>
+                        <?php                        
                             foreach($bord as $row){
                             ?>
                                 <option value="<?php echo $row->id ?>">
                                     <?php echo $row->title; ?>
                                 </option>
                             <?php
-                            }
-                            }else{
-                            ?>
-                            <option value=""></option>
-                            <?php
-                            }
-                            ?>
+                            }                          
+                            ?>                          
                         </select>
 
                     </div>

@@ -24,175 +24,172 @@ jimport('joomla.application.component.controllerform');
 
 class TZ_PinboardControllerArticle extends JControllerForm
 {
-	/**
-	 * Class constructor.
-	 *
-	 * @param   array  $config  A named array of configuration variables.
-	 *
-	 * @since	1.6
-	 */
-	function __construct($config = array())
-	{
-        JFactory::getLanguage() -> load('com_content');
-		// An article edit form can come from the articles or featured view.
-		// Adjust the redirect view on the value of 'return' in the request.
-		if (JRequest::getCmd('return') == 'featured')
-		{
-			$this->view_list = 'featured';
-			$this->view_item = 'article&return=featured';
-		}
+    /**
+     * Class constructor.
+     *
+     * @param   array $config A named array of configuration variables.
+     *
+     * @since    1.6
+     */
+    function __construct($config = array())
+    {
+        JFactory::getLanguage()->load('com_content');
+        // An article edit form can come from the articles or featured view.
+        // Adjust the redirect view on the value of 'return' in the request.
+        if (JRequest::getCmd('return') == 'featured') {
+            $this->view_list = 'featured';
+            $this->view_item = 'article&return=featured';
+        }
 
-		parent::__construct($config);
-	}
+        parent::__construct($config);
+    }
 
-     function website(){
-         $task = JRequest::getString('task');
-         $model = $this->getModel('Article');
-         $data = $model->ajaxUrlImg();
-         echo $data;
-         die();
-     }
-    public function extrafields(){
-        $model      = $this -> getModel('Article','TZ_PinboardModel');
-        $data       = $model -> extrafields();
+    function website()
+    {
+        $task = JRequest::getString('task');
+        $model = $this->getModel('Article');
+        $data = $model->ajaxUrlImg();
         echo $data;
         die();
     }
 
-    function deleteAttachment(){
-        $model  = $this -> getModel('Article');
-        $model -> deleteAttachment();
+    public function extrafields()
+    {
+        $model = $this->getModel('Article', 'TZ_PinboardModel');
+        $data = $model->extrafields();
+        echo $data;
+        die();
+    }
+
+    function deleteAttachment()
+    {
+        $model = $this->getModel('Article');
+        $model->deleteAttachment();
         //echo $data;
         die();
     }
 
-    function selectgroup(){
-        $model  = $this -> getModel('Article');
-        $data   = $model -> selectgroup();
+    function selectgroup()
+    {
+        $model = $this->getModel('Article');
+        $data = $model->selectgroup();
         echo $data;
         die();
     }
 
-    function getThumb(){
-        $model  = $this -> getModel('Article');
-        $data   = $model -> getThumb();
+    function getThumb()
+    {
+        $model = $this->getModel('Article');
+        $data = $model->getThumb();
         echo $data;
         die();
     }
 
-    function  listsfields(){
-        $model  = $this -> getModel('Article');
-        $data = $model -> listsfields();
+    function  listsfields()
+    {
+        $model = $this->getModel('Article');
+        $data = $model->listsfields();
         echo $data;
         die();
     }
 
-	/**
-	 * Method override to check if you can add a new record.
-	 *
-	 * @param   array  $data  An array of input data.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.6
-	 */
-	protected function allowAdd($data = array())
-	{
-		// Initialise variables.
-		$user = JFactory::getUser();
-		$categoryId = JArrayHelper::getValue($data, 'catid', JRequest::getInt('filter_category_id'), 'int');
-		$allow = null;
+    /**
+     * Method override to check if you can add a new record.
+     *
+     * @param   array $data An array of input data.
+     *
+     * @return  boolean
+     *
+     * @since   1.6
+     */
+    protected function allowAdd($data = array())
+    {
+        // Initialise variables.
+        $user = JFactory::getUser();
+        $categoryId = JArrayHelper::getValue($data, 'catid', JRequest::getInt('filter_category_id'), 'int');
+        $allow = null;
 
-		if ($categoryId)
-		{
-			// If the category has been passed in the data or URL check it.
-			$allow = $user->authorise('core.create', 'com_tz_pinboard.category.' . $categoryId);
-		}
+        if ($categoryId) {
+            // If the category has been passed in the data or URL check it.
+            $allow = $user->authorise('core.create', 'com_tz_pinboard.category.' . $categoryId);
+        }
 
-		if ($allow === null)
-		{
-			// In the absense of better information, revert to the component permissions.
-			return parent::allowAdd();
-		}
-		else
-		{
-			return $allow;
-		}
-	}
+        if ($allow === null) {
+            // In the absense of better information, revert to the component permissions.
+            return parent::allowAdd();
+        } else {
+            return $allow;
+        }
+    }
 
-	/**
-	 * Method override to check if you can edit an existing record.
-	 *
-	 * @param   array   $data  An array of input data.
-	 * @param   string  $key   The name of the key for the primary key.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.6
-	 */
-	protected function allowEdit($data = array(), $key = 'id')
-	{
-		// Initialise variables.
-		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
-		$user = JFactory::getUser();
-		$userId = $user->get('id');
+    /**
+     * Method override to check if you can edit an existing record.
+     *
+     * @param   array $data An array of input data.
+     * @param   string $key The name of the key for the primary key.
+     *
+     * @return  boolean
+     *
+     * @since   1.6
+     */
+    protected function allowEdit($data = array(), $key = 'id')
+    {
+        // Initialise variables.
+        $recordId = (int)isset($data[$key]) ? $data[$key] : 0;
+        $user = JFactory::getUser();
+        $userId = $user->get('id');
 
-		// Check general edit permission first.
-		if ($user->authorise('core.edit', 'com_tz_pinboard.article.' . $recordId))
-		{
-			return true;
-		}
+        // Check general edit permission first.
+        if ($user->authorise('core.edit', 'com_tz_pinboard.article.' . $recordId)) {
+            return true;
+        }
 
-		// Fallback on edit.own.
-		// First test if the permission is available.
-		if ($user->authorise('core.edit.own', 'com_tz_pinboard.article.' . $recordId))
-		{
-			// Now test the owner is the user.
-			$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
-			if (empty($ownerId) && $recordId)
-			{
-				// Need to do a lookup from the model.
-				$record = $this->getModel()->getItem($recordId);
+        // Fallback on edit.own.
+        // First test if the permission is available.
+        if ($user->authorise('core.edit.own', 'com_tz_pinboard.article.' . $recordId)) {
+            // Now test the owner is the user.
+            $ownerId = (int)isset($data['created_by']) ? $data['created_by'] : 0;
+            if (empty($ownerId) && $recordId) {
+                // Need to do a lookup from the model.
+                $record = $this->getModel()->getItem($recordId);
 
-				if (empty($record))
-				{
-					return false;
-				}
+                if (empty($record)) {
+                    return false;
+                }
 
-				$ownerId = $record->created_by;
-			}
+                $ownerId = $record->created_by;
+            }
 
-			// If the owner matches 'me' then do the test.
-			if ($ownerId == $userId)
-			{
-				return true;
-			}
-		}
+            // If the owner matches 'me' then do the test.
+            if ($ownerId == $userId) {
+                return true;
+            }
+        }
 
-		// Since there is no asset tracking, revert to the component permissions.
-		return parent::allowEdit($data, $key);
-	}
+        // Since there is no asset tracking, revert to the component permissions.
+        return parent::allowEdit($data, $key);
+    }
 
-	/**
-	 * Method to run batch operations.
-	 *
-	 * @param   object  $model  The model.
-	 *
-	 * @return  boolean	 True if successful, false otherwise and internal error is set.
-	 *
-	 * @since   1.6
-	 */
-	public function batch($model = null)
-	{
-		JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+    /**
+     * Method to run batch operations.
+     *
+     * @param   object $model The model.
+     *
+     * @return  boolean     True if successful, false otherwise and internal error is set.
+     *
+     * @since   1.6
+     */
+    public function batch($model = null)
+    {
+        JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		// Set the model
-		$model = $this->getModel('Article', '', array());
+        // Set the model
+        $model = $this->getModel('Article', '', array());
 
-		// Preset the redirect
-		$this->setRedirect(JRoute::_('index.php?option=com_tz_pinboard&view=articles' . $this->getRedirectToListAppend(), false));
+        // Preset the redirect
+        $this->setRedirect(JRoute::_('index.php?option=com_tz_pinboard&view=articles' . $this->getRedirectToListAppend(), false));
 
-		return parent::batch($model);
-	}
+        return parent::batch($model);
+    }
 
 }

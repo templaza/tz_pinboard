@@ -23,19 +23,19 @@ JHtml::_('formbehavior.chosen', 'select');
 
 ?>
 <script type="text/javascript ">
-    Joomla.submitbutton = function(pressbutton) {
+    Joomla.submitbutton = function (pressbutton) {
         var form = document.adminForm;
         if (pressbutton == 'cancel') {
-            submitform( pressbutton );
+            submitform(pressbutton);
             return;
         }
 
         // do field validation
-        if ( form.name.value == "" ) {
-            alert( "<?php echo JText::_('COM_TZ_PINBOARD_INPUT_TAGS_NAME'); ?>" );
+        if (form.name.value == "") {
+            alert("<?php echo JText::_('COM_TZ_PINBOARD_INPUT_TAGS_NAME'); ?>");
             form.name.focus();
         } else {
-            submitform( pressbutton);
+            submitform(pressbutton);
         }
     }
 </script>
@@ -43,11 +43,11 @@ JHtml::_('formbehavior.chosen', 'select');
     <!-- Begin Content -->
     <div class="span12 form-horizontal">
         <fieldset class="adminForm">
-            <legend><?php echo JText::_('COM_TZ_PINBOARD_FIELDSET_DETAILS');?></legend>
+            <legend><?php echo JText::_('COM_TZ_PINBOARD_FIELDSET_DETAILS'); ?></legend>
             <div class="control-group">
                 <div class="control-label">
                     <label width="100" for="name">
-                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_NAME')?>
+                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_NAME') ?>
                         <span class="star"> *</span>
                     </label>
                 </div>
@@ -58,24 +58,24 @@ JHtml::_('formbehavior.chosen', 'select');
             <div class="control-group">
                 <div class="control-label">
                     <label width="100" for="published">
-                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_PUBLISHED')?>
+                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_PUBLISHED') ?>
                     </label>
                 </div>
                 <div class="controls">
                     <?php
-                        $state = array('' => JText::_('JOPTION_SELECT_PUBLISHED'), 'P' => JText::_('JPUBLISHED'), 'U' => JText::_('JUNPUBLISHED'));
-                        echo JHtml::_('select.genericlist',$state,'published','','value','text','P');
+                    $state = array('' => JText::_('JOPTION_SELECT_PUBLISHED'), 'P' => JText::_('JPUBLISHED'), 'U' => JText::_('JUNPUBLISHED'));
+                    echo JHtml::_('select.genericlist', $state, 'published', '', 'value', 'text', 'P');
                     ?>
                 </div>
             </div>
             <div class="control-group">
                 <div class="control-label">
                     <label width="100" for="description">
-                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_DESCRIPTION');?>
+                        <?php echo JText::_('COM_TZ_PINBOARD_TAG_DESCRIPTION'); ?>
                     </label>
                 </div>
                 <div class="controls">
-                    <?php echo $this -> editor -> display('description','','100%', '300', '60', '20', array('pagebreak', 'readmore'));?>
+                    <?php echo $this->editor->display('description', '', '100%', '300', '60', '20', array('pagebreak', 'readmore')); ?>
                 </div>
             </div>
 
@@ -83,7 +83,7 @@ JHtml::_('formbehavior.chosen', 'select');
         <input type="hidden" value="com_tz_pinboard" name="option">
         <input type="hidden" value="" name="cid[]">
         <input type="hidden" value="" name="task">
-        <?php echo JHTML::_('form.token');?>
+        <?php echo JHTML::_('form.token'); ?>
     </div>
     <!-- End Content -->
 </form>

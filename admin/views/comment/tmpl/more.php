@@ -17,13 +17,13 @@
 
 -------------------------------------------------------------------------*/
 defined("_JEXEC") or die;
-    $document   =   &JFactory::getDocument();
- $document->addStyleSheet('components/com_tz_pinboard/css/tz_pinboard.css');
+$document = JFactory::getDocument();
+$document->addStyleSheet('components/com_tz_pinboard/css/tz_pinboard.css');
 
 ?>
 
 <div id="tz_pinboard">
-    <form action="index.php?option=com_tz_pinboard" method="post"  name="adminForm" id="adminForm">
+    <form action="index.php?option=com_tz_pinboard" method="post" name="adminForm" id="adminForm">
         <div id="tz_pinboard_top">
             <ul>
                 <li class="tz_pinboard_top_li_left">
@@ -35,7 +35,7 @@ defined("_JEXEC") or die;
                    <span>
                       <?php echo $this->More->cm_id; ?>
                    </span>
-               </li>
+                </li>
                 <div class="cler"></div>
                 <li class="tz_pinboard_top_li_left">
                     <span>
@@ -52,10 +52,10 @@ defined("_JEXEC") or die;
                    <span>
                        <?php echo JText::_('COM_TZ_PINBOARD_COMMENT_MORE_DATE'); ?>
                    </span>
-               </li>
-               <li class="tz_pinboard_top_li_right">
-                   <?php echo $this->More->cm_date; ?>
-               </li>
+                </li>
+                <li class="tz_pinboard_top_li_right">
+                    <?php echo $this->More->cm_date; ?>
+                </li>
                 <div class="cler"></div>
                 <li class="tz_pinboard_top_li_left">
                     <span>
@@ -72,68 +72,68 @@ defined("_JEXEC") or die;
                    <span>
                        <?php echo JText::_('COM_TZ_PINBOARD_COMMENT_MORE_IP'); ?>
                    </span>
-               </li>
-               <li class="tz_pinboard_top_li_right">
+                </li>
+                <li class="tz_pinboard_top_li_right">
                    <span class="tz_pinboard_top_li_right">
                        <?php echo $this->More->cm_ip; ?>
                    </span>
-               </li>
+                </li>
                 <li class="tz_pinboard_top_li_left">
                    <span>
                        <?php echo JText::_('COM_TZ_PINBOARD_COMMENT_MORE_STATE_IP'); ?>
                    </span>
-               </li>
-               <li class="tz_pinboard_top_li_right">
+                </li>
+                <li class="tz_pinboard_top_li_right">
                    <span class="tz_pinboard_top_li_right">
                        <?php
-                             if(isset($this->More->cm_state) && $this->More->cm_state==1){
-                               echo JText::_('COM_TZ_PINBOARD_COMMENT_PUBLISH');
-                             }else{
-                               echo JText::_('COM_TZ_PINBOARD_COMMENT_UNPUBLISH');
-                             }
+                       if (isset($this->More->cm_state) && $this->More->cm_state == 1) {
+                           echo JText::_('COM_TZ_PINBOARD_COMMENT_PUBLISH');
+                       } else {
+                           echo JText::_('COM_TZ_PINBOARD_COMMENT_UNPUBLISH');
+                       }
                        ?>
                    </span>
-               </li>
-               <div class="cler"></div>
+                </li>
+                <div class="cler"></div>
                 <div class="cler"></div>
                 <li class="tz_pinboard_top_li_left">
                      <span>
                          <?php echo JText::_('COM_TZ_PINBOARD_COMMENT_MORE_STATE'); ?>
                      </span>
-                 </li>
-                 <li class="tz_pinboard_top_li_right">
+                </li>
+                <li class="tz_pinboard_top_li_right">
                      <span class="tz_pinboard_top_li_right">
                          <?php
-                               if(isset($this->More->cm_state) && $this->More->cm_state==1){
-                                 echo JText::_('COM_TZ_PINBOARD_COMMENT_PUBLISH');
-                               }else{
-                                 echo JText::_('COM_TZ_PINBOARD_COMMENT_UNPUBLISH');
-                               }
+                         if (isset($this->More->cm_state) && $this->More->cm_state == 1) {
+                             echo JText::_('COM_TZ_PINBOARD_COMMENT_PUBLISH');
+                         } else {
+                             echo JText::_('COM_TZ_PINBOARD_COMMENT_UNPUBLISH');
+                         }
                          ?>
                      </span>
-                 </li>
-                 <div class="cler"></div>
+                </li>
+                <div class="cler"></div>
             </ul>
         </div>
-    <div class="cler"></div>
-    <div id="tz_pinboar_bottom">
-        <ul>
+        <div class="cler"></div>
+        <div id="tz_pinboar_bottom">
+            <ul>
 
-            <li>
+                <li>
                 <span>
                     <?php echo JText::_('COM_TZ_PINBOARD_COMMENT_MORE_CONTENT_PINS'); ?>
                 </span>
 
-                <p>
-                    <?php echo $this->More->cm_content; ?>
-                </p>
-            </li>
+                    <p>
+                        <?php echo $this->More->cm_content; ?>
+                    </p>
+                </li>
 
-        </ul>
-    </div>
+            </ul>
+        </div>
         <input type="hidden" name="option" value="com_tz_pinboard">
-                         <input type="hidden" name="view" value="comment">
-                         <input type="hidden" name="task" value="">
-                         <input type="hidden" name="boxchecked" value="0">
+        <input type="hidden" name="view" value="comment">
+        <input type="hidden" name="task" value="">
+        <input type="hidden" name="boxchecked" value="0">
     </form>
 </div>

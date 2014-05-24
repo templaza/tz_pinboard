@@ -18,8 +18,12 @@
         <folder>css</folder>
         <folder>images</folder>
     </files>
-    <languages>
-   		<language tag="en-GB">en-GB.mod_tz_pinboard_search.ini</language>
-   		<language tag="en-GB">en-GB.mod_tz_pinboard_search.sys.ini</language>
+    <languages folder="languages">
+   		<language tag="en-GB">en-GB/en-GB.mod_tz_pinboard_search.ini</language>
+   		<language tag="en-GB">en-GB/en-GB.mod_tz_pinboard_search.sys.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.mod_tz_pinboard_search.ini</language>
+   		<language tag="ru-RU">ru-RU/ru-RU.mod_tz_pinboard_search.sys.ini</language>
+		<language tag="es-ES">es-ES/es-ES.mod_tz_pinboard_search.ini</language>
+   		<language tag="es-ES">es-ES/es-ES.mod_tz_pinboard_search.sys.ini</language>
    	</languages>
 </extension>

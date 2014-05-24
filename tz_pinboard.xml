@@ -7,7 +7,7 @@
 	<license>GNU/GPL v2 or later http://www.gnu.org/licenses/gpl-2.0.html</license>
 	<authorEmail>tunn@templaza.com</authorEmail>
 	<authorUrl>www.templaza.com/</authorUrl>
-	<version>3.1.4</version>
+	<version>3.3</version>
 	<description>TZ Pinboard native for Joomla! 3.0.x</description>
     <installfile>install.tz_pinboard.php</installfile>
     <uninstallfile>uninstall.tz_pinboard.php</uninstallfile>
@@ -37,8 +37,10 @@
          <filename>router.php</filename>
          <filename>index.html</filename>
      </files>
-    <languages folder="site/language/en-GB">
-          <language tag="en-GB">en-GB.com_tz_pinboard.ini</language>
+    <languages folder="site/language">
+          <language tag="en-GB">en-GB/en-GB.com_tz_pinboard.ini</language>
+		  <language tag="ru-RU">ru-RU/ru-RU.com_tz_pinboard.ini</language>
+		  <language tag="es-ES">es-ES/es-ES.com_tz_pinboard.ini</language>
       </languages>
 
 	<administration>
@@ -69,9 +71,13 @@
             <menu link="option=com_tz_pinboard&amp;view=tags">TAGS</menu>
             <menu link="option=com_tz_pinboard&amp;view=users">USERS</menu>
         </submenu>
-        <languages folder="admin/language/en-GB">
-            <language tag="en-GB">en-GB.com_tz_pinboard.ini</language>
-            <language tag="en-GB">en-GB.com_tz_pinboard.sys.ini</language>
+        <languages folder="admin/language">
+            <language tag="en-GB">en-GB/en-GB.com_tz_pinboard.ini</language>
+            <language tag="en-GB">en-GB/en-GB.com_tz_pinboard.sys.ini</language>
+			<language tag="ru-RU">ru-RU/ru-RU.com_tz_pinboard.ini</language>
+            <language tag="ru-RU">ru-RU/ru-RU.com_tz_pinboard.sys.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_tz_pinboard.ini</language>
+            <language tag="es-ES">es-ES/es-ES.com_tz_pinboard.sys.ini</language>
         </languages>
  	</administration>
     <config>
@@ -135,9 +141,8 @@
 			<field name="page_commnet" default="5"/>
             <field name="page_commnet_detail" default="5" />
             <field name="show_date_comment" default="1" />
-			<field name="remove_comment" default="sex"/>
-			<field name="changecomment" default="..."/>
-
+			<field name="remove_comment" default=""/>
+			<field name="changecomment" default=""/>
 		</fields>
     </config>
     <modules>
@@ -148,10 +153,5 @@
     <plugins>
         <plugin plugin="tz_pinboard" group="system" />
         <plugin plugin="tz_pinboard" group="user" />
-    </plugins>
-    
-
-
-
-
+    </plugins>   
 </extension>

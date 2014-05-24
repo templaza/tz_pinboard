@@ -409,3 +409,6 @@
     float: left;
     margin-left: 5px;
 }
+.TwitterButton,.GooglePlusOneButton,.FacebookButton,.PinterestButton ,.LinkedinButton{
+    display: inline-block;
+}

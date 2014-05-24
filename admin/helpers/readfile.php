@@ -26,12 +26,13 @@ defined('_JEXEC') or die('Restricted access');
  *
  */
 
-class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
+class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher
+{
     function get($url, $extra_headers = null)
     {
         if (!$this->allowedURL($url)) {
             trigger_error("Bad URL scheme in url: " . $url,
-                          E_USER_WARNING);
+                E_USER_WARNING);
             return null;
         }
 
@@ -55,9 +56,9 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
                     $parts['port'] = 443;
                 } else {
                     trigger_error("fetcher post method doesn't support " .
-                                  " scheme '" . $parts['scheme'] .
-                                  "', no default port available",
-                                  E_USER_WARNING);
+                        " scheme '" . $parts['scheme'] .
+                        "', no default port available",
+                        E_USER_WARNING);
                     return null;
                 }
             }
@@ -71,14 +72,14 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
             $user_agent = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.6) Gecko/2009020911 Ubuntu/8.04 (hardy) Firefox/3.0.6 FirePHP/0.2.4";
 
             $headers = array(
-                             "GET ".$parts['path'].
-                             (array_key_exists('query', $parts) ?
-                              "?".$parts['query'] : "").
-                                 " HTTP/1.0",
-                             "User-Agent: $user_agent",
-                             "Host: ".$parts['host'].
-                                ($specify_port ? ":".$parts['port'] : ""),
-                             "Port: ".$parts['port']);
+                "GET " . $parts['path'] .
+                (array_key_exists('query', $parts) ?
+                    "?" . $parts['query'] : "") .
+                " HTTP/1.0",
+                "User-Agent: $user_agent",
+                "Host: " . $parts['host'] .
+                ($specify_port ? ":" . $parts['port'] : ""),
+                "Port: " . $parts['port']);
 
             $errno = 0;
             $errstr = '';
@@ -90,7 +91,7 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
             }
 
             @$sock = fsockopen($host, $parts['port'], $errno, $errstr,
-                               $this->timeout);
+                $this->timeout);
             if ($sock === false) {
                 return false;
             }
@@ -140,7 +141,7 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
     {
         if (!$this->allowedURL($url)) {
             trigger_error("Bad URL scheme in url: " . $url,
-                          E_USER_WARNING);
+                E_USER_WARNING);
             return null;
         }
 
@@ -153,13 +154,14 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
             $post_path .= '?' . $parts['query'];
         }
 
-        $headers[] = "POST ".$post_path." HTTP/1.0";
+        $headers[] = "POST " . $post_path . " HTTP/1.0";
         $headers[] = "Host: " . $parts['host'];
         $headers[] = "Content-type: application/x-www-form-urlencoded";
         $headers[] = "Content-length: " . strval(strlen($body));
 
         if ($extra_headers &&
-            is_array($extra_headers)) {
+            is_array($extra_headers)
+        ) {
             $headers = array_merge($headers, $extra_headers);
         }
 
@@ -177,9 +179,9 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
                 $parts['port'] = 443;
             } else {
                 trigger_error("fetcher post method doesn't support scheme '" .
-                              $parts['scheme'] .
-                              "', no default port available",
-                              E_USER_WARNING);
+                    $parts['scheme'] .
+                    "', no default port available",
+                    E_USER_WARNING);
                 return null;
             }
         }
@@ -193,12 +195,12 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
         $errstr = '';
 
         $sock = fsockopen($parts['host'], $parts['port'], $errno, $errstr,
-                          $this->timeout);
+            $this->timeout);
 
         if ($sock === false) {
             trigger_error("Could not connect to " . $parts['host'] .
-                          " port " . $parts['port'],
-                          E_USER_WARNING);
+                " port " . $parts['port'],
+                E_USER_WARNING);
             return null;
         }
 
@@ -239,6 +241,6 @@ class Services_Yadis_PlainHTTPFetcher extends Services_Yadis_HTTPFetcher {
         }
 
         return new Services_Yadis_HTTPResponse($url, $code,
-                                               $headers, $response_body);
+            $headers, $response_body);
     }
 }
