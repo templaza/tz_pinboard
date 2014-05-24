@@ -168,7 +168,11 @@ defined("_JEXEC") or die;
 
                                 $img_size = $this->img_size;
                                 $img_type = JFile::getExt($followes->follow[$i]->tzimgaes);
-                                $img_type_replaca = str_replace(".$img_type","_$img_size.$img_type",$followes->follow[$i]->tzimgaes);
+                                    if ($img_type == 'gif') {
+                                        $img_type_replaca = $followes->follow[$i]->tzimgaes;
+                                    } else {
+                                        $img_type_replaca = str_replace(".$img_type", "_$img_size.$img_type", $followes->follow[$i]->tzimgaes);
+                                    }
                              ?>
                             <a class="tz_pin_following_button_a" href="<?php echo JRoute::_('index.php?option=com_tz_pinboard&view=manageruser&task=tz.more.board&id_guest='.$followes->follow[$i]->cid.'&id_board='.$followes->follow[$i]->bordid); ?>" rel="nofollow">
                                 <img class="tz_pin_following_left_img"  src="<?php echo JUri::root().'/'.$img_type_replaca ?>"  >

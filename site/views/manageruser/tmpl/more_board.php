@@ -658,7 +658,12 @@ $doc    -> addCustomTag('<script type="text/javascript" src="components/com_tz_p
                         <?php
                             $img_size         =     $this->img_size;
                             $img_type         =     JFile::getExt($Pins->poro_img);
-                            $img_type_replaca =     str_replace(".$img_type","_$img_size.$img_type",$Pins->poro_img);
+                        if ($img_type == 'gif') {
+                            $img_type_replaca = $Pins->poro_img;
+                        } else {
+                            $img_type_replaca = str_replace(".$img_type", "_$img_size.$img_type", $Pins->poro_img);
+                        }
+
                         ?>
                         <div class="tz_hover_img">
                             <a class="tz_a_center" <?php if($this->type_detail =='0'){ ?> href="<?php echo JRoute::_(TZ_PinboardHelperRoute::getPinboardDetailRoute($Pins->content_id)); ?>" <?php }  ?>  rel="nofollow">

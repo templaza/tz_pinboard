@@ -579,7 +579,7 @@
                    name="remove_comment"
                    type="textarea"
                    label="COM_TZ_PINBOARD_CONFIG_DELETE_TEXT_COMMNET"
-                   default="sex"
+                   default=""
                    rows="5" cols="5"
                    description="COM_TZ_PINBOARD_CONFIG_DELETE_TEXT_COMMNET_DESCRIPTION">
 
@@ -588,7 +588,7 @@
                     name="changecomment"
                     type="textarea"
                     label="COM_TZ_PINBOARD_CONFIG_CHANGE_TEXT_COMMNET"
-                  default="..."
+                  default=""
                   rows="5" cols="5"
                   description="COM_TZ_PINBOARD_CONFIG_CHANGE_TEXT_COMMNET_DESCRIPTION">
 

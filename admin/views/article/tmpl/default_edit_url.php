@@ -19,18 +19,15 @@
 defined('_JEXEC') or die;
 ?>
 <ul id="slider">
+    <?php
+    if (isset($this->hienthi_img)) :
+        foreach ($this->hienthi_img as $row_img) :?>
+            <li>
+                <img src="<?php echo $row_img; ?>">
+            </li>
+
         <?php
-        if(isset($this->hienthi_img)){
-            foreach($this->hienthi_img as $row_img){
-
+        endforeach;
+    endif;
     ?>
-                                                 <li>
-                                                     <img src="<?php echo $row_img; ?>">
-                                                 </li>
-
-                <?php
-
-                        }
-                    }
-      ?>
- </ul>
+</ul>

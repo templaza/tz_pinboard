@@ -17,13 +17,13 @@
 
 -------------------------------------------------------------------------*/
 defined("_JEXEC") or die;
-    $document   =   &JFactory::getDocument();
- $document->addStyleSheet('components/com_tz_pinboard/css/tz_pinboard.css');
+$document = JFactory::getDocument();
+$document->addStyleSheet('components/com_tz_pinboard/css/tz_pinboard.css');
 
 ?>
 
 <div id="tz_pinboard">
-    <form action="index.php?option=com_tz_pinboard" method="post"  name="adminForm" id="adminForm">
+    <form action="index.php?option=com_tz_pinboard" method="post" name="adminForm" id="adminForm">
         <div id="tz_pinboard_top">
             <ul>
                 <li class="tz_pinboard_top_li_left">
@@ -35,7 +35,7 @@ defined("_JEXEC") or die;
                    <span>
                         <?php echo $this->More->id_b; ?>
                    </span>
-               </li>
+                </li>
                 <div class="cler"></div>
                 <li class="tz_pinboard_top_li_left">
                     <span>
@@ -56,11 +56,11 @@ defined("_JEXEC") or die;
                 <li class="tz_pinboard_top_li_right">
                     <span class="tz_pinboard_top_li_right">
                         <?php
-                            if(isset($this->More->alias_b)){
-                        echo $this->More->alias_b;
-                            }else{
-                                echo "None";
-                            }
+                        if (isset($this->More->alias_b)) {
+                            echo $this->More->alias_b;
+                        } else {
+                            echo "None";
+                        }
                         ?>
                     </span>
                 </li>
@@ -72,18 +72,18 @@ defined("_JEXEC") or die;
                     <?php echo $this->More->created_time_b; ?>
                 </li>
                 <div class="cler"></div>
-                  <li class="tz_pinboard_top_li_left">
-                      <span>      <?php echo JText::_('State'); ?> </span>
-                  </li>
-                  <li class="tz_pinboard_top_li_right">
-                      <?php
-                      if($this->More->state_b ==1){
-                      echo "pubslic";
-                      }else{
-                          echo "Unpublic";
-                      }
-                      ?>
-                  </li>
+                <li class="tz_pinboard_top_li_left">
+                    <span>      <?php echo JText::_('State'); ?> </span>
+                </li>
+                <li class="tz_pinboard_top_li_right">
+                    <?php
+                    if ($this->More->state_b == 1) {
+                        echo "pubslic";
+                    } else {
+                        echo "Unpublic";
+                    }
+                    ?>
+                </li>
                 <div class="cler"></div>
                 <li class="tz_pinboard_top_li_left">
                     <span>      <?php echo JText::_('modified_time'); ?> </span>
@@ -96,41 +96,41 @@ defined("_JEXEC") or die;
                    <span>
                        <?php echo JText::_('catid'); ?>
                    </span>
-               </li>
-               <li class="tz_pinboard_top_li_right">
-                   <?php echo $this->More->catid_b; ?>
-               </li>
-               <div class="cler"></div>
+                </li>
+                <li class="tz_pinboard_top_li_right">
+                    <?php echo $this->More->catid_b; ?>
+                </li>
+                <div class="cler"></div>
                 <li class="tz_pinboard_top_li_left">
-                       <span>      <?php echo JText::_('Name User'); ?> </span>
-                   </li>
-                   <li class="tz_pinboard_top_li_right">
-                       <?php echo $this->More->name_b; ?>
-                   </li>
-                   <div class="cler"></div>
+                    <span>      <?php echo JText::_('Name User'); ?> </span>
+                </li>
+                <li class="tz_pinboard_top_li_right">
+                    <?php echo $this->More->name_b; ?>
+                </li>
+                <div class="cler"></div>
 
 
             </ul>
         </div>
-    <div class="cler"></div>
-    <div id="tz_pinboar_bottom">
-        <ul>
+        <div class="cler"></div>
+        <div id="tz_pinboar_bottom">
+            <ul>
 
-            <li>
+                <li>
                 <span>
                     <?php echo JText::_('description'); ?>
                 </span>
 
-                <p>
-                    <?php echo $this->More->description_b; ?>
-                </p>
-            </li>
+                    <p>
+                        <?php echo $this->More->description_b; ?>
+                    </p>
+                </li>
 
-        </ul>
-    </div>
+            </ul>
+        </div>
         <input type="hidden" name="option" value="com_tz_pinboard">
-                         <input type="hidden" name="view" value="board">
-                         <input type="hidden" name="task" value="">
-                         <input type="hidden" name="boxchecked" value="0">
+        <input type="hidden" name="view" value="board">
+        <input type="hidden" name="task" value="">
+        <input type="hidden" name="boxchecked" value="0">
     </form>
 </div>

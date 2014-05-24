@@ -20,7 +20,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class Services_Yadis_HTTPResponse {
+class Services_Yadis_HTTPResponse
+{
     function Services_Yadis_HTTPResponse($final_url = null, $status = null,
                                          $headers = null, $body = null)
     {
@@ -39,7 +40,8 @@ class Services_Yadis_HTTPResponse {
  * @access private
  * @package Yadis
  */
-class Services_Yadis_HTTPFetcher {
+class Services_Yadis_HTTPFetcher
+{
 
     var $timeout = 20; // timeout in seconds.
 

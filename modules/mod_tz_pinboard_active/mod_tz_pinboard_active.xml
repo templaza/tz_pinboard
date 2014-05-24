@@ -19,9 +19,13 @@
         <folder>js</folder>
         <folder>tmpl</folder>
     </files>
-    <languages>
-        <language tag="en-GB">en-GB.mod_tz_pinboard_active.ini</language>
-        <language tag="en-GB">en-GB.mod_tz_pinboard_active.sys.ini</language>
+    <languages folder="languages">
+        <language tag="en-GB">en-GB/en-GB.mod_tz_pinboard_active.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_tz_pinboard_active.sys.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.mod_tz_pinboard_active.ini</language>
+        <language tag="ru-RU">ru-RU/ru-RU.mod_tz_pinboard_active.sys.ini</language>
+		<language tag="es-ES">es-ES/es-ES.mod_tz_pinboard_active.ini</language>
+        <language tag="es-ES">es-ES/es-ES.mod_tz_pinboard_active.sys.ini</language>
     </languages>
     <config>
         <fields name="params">

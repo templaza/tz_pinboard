@@ -127,7 +127,7 @@ jQuery(document).ready(function(){
 
             var getData = jQuery.parseJSON(data);
 
-            if(getData != false){
+            if( getData != 'notimage' && getData != false){
 
                 jQuery("#tz_pin_url_keygord").val(getData.keywoa);
                 jQuery("#tz_pin_url_title").val(getData.title);
@@ -237,7 +237,7 @@ jQuery(document).ready(function(){
                     var srcc  = jQuery('.tz_upload_price').html();
                     jQuery('#tz_url_price').attr('value',srcc);
                     var Title  = jQuery('#tz_pin_url_title').attr('value');
-                    var boards = jQuery("#tz_pin_upload_select").val();
+                    var boards = jQuery("#tz_pin_url_select").val();
                     if(Title ==""){
                         alert("<?php echo JText::_('MOD_TZ_PINBOARD_CHECK_TITLE'); ?>");
                         jQuery('#tz_pin_url_title').focus();
@@ -250,10 +250,16 @@ jQuery(document).ready(function(){
                     }
                     jQuery(".tz_click_button").css("z-index","99");
                 });
-            } else{
-                alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_URL'); ?>");
-                jQuery('#tz_url_img').focus();
-                return false;
+			} else{
+				if (getData == 'notimage') {
+					alert('<?php echo JText::_('MOD_TZ_PINBOARD_ERROR_NOT_IMAGE');?>');
+					jQuery('#tz_url_img').focus();
+					return false;
+				} else {
+					alert("<?php echo JText::_('MOD_TZ_PINBOARD_ERRO_URL'); ?>");
+					jQuery('#tz_url_img').focus();
+					return false;
+				}
             }
         });
     });

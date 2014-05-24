@@ -12,6 +12,10 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
 
+05/13/2014 - 3.2
+	
+	Compatible with Joomla 3.3
+	
 02/11/2013  - 3.1.4
 
 	[bug] Fix in admin with joomla 3.2.x

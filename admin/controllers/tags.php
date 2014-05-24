@@ -16,45 +16,48 @@
 # Technical Support:  Forum - http://templaza.com/Forum
 
 -------------------------------------------------------------------------*/
- 
+
 //no direct access
 defined('_JEXEC') or die('Restricted access');
 
 class TZ_PinboardControllerTags extends JControllerLegacy
 {
-    var $_link  = null;
-    var $model  = null;
-    var $cids   = null;
+    var $_link = null;
+    var $model = null;
+    var $cids = null;
 
-    function __construct(){
+    function __construct()
+    {
         parent::__construct();
-        $this -> cids   = JRequest::getVar('cid',array(),'','array');
+        $this->cids = JRequest::getVar('cid', array(), '', 'array');
     }
-    function display($cachable=false,$urlparams=array()){
-        $this->_link     = 'index.php?option=com_tz_pinboard&view=tags';
 
-        $doc    = JFactory::getDocument();
-        $type   = $doc -> getType();
-        $view   = $this -> getView('Tags',$type);
-        if($this -> model = $this -> getModel('Tags')){
-            $view -> setModel($this -> model,true);
+    function display($cachable = false, $urlparams = array())
+    {
+        $this->_link = 'index.php?option=com_tz_pinboard&view=tags';
+
+        $doc = JFactory::getDocument();
+        $type = $doc->getType();
+        $view = $this->getView('Tags', $type);
+        if ($this->model = $this->getModel('Tags')) {
+            $view->setModel($this->model, true);
         }
 
-        $this -> model -> _link     = $this -> _link;
+        $this->model->_link = $this->_link;
 
-        switch(JRequest::getCmd('task')){
+        switch (JRequest::getCmd('task')) {
             default:
-                $view -> setLayout('default');
+                $view->setLayout('default');
                 break;
             case 'add':
             case 'new':
-                $view -> setLayout('add');
+                $view->setLayout('add');
                 break;
             case 'edit':
-                $view -> setLayout('edit');
+                $view->setLayout('edit');
                 break;
             case 'cancel':
-                $this -> cancel();
+                $this->cancel();
                 break;
             case 'save':
             case 'apply':
@@ -62,64 +65,67 @@ class TZ_PinboardControllerTags extends JControllerLegacy
                 $this->saveTags();
                 break;
             case 'publish':
-                $this -> publishTags(1);
+                $this->publishTags(1);
                 break;
             case 'unpublish':
-                $this -> publishTags(0);
+                $this->publishTags(0);
                 break;
             case 'remove':
-                $this -> removeTags();
+                $this->removeTags();
                 break;
         }
-        if(JRequest::getCmd('layout') == 'modal'){
-            $view -> setLayout('modal');
+        if (JRequest::getCmd('layout') == 'modal') {
+            $view->setLayout('modal');
         }
-        $view -> display();
+        $view->display();
     }
 
-    function publishTags($state){
+    function publishTags($state)
+    {
         // Check for request forgeries
         JRequest::checkToken() or jexit('Invalid Token');
 
-        if($this -> model -> publishTags($this -> cids,$state))
-            $this -> setRedirect($this -> _link,$this -> model -> msg);
+        if ($this->model->publishTags($this->cids, $state))
+            $this->setRedirect($this->_link, $this->model->msg);
         else
-            $this -> setRedirect($this -> _link,$this -> model -> getError(),'error');
-        $this -> redirect();
+            $this->setRedirect($this->_link, $this->model->getError(), 'error');
+        $this->redirect();
     }
 
-    protected function removeTags(){
+    protected function removeTags()
+    {
         // Check for request forgeries
         JRequest::checkToken() or jexit('Invalid Token');
 
-        if($this -> model -> removeTags($this -> cids))
-            $this -> setRedirect($this -> model -> _link,$this -> model -> msg);
-        else{
-            $this -> setRedirect($this -> model -> _link,$this -> model -> getError(),'error');
+        if ($this->model->removeTags($this->cids))
+            $this->setRedirect($this->model->_link, $this->model->msg);
+        else {
+            $this->setRedirect($this->model->_link, $this->model->getError(), 'error');
             return false;
         }
-        $this -> redirect();
+        $this->redirect();
     }
 
-    function saveTags(){
+    function saveTags()
+    {
         // Check for request forgeries
         JRequest::checkToken() or jexit('Invalid Token');
 
-        if($this -> model -> saveTags(JRequest::getCmd('task'))){
-            $this -> setRedirect($this -> model -> _link,$this -> model -> msg);
+        if ($this->model->saveTags(JRequest::getCmd('task'))) {
+            $this->setRedirect($this->model->_link, $this->model->msg);
+        } else {
+            $this->setRedirect($this->model->_link, $this->model->getError(), 'error');
         }
-        else{
-            $this -> setRedirect($this -> model -> _link,$this -> model -> getError(),'error');
-        }
-        $this -> redirect();
+        $this->redirect();
     }
 
-    function cancel(){
+    function cancel()
+    {
         // Check for request forgeries
-        JRequest::checkToken() or jexit( 'Invalid Token' );
+        JRequest::checkToken() or jexit('Invalid Token');
 
-        $this -> setRedirect($this->_link);
-        $this -> redirect();
+        $this->setRedirect($this->_link);
+        $this->redirect();
     }
 
 }

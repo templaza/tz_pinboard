@@ -21,396 +21,355 @@
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modellist');
-require_once(JPATH_ADMINISTRATOR.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_tz_pinboard'.DIRECTORY_SEPARATOR.'tables'.DIRECTORY_SEPARATOR.'categories.php');
+require_once(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_tz_pinboard' . DIRECTORY_SEPARATOR . 'tables' . DIRECTORY_SEPARATOR . 'categories.php');
 /**
  * Methods supporting a list of article records.
  */
 class TZ_PinboardModelArticles extends JModelList
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param	array	An optional associative array of configuration settings.
-	 * @see		JController
-	 * @since	1.6
-	 */
-	public function __construct($config = array())
-	{
-		if (empty($config['filter_fields'])) {
-			$config['filter_fields'] = array(
-				'id', 'a.id',
-				'title', 'a.title',
-				'alias', 'a.alias',
-				'checked_out', 'a.checked_out',
-				'checked_out_time', 'a.checked_out_time',
-				'catid', 'a.catid', 'category_title',
-				'state', 'a.state',
-				'access', 'a.access', 'access_level',
-				'created', 'a.created',
-				'created_by', 'a.created_by',
-				'ordering', 'a.ordering',
-				'featured', 'a.featured',
-				'language', 'a.language',
-				'hits', 'a.hits',
-				'publish_up', 'a.publish_up',
-				'publish_down', 'a.publish_down',
-                'groupname','g.name'
-			);
-		}
+    /**
+     * Constructor.
+     *
+     * @param    array    An optional associative array of configuration settings.
+     * @see        JController
+     * @since    1.6
+     */
+    public function __construct($config = array())
+    {
+        if (empty($config['filter_fields'])) {
+            $config['filter_fields'] = array(
+                'id', 'a.id',
+                'title', 'a.title',
+                'alias', 'a.alias',
+                'checked_out', 'a.checked_out',
+                'checked_out_time', 'a.checked_out_time',
+                'catid', 'a.catid', 'category_title',
+                'state', 'a.state',
+                'access', 'a.access', 'access_level',
+                'created', 'a.created',
+                'created_by', 'a.created_by',
+                'ordering', 'a.ordering',
+                'featured', 'a.featured',
+                'language', 'a.language',
+                'hits', 'a.hits',
+                'publish_up', 'a.publish_up',
+                'publish_down', 'a.publish_down',
+                'groupname', 'g.name'
+            );
+        }
 
-		parent::__construct($config);
-	}
+        parent::__construct($config);
+    }
 
-	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @return	void
-	 * @since	1.6
-	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
-		$session = JFactory::getSession();
+    /**
+     * Method to auto-populate the model state.
+     *
+     * Note. Calling getState in this method will result in recursion.
+     *
+     * @return    void
+     * @since    1.6
+     */
+    protected function populateState($ordering = null, $direction = null)
+    {
+        // Initialise variables.
+        $app = JFactory::getApplication();
+        $session = JFactory::getSession();
 
         $this->context = 'com_tz_pinboard.articles';
-		// Adjust the context to support modal layouts.
-		if ($layout = JRequest::getVar('layout')) {
-			$this->context .= '.'.$layout;
-		}
+        // Adjust the context to support modal layouts.
+        if ($layout = JRequest::getVar('layout')) {
+            $this->context .= '.' . $layout;
+        }
 
 //        var_dump($this->getName(),$this -> context,$layout); die();
 
-        $group  = $this -> getUserStateFromRequest($this ->context.'.group','filter_group',0,'int');
-        $this -> setState('filter.group',$group);
+        $group = $this->getUserStateFromRequest($this->context . '.group', 'filter_group', 0, 'int');
+        $this->setState('filter.group', $group);
 
-		$search = $this->getUserStateFromRequest($this->context.'.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
+        $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+        $this->setState('filter.search', $search);
 
-		$access = $this->getUserStateFromRequest($this->context.'.filter.access', 'filter_access', 0, 'int');
-		$this->setState('filter.access', $access);
+        $access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
+        $this->setState('filter.access', $access);
 
-		$authorId = $app->getUserStateFromRequest($this->context.'.filter.author_id', 'filter_author_id');
-		$this->setState('filter.author_id', $authorId);
+        $authorId = $app->getUserStateFromRequest($this->context . '.filter.author_id', 'filter_author_id');
+        $this->setState('filter.author_id', $authorId);
 
-		$published = $this->getUserStateFromRequest($this->context.'.filter.published', 'filter_published', '');
-		$this->setState('filter.published', $published);
+        $published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
+        $this->setState('filter.published', $published);
 
-		$categoryId = $this->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id');
-		$this->setState('filter.category_id', $categoryId);
+        $categoryId = $this->getUserStateFromRequest($this->context . '.filter.category_id', 'filter_category_id');
+        $this->setState('filter.category_id', $categoryId);
 
-		$level = $this->getUserStateFromRequest($this->context.'.filter.level', 'filter_level', 0, 'int');
-		$this->setState('filter.level', $level);
-
-
-		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
-		$this->setState('filter.language', $language);
-
-		// List state information.
-		parent::populateState('a.id', 'desc');
-	}
-
-	/**
-	 * Method to get a store id based on model configuration state.
-	 *
-	 * This is necessary because the model is used by the component and
-	 * different modules that might need different sets of data or different
-	 * ordering requirements.
-	 *
-	 * @param	string		$id	A prefix for the store id.
-	 *
-	 * @return	string		A store id.
-	 * @since	1.6
-	 */
-	protected function getStoreId($id = '')
-	{
-		// Compile the store id.
-		$id	.= ':'.$this->getState('filter.search');
-		$id	.= ':'.$this->getState('filter.access');
-		$id	.= ':'.$this->getState('filter.published');
-		$id	.= ':'.$this->getState('filter.category_id');
-		$id	.= ':'.$this->getState('filter.author_id');
-		$id	.= ':'.$this->getState('filter.language');
-
-		return parent::getStoreId($id);
-	}
-
-	/**
-	 * Build an SQL query to load the list data.
-	 *
-	 * @return	JDatabaseQuery
-	 * @since	1.6
-	 */
-	protected function getListQuery()
-	{
-		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
-		$user	= JFactory::getUser();
-
-		// Select the required fields from the table.
-		$query->select(
-			$this->getState(
-				'list.select',
-				'a.id, a.title, a.alias, a.checked_out, a.checked_out_time, a.catid' .
-				', a.state, a.access, a.created, a.created_by, a.ordering, a.featured, a.language, a.hits' .
-				', a.publish_up, a.publish_down'
-			)
-		);
+        $level = $this->getUserStateFromRequest($this->context . '.filter.level', 'filter_level', 0, 'int');
+        $this->setState('filter.level', $level);
 
 
-		$query->from('#__tz_pinboard_pins AS a');
+        $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
+        $this->setState('filter.language', $language);
+
+        // List state information.
+        parent::populateState('a.id', 'desc');
+    }
+
+    /**
+     * Method to get a store id based on model configuration state.
+     *
+     * This is necessary because the model is used by the component and
+     * different modules that might need different sets of data or different
+     * ordering requirements.
+     *
+     * @param    string $id A prefix for the store id.
+     *
+     * @return    string        A store id.
+     * @since    1.6
+     */
+    protected function getStoreId($id = '')
+    {
+        // Compile the store id.
+        $id .= ':' . $this->getState('filter.search');
+        $id .= ':' . $this->getState('filter.access');
+        $id .= ':' . $this->getState('filter.published');
+        $id .= ':' . $this->getState('filter.category_id');
+        $id .= ':' . $this->getState('filter.author_id');
+        $id .= ':' . $this->getState('filter.language');
+
+        return parent::getStoreId($id);
+    }
+
+    /**
+     * Build an SQL query to load the list data.
+     *
+     * @return    JDatabaseQuery
+     * @since    1.6
+     */
+    protected function getListQuery()
+    {
+        // Create a new query object.
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $user = JFactory::getUser();
+
+        // Select the required fields from the table.
+        $query->select(
+            $this->getState(
+                'list.select',
+                'a.id, a.title, a.alias, a.checked_out, a.checked_out_time, a.catid' .
+                ', a.state, a.access, a.created, a.created_by, a.ordering, a.featured, a.language, a.hits' .
+                ', a.publish_up, a.publish_down'
+            )
+        );
+
+
+        $query->from('#__tz_pinboard_pins AS a');
 
         // Join over xref content
-        $query -> select('g.name AS groupname,g.id AS groupid');
+        $query->select('g.name AS groupname,g.id AS groupid');
 
-        if($this -> state -> get('filter.group') != 0){
+        if ($this->state->get('filter.group') != 0) {
 
-            $query -> join('LEFT','#__tz_pinboard_xref_content AS xc ON xc.contentid=a.id');
-            $query -> join('LEFT','#__tz_pinboard_fields_group AS g ON xc.groupid=g.id');
-        }
-        else{
-            $query -> join('LEFT','#__tz_pinboard_categories AS tc ON tc.catid=a.catid');
-            $query -> join('LEFT','#__tz_pinboard_fields_group AS g ON tc.groupid=g.id');
+            $query->join('LEFT', '#__tz_pinboard_xref_content AS xc ON xc.contentid=a.id');
+            $query->join('LEFT', '#__tz_pinboard_fields_group AS g ON xc.groupid=g.id');
+        } else {
+            $query->join('LEFT', '#__tz_pinboard_categories AS tc ON tc.catid=a.catid');
+            $query->join('LEFT', '#__tz_pinboard_fields_group AS g ON tc.groupid=g.id');
             //$query -> join('LEFT','#__tz_pinboard_xref_content AS xc ON g.id=xc.groupid');
         }
 
-		// Join over the language
-		$query->select('l.title AS language_title');
-		$query->join('LEFT', $db->quoteName('#__languages').' AS l ON l.lang_code = a.language');
+        // Join over the language
+        $query->select('l.title AS language_title');
+        $query->join('LEFT', $db->quoteName('#__languages') . ' AS l ON l.lang_code = a.language');
 
-		// Join over the users for the checked out user.
-		$query->select('uc.name AS editor');
-		$query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
+        // Join over the users for the checked out user.
+        $query->select('uc.name AS editor');
+        $query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
 
-		// Join over the asset groups.
-		$query->select('ag.title AS access_level');
-		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
+        // Join over the asset groups.
+        $query->select('ag.title AS access_level');
+        $query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
 
-		// Join over the categories.
-		$query->select('c.title AS category_title');
-		$query->join('LEFT', '#__tz_pinboard_boards AS c ON c.id = a.catid');
+        // Join over the categories.
+        $query->select('c.title AS category_title');
+        $query->join('LEFT', '#__tz_pinboard_boards AS c ON c.id = a.catid');
 
-         //$query -> join('LEFT','#__tz_pinboard_categories AS tc ON c.id=tc.catid');
+        //$query -> join('LEFT','#__tz_pinboard_categories AS tc ON c.id=tc.catid');
 
-		// Join over the users for the author.
-		$query->select('ua.name AS author_name');
-		$query->join('LEFT', '#__users AS ua ON ua.id = a.created_by');
+        // Join over the users for the author.
+        $query->select('ua.name AS author_name');
+        $query->join('LEFT', '#__users AS ua ON ua.id = a.created_by');
 
-		// Filter by access level.
-		if ($access = $this->getState('filter.access')) {
-			$query->where('a.access = ' . (int) $access);
-		}
+        // Filter by access level.
+        if ($access = $this->getState('filter.access')) {
+            $query->where('a.access = ' . (int)$access);
+        }
 
         // Filter by fields group
-        if($this -> state -> get('filter.group')!=0)
-            $query -> where('g.id ='.$this -> getState('filter.group'));
+        if ($this->state->get('filter.group') != 0)
+            $query->where('g.id =' . $this->getState('filter.group'));
 
-		// Implement View Level Access
-		if (!$user->authorise('core.admin'))
-		{
-		    $groups	= implode(',', $user->getAuthorisedViewLevels());
-			$query->where('a.access IN ('.$groups.')');
-		}
-
-		// Filter by published state
-		$published = $this->getState('filter.published');
-		if (is_numeric($published)) {
-			$query->where('a.state = ' . (int) $published);
-		}
-		elseif ($published === '') {
-			$query->where('(a.state = 0 OR a.state = 1)');
-		}
-
-		// Filter by a single or group of categories.
-		$baselevel = 1;
-
-		$categoryId = $this->getState('filter.category_id');
-
-        if(isset($categoryId) && !empty($categoryId)){
-            $query->where('c.catid ='.$categoryId.'');
+        // Implement View Level Access
+        if (!$user->authorise('core.admin')) {
+            $groups = implode(',', $user->getAuthorisedViewLevels());
+            $query->where('a.access IN (' . $groups . ')');
         }
-//		if (is_numeric($categoryId)) {
-//
-//			$cat_tbl = JTable::getInstance('Tz_Pinboard_category','Table');
-//			$cat_tbl->load($categoryId);
-//			$rgt = $cat_tbl->rgt;
-//			$lft = $cat_tbl->lft;
-//			$baselevel = (int) $cat_tbl->level;
-//			$query->where('c.lft >= '.(int) $lft);
-//			$query->where('c.rgt <= '.(int) $rgt);
-//
-//		}
-//		elseif (is_array($categoryId)) {
 
-			//JArrayHelper::toInteger($categoryId);
-		//	$categoryId = implode(',', $categoryId);
-      //  var_dump($categoryId); die();
+        // Filter by published state
+        $published = $this->getState('filter.published');
+        if (is_numeric($published)) {
+            $query->where('a.state = ' . (int)$published);
+        } elseif ($published === '') {
+            $query->where('(a.state = 0 OR a.state = 1)');
+        }
 
-		//}
+        // Filter by a single or group of categories.
+        $baselevel = 1;
 
-		// Filter on the level.
-		if ($level = $this->getState('filter.level')) {
+        $categoryId = $this->getState('filter.category_id');
 
-			$query->where('c.level <= '.((int) $level + (int) $baselevel - 1));
-		}
+        if (isset($categoryId) && !empty($categoryId)) {
+            $query->where('c.catid =' . $categoryId . '');
+        }
+        // Filter on the level.
+        if ($level = $this->getState('filter.level')) {
 
-		// Filter by author
-		$authorId = $this->getState('filter.author_id');
-		if (is_numeric($authorId)) {
+            $query->where('c.level <= ' . ((int)$level + (int)$baselevel - 1));
+        }
 
-			$type = $this->getState('filter.author_id.include', true) ? '= ' : '<>';
-			$query->where('a.created_by '.$type.(int) $authorId);
-		}
+        // Filter by author
+        $authorId = $this->getState('filter.author_id');
+        if (is_numeric($authorId)) {
 
-		// Filter by search in title.
-		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			if (stripos($search, 'id:') === 0) {
-				$query->where('a.id = '.(int) substr($search, 3));
-			}
-			elseif (stripos($search, 'author:') === 0) {
-				$search = $db->Quote('%'.$db->escape(substr($search, 7), true).'%');
-				$query->where('(ua.name LIKE '.$search.' OR ua.username LIKE '.$search.')');
-			}
-			else {
-				$search = $db->Quote('%'.$db->escape($search, true).'%');
-				$query->where('(a.title LIKE '.$search.' OR a.alias LIKE '.$search.')');
-			}
-		}
+            $type = $this->getState('filter.author_id.include', true) ? '= ' : '<>';
+            $query->where('a.created_by ' . $type . (int)$authorId);
+        }
 
-		// Filter on the language.
-		if ($language = $this->getState('filter.language')) {
-			$query->where('a.language = '.$db->quote($language));
-		}
+        // Filter by search in title.
+        $search = $this->getState('filter.search');
+        if (!empty($search)) {
+            if (stripos($search, 'id:') === 0) {
+                $query->where('a.id = ' . (int)substr($search, 3));
+            } elseif (stripos($search, 'author:') === 0) {
+                $search = $db->Quote('%' . $db->escape(substr($search, 7), true) . '%');
+                $query->where('(ua.name LIKE ' . $search . ' OR ua.username LIKE ' . $search . ')');
+            } else {
+                $search = $db->Quote('%' . $db->escape($search, true) . '%');
+                $query->where('(a.title LIKE ' . $search . ' OR a.alias LIKE ' . $search . ')');
+            }
+        }
 
-		// Add the list ordering clause.
-		$orderCol	= $this->state->get('list.ordering', 'a.title');
-		$orderDirn	= $this->state->get('list.direction', 'asc');
+        // Filter on the language.
+        if ($language = $this->getState('filter.language')) {
+            $query->where('a.language = ' . $db->quote($language));
+        }
 
-		if ($orderCol == 'a.ordering' || $orderCol == 'category_title') {
-			$orderCol = 'c.title '.$orderDirn.', a.ordering';
-		}
-		//sqlsrv change
-		if($orderCol == 'language')
-			$orderCol = 'l.title';
-		if($orderCol == 'access_level')
-			$orderCol = 'ag.title';
-		$query->order($db->escape($orderCol.' '.$orderDirn));
+        // Add the list ordering clause.
+        $orderCol = $this->state->get('list.ordering', 'a.title');
+        $orderDirn = $this->state->get('list.direction', 'asc');
 
-//        var_dump($query); die();
+        if ($orderCol == 'a.ordering' || $orderCol == 'category_title') {
+            $orderCol = 'c.title ' . $orderDirn . ', a.ordering';
+        }
+        //sqlsrv change
+        if ($orderCol == 'language')
+            $orderCol = 'l.title';
+        if ($orderCol == 'access_level')
+            $orderCol = 'ag.title';
+        $query->order($db->escape($orderCol . ' ' . $orderDirn));
+        return $query;
+    }
 
-		// echo nl2br(str_replace('#__','jos_',$query));
+    /**
+     * Build a list of authors
+     *
+     * @return    JDatabaseQuery
+     * @since    1.6
+     */
+    public function getAuthors()
+    {
+        // Create a new query object.
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
 
-		return $query;
-	}
+        // Construct the query
+        $query->select('u.id AS value, u.name AS text');
+        $query->from('#__users AS u');
+        $query->join('INNER', '#__tz_pinboard_pins AS c ON c.created_by = u.id');
+        $query->group('u.id, u.name');
+        $query->order('u.name');
 
-	/**
-	 * Build a list of authors
-	 *
-	 * @return	JDatabaseQuery
-	 * @since	1.6
-	 */
-	public function getAuthors() {
-		// Create a new query object.
-		$db = $this->getDbo();
-		$query = $db->getQuery(true);
+        // Setup the query
+        $db->setQuery($query->__toString());
 
-		// Construct the query
-		$query->select('u.id AS value, u.name AS text');
-		$query->from('#__users AS u');
-		$query->join('INNER', '#__tz_pinboard_pins AS c ON c.created_by = u.id');
-		$query->group('u.id, u.name');
-		$query->order('u.name');
+        // Return the result
+        return $db->loadObjectList();
+    }
 
-		// Setup the query
-		$db->setQuery($query->__toString());
-
-		// Return the result
-		return $db->loadObjectList();
-	}
-    public function getBoards() {
-   		// Create a new query object.
-   		$db = $this->getDbo();
+    public function getBoards()
+    {
+        // Create a new query object.
+        $db = $this->getDbo();
         $sql = "select ca.id AS value, ca.title AS text from #__tz_pinboard_boards AS ca INNER JOIN #__tz_pinboard_pins AS c ON c.catid = ca.id";
         $db->setQuery($sql);
-//   		$query = $db->getQuery(true);
-//
-//   		// Construct the query
-//   		$query->select('ca.id AS value, ca.title AS text');
-//   		$query->from('#__tz_pinboard_boards AS ca');
-//   		$query->join('INNER', '#__tz_pinboard_pins AS c ON c.catid = ca.id');
-//
-//
-//   		// Setup the query
-//   		$db->setQuery($query->__toString());
-
-   		// Return the result
-
-   		return $db->loadObjectList();
-   	}
-
-    public function getGroupQuery($catid){
-        // Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
-
-        $query -> select('g.*');
-        $query -> from('#__tz_pinboard_fields_group AS g');
-        $query -> join('LEFT','#__tz_pinboard_categories AS c ON c.groupid = g.id');
-
-        $query -> where('c.catid ='.$catid);
-        $query -> order($this -> state -> get('list.groupname','g.name'));
-        $query -> group('g.id');
-
-        return $this -> _getList($query);
+        return $db->loadObjectList();
     }
 
-    function checkFieldsGroup($contentid){
+    public function getGroupQuery($catid)
+    {
         // Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
 
-        $query -> select('xc.*');
-        $query -> from('#__tz_pinboard_pins AS c');
-        $query -> join('LEFT','#__tz_pinboard_xref_content AS xc ON c.id = xc.contentid');
+        $query->select('g.*');
+        $query->from('#__tz_pinboard_fields_group AS g');
+        $query->join('LEFT', '#__tz_pinboard_categories AS c ON c.groupid = g.id');
 
-        $query -> where('c.id ='.$contentid);
+        $query->where('c.catid =' . $catid);
+        $query->order($this->state->get('list.groupname', 'g.name'));
+        $query->group('g.id');
 
-        return $this -> _getList($query);
+        return $this->_getList($query);
     }
 
-	/**
-	 * Method to get a list of articles.
-	 * Overridden to add a check for access levels.
-	 *
-	 * @return	mixed	An array of data items on success, false on failure.
-	 * @since	1.6.1
-	 */
-	public function getItems()
-	{
+    function checkFieldsGroup($contentid)
+    {
+        // Create a new query object.
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
 
+        $query->select('xc.*');
+        $query->from('#__tz_pinboard_pins AS c');
+        $query->join('LEFT', '#__tz_pinboard_xref_content AS xc ON c.id = xc.contentid');
 
-		$items	= parent::getItems();
-		$app	= JFactory::getApplication();
+        $query->where('c.id =' . $contentid);
+
+        return $this->_getList($query);
+    }
+
+    /**
+     * Method to get a list of articles.
+     * Overridden to add a check for access levels.
+     *
+     * @return    mixed    An array of data items on success, false on failure.
+     * @since    1.6.1
+     */
+    public function getItems()
+    {
+        $items = parent::getItems();
+        $app = JFactory::getApplication();
         // Get fields group
-        $data   = array();
+        $data = array();
 
-		if ($app->isSite()) {
-			$user	= JFactory::getUser();
-			$groups	= $user->getAuthorisedViewLevels();
+        if ($app->isSite()) {
+            $user = JFactory::getUser();
+            $groups = $user->getAuthorisedViewLevels();
 
-			for ($x = 0, $count = count($items); $x < $count; $x++) {
-				//Check the access level. Remove articles the user shouldn't see
-				if (!in_array($items[$x]->access, $groups)) {
-					unset($items[$x]);
-				}
-			}
-		}
-		return $items;
-
-//        return $data;
-	}
+            for ($x = 0, $count = count($items); $x < $count; $x++) {
+                //Check the access level. Remove articles the user shouldn't see
+                if (!in_array($items[$x]->access, $groups)) {
+                    unset($items[$x]);
+                }
+            }
+        }
+        return $items;
+    }
 }

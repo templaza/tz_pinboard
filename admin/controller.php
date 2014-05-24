@@ -84,18 +84,12 @@ class TZ_PinboardController extends JControllerLegacy
 
             // Push the model into the view (as default).
             $view->setModel($model, true);
-            //            if(JRequest::getCmd('task')=='listsfields'){
-            //                $this ->
-            //            }
-
             $view->setLayout($lName);
 
             // Push document object into the view.
             $view->assignRef('document', $document);
             // Load the submenu.
             require_once JPATH_COMPONENT.'/helpers/categories.php';
-
-            //CategoriesHelper::addSubmenu($model->getState('filter.extension'));
             $view->display();
         }
 
