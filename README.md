@@ -12,6 +12,10 @@ Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
 
+05/24/2014 - 3.3
+	
+	Add new funtion : upload moving image. And add more language Spain and Russian.
+
 05/13/2014 - 3.2
 	
 	Compatible with Joomla 3.3
