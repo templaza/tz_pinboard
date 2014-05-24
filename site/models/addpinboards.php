@@ -572,7 +572,7 @@ class Tz_pinboardModelAddpinboards extends JModelList
     {
         $img = $_FILES['upload_pinl'];
         $arr = array('image/jpeg', 'image/jpg', 'image/bmp', 'image/gif', 'image/png', 'image/ico');
-        $maxSize = 5 * 1024 * 1024;
+        $maxSize = 10 * 1024 * 1024;
         $erro = array();
         $size_img = $this->getState('size_img');
         $tzFolderPath = JPATH_ROOT . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR . 'tz_pinboard' . DIRECTORY_SEPARATOR . 'article' . DIRECTORY_SEPARATOR . 'cache';
