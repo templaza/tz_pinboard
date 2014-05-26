@@ -11,6 +11,9 @@ Documentation can be found on the wiki project page: http://wiki.templaza.com/Ma
 Demo: http://demo.tzportfolio.com/tz-pinboard
 
 *** Changelog ***
+05/26/2014 - 3.3.1
+
+	Fix some error with SQL.
 
 05/24/2014 - 3.3
 	

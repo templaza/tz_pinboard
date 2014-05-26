@@ -185,7 +185,11 @@ jimport('joomla.html');
                                 <?php if (!empty($rowname->pins)) {
                                     $img_size = $this->img_size;
                                     $img_type = JFile::getExt($rowname->pins[0]->img);
-                                    $img_type_replaca = str_replace(".$img_type", "_$img_size.$img_type", $rowname->pins[0]->img);
+									 if ($img_type == 'gif') {
+                                        $img_type_replaca = $rowname->pins[0]->img;
+                                    } else {
+                                        $img_type_replaca = str_replace(".$img_type", "_$img_size.$img_type", $rowname->pins[0]->img);
+                                    }                                    
                                     ?>
                                     <img id="tz_pin_more_warp_name_img"
                                          src="<?php echo JUri::root() . '/' . $img_type_replaca ?>" alt="">
