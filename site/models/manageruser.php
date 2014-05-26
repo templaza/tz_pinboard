@@ -1272,7 +1272,7 @@ class Tz_pinboardModelManageruser extends JModelList
             $id_user = $user_guest;
         }
         $db = JFactory::getDbo();
-        $sql = "select count(id) as id from #__tz_pinboard_boards where created_user_id=$id_user ";
+        $sql = "select count(id) as id from #__tz_pinboard_boards where created_user_id=$id_user and state = 1";
 
         $db->setQuery($sql);
         $row = $db->loadObject();
